@@ -4,92 +4,122 @@
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>u_rfcs_customer_approval_status</element>
-            <list_id display_value="x_109369_ams_rfcs" element="NULL" name="x_109369_ams_rfcs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">26fc7fb0dbab3200b527f91ebf96195a</list_id>
+            <list_id display_value="x_109369_ams_rfcs" element="NULL" name="x_109369_ams_rfcs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">0281c0c5dbab3200b527f91ebf9619fb</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>0</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-06-22 08:03:09</sys_created_on>
-            <sys_id>6afc7fb0dbab3200b527f91ebf96195a</sys_id>
+            <sys_created_on>2017-06-22 08:23:04</sys_created_on>
+            <sys_id>0e81c0c5dbab3200b527f91ebf9619fb</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-06-22 08:03:09</sys_updated_on>
+            <sys_updated_on>2017-06-22 08:23:04</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>u_rfcs_created</element>
-            <list_id display_value="x_109369_ams_rfcs" element="NULL" name="x_109369_ams_rfcs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">26fc7fb0dbab3200b527f91ebf96195a</list_id>
+            <list_id display_value="x_109369_ams_rfcs" element="NULL" name="x_109369_ams_rfcs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">0281c0c5dbab3200b527f91ebf9619fb</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>1</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-06-22 08:03:09</sys_created_on>
-            <sys_id>eafc7fb0dbab3200b527f91ebf96195a</sys_id>
+            <sys_created_on>2017-06-22 08:23:04</sys_created_on>
+            <sys_id>c281c0c5dbab3200b527f91ebf9619fc</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-06-22 08:03:09</sys_updated_on>
+            <sys_updated_on>2017-06-22 08:23:04</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>u_rfcs_scheduled_date</element>
-            <list_id display_value="x_109369_ams_rfcs" element="NULL" name="x_109369_ams_rfcs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">26fc7fb0dbab3200b527f91ebf96195a</list_id>
+            <list_id display_value="x_109369_ams_rfcs" element="NULL" name="x_109369_ams_rfcs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">0281c0c5dbab3200b527f91ebf9619fb</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>2</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-06-22 08:03:09</sys_created_on>
-            <sys_id>6efc7fb0dbab3200b527f91ebf96195a</sys_id>
+            <sys_created_on>2017-06-22 08:23:04</sys_created_on>
+            <sys_id>4681c0c5dbab3200b527f91ebf9619fc</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-06-22 08:03:09</sys_updated_on>
+            <sys_updated_on>2017-06-22 08:23:04</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>u_rfcs_status</element>
-            <list_id display_value="x_109369_ams_rfcs" element="NULL" name="x_109369_ams_rfcs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">26fc7fb0dbab3200b527f91ebf96195a</list_id>
+            <list_id display_value="x_109369_ams_rfcs" element="NULL" name="x_109369_ams_rfcs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">0281c0c5dbab3200b527f91ebf9619fb</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>3</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-06-22 08:03:09</sys_created_on>
-            <sys_id>eefc7fb0dbab3200b527f91ebf96195a</sys_id>
+            <sys_created_on>2017-06-22 08:23:04</sys_created_on>
+            <sys_id>c681c0c5dbab3200b527f91ebf9619fc</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-06-22 08:03:09</sys_updated_on>
+            <sys_updated_on>2017-06-22 08:23:04</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>u_rfcs_id</element>
-            <list_id display_value="x_109369_ams_rfcs" element="NULL" name="x_109369_ams_rfcs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">26fc7fb0dbab3200b527f91ebf96195a</list_id>
+            <list_id display_value="x_109369_ams_rfcs" element="NULL" name="x_109369_ams_rfcs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">0281c0c5dbab3200b527f91ebf9619fb</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>4</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-06-22 08:03:09</sys_created_on>
-            <sys_id>62fc7fb0dbab3200b527f91ebf96195b</sys_id>
+            <sys_created_on>2017-06-22 08:23:04</sys_created_on>
+            <sys_id>4a81c0c5dbab3200b527f91ebf9619fc</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-06-22 08:03:09</sys_updated_on>
+            <sys_updated_on>2017-06-22 08:23:04</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>u_rfcs_subject</element>
-            <list_id display_value="x_109369_ams_rfcs" element="NULL" name="x_109369_ams_rfcs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">26fc7fb0dbab3200b527f91ebf96195a</list_id>
+            <list_id display_value="x_109369_ams_rfcs" element="NULL" name="x_109369_ams_rfcs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">0281c0c5dbab3200b527f91ebf9619fb</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>5</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-06-22 08:03:09</sys_created_on>
-            <sys_id>e2fc7fb0dbab3200b527f91ebf96195b</sys_id>
+            <sys_created_on>2017-06-22 08:23:04</sys_created_on>
+            <sys_id>ca81c0c5dbab3200b527f91ebf9619fc</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-06-22 08:03:09</sys_updated_on>
+            <sys_updated_on>2017-06-22 08:23:04</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_rfcs_aws_approval_status</element>
+            <list_id display_value="x_109369_ams_rfcs" element="NULL" name="x_109369_ams_rfcs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">0281c0c5dbab3200b527f91ebf9619fb</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>6</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-06-22 08:23:04</sys_created_on>
+            <sys_id>4e81c0c5dbab3200b527f91ebf9619fc</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-06-22 08:23:04</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_rfcs_aws_create_status</element>
+            <list_id display_value="x_109369_ams_rfcs" element="NULL" name="x_109369_ams_rfcs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">0281c0c5dbab3200b527f91ebf9619fb</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>7</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-06-22 08:23:04</sys_created_on>
+            <sys_id>ce81c0c5dbab3200b527f91ebf9619fc</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-06-22 08:23:04</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
