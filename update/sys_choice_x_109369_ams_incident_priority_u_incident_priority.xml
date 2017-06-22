@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="u_incident_priority" table="x_109369_ams_incident_priority" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_incident_priority</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Priority 1</label>
+            <language>en</language>
+            <name>x_109369_ams_incident_priority</name>
+            <sequence>1</sequence>
+            <sys_created_by>priyanka</sys_created_by>
+            <sys_created_on>2017-04-12 13:58:25</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>9865ab0adbca7200ef73d8c0cf96198d</sys_id>
+            <sys_mod_count>3</sys_mod_count>
+            <sys_updated_by>priyanka</sys_updated_by>
+            <sys_updated_on>2017-04-12 13:58:49</sys_updated_on>
+            <value>Priority 1</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_incident_priority</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Priority 2</label>
+            <language>en</language>
+            <name>x_109369_ams_incident_priority</name>
+            <sequence>2</sequence>
+            <sys_created_by>priyanka</sys_created_by>
+            <sys_created_on>2017-04-12 13:58:34</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>1665ab0adbca7200ef73d8c0cf96198e</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>priyanka</sys_updated_by>
+            <sys_updated_on>2017-04-12 13:58:51</sys_updated_on>
+            <value>Priority 2</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_incident_priority</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Priority 3</label>
+            <language>en</language>
+            <name>x_109369_ams_incident_priority</name>
+            <sequence>3</sequence>
+            <sys_created_by>priyanka</sys_created_by>
+            <sys_created_on>2017-04-12 13:58:39</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>10756f0adbca7200ef73d8c0cf9619e5</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>priyanka</sys_updated_by>
+            <sys_updated_on>2017-04-12 13:58:53</sys_updated_on>
+            <value>Priority 3</value>
+        </sys_choice>
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>u_incident_priority</element>
+            <name>x_109369_ams_incident_priority</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>priyanka</sys_created_by>
+            <sys_created_on>2017-04-12 13:58:25</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>3a56bbf8db6b3200b527f91ebf9619b5</sys_id>
+            <sys_mod_count>10</sys_mod_count>
+            <sys_name>u_incident_priority</sys_name>
+            <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+            <sys_update_name>sys_choice_x_109369_ams_incident_priority_u_incident_priority</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-06-22 07:56:47</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>

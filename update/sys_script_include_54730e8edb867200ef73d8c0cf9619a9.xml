@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_109369_ams.AMS_ApiUtil</api_name>
+        <client_callable>false</client_callable>
+        <description>Authenticating/Signing and  Calling API of AMS Console</description>
+        <name>AMS_ApiUtil</name>
+        <script><![CDATA[//Load ManagedServices_SignatureUtil library
+gs.include('AMS_SignatureUtil');
+var AMS_ApiUtil = Class.create();
+AMS_ApiUtil.prototype = {
+	initialize: function() 
+	{
+	},
+	//common function to raise request and get response
+	getParsedResponseBody: function(serviceType,action,body)
+	{
+		this.serviceType = serviceType;
+		this.action = action;
+		this.body = body;
+		
+		//initialize/declare variables
+		var service;
+		var endpoint = 'https://';
+		var accessKeyId;
+		var secretAccessKey;
+		//get the property value of AMSRestCalls(Boolean Value)
+		var logger = gs.getProperty('x_109369_ams.debug.AMSRestCalls');
+		
+		var credentials = new GlideRecord('x_109369_ams_credentials');
+		//Query to get Active credentials of aws
+		credentials.addQuery('u_credentials_active',true);
+		credentials.query();
+		
+		if(credentials.next())
+		{
+			accessKeyId = credentials.u_credentials_access_key_id;
+			//Assign the decrypted secretAccesskey
+			secretAccessKey = credentials.u_credentials_secret_access_key.getDecryptedValue(); 
+		}
+		else
+		{
+			gs.error(" AMS_ApiUtil Credentials >>>>> !!!!!!!!!!!!!!!!!!!!!!!!No Valid Credentials. Please add valid credentials to proceed!!!!!!!!!!!!!!!!!!! ");
+			return;
+		}
+		
+		//create credentials object
+		var creds = {
+			accessKeyId: accessKeyId,
+			secretAccessKey: secretAccessKey
+		};
+		
+		//lookup service and create endpoint for ams using 'switch'
+		switch(serviceType)
+		{
+			case 'amsskms': service = 'SentinelProvisioningService.';
+			endpoint += serviceType +'.us-east-1.amazonaws.com/';
+			break;
+			case 'amscm'  :  service = 'AWSEnergonService.';
+			endpoint += serviceType +'.us-east-1.amazonaws.com/';
+			break;
+			case 'support':service = 'AWSSupport_20130415.';
+			endpoint += serviceType +'.us-east-1.amazonaws.com/';
+			break;
+			default: if (logger)
+			gs.info("Debug>>> AMS_ApiUtil ServiceType is unknown");
+			return;
+		}
+		
+		//create a request object
+		var opts = {
+			service : serviceType,
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-amz-json-1.1',
+				'X-Amz-Target': service +action,
+				'User-Agent':''
+			},
+			
+			body: JSON.stringify(body)
+		};
+		
+	// Get Signature using sign function
+		var signature = AMS_SignatureUtil.sign(opts, creds);
+		//Declaring variables for request and response
+		var restMessageV2;
+		// fix spelling
+		var requestBody; 
+		var status;
+		var responseBody;
+		var amazonRequestId;
+		var parsedResponse='';
+		var response;
+		// try catch Block to handle exceptions
+		try
+		{
+			//Create Rest call  to fetch data and assign Headers
+			restMessageV2 = new sn_ws.RESTMessageV2();
+			restMessageV2.setHttpMethod(opts.method);
+			restMessageV2.setEndpoint(endpoint);
+			// A standard MIME type describing the format of the contents
+			restMessageV2.setRequestHeader('Content-Type', opts.headers['Content-Type']);
+			restMessageV2.setRequestHeader('X-Amz-Target', opts.headers['X-Amz-Target']);
+			//The information required for request authentication
+			restMessageV2.setRequestHeader('Authorization', signature.headers.Authorization);
+			//The date used to create the signature contained in the Authorization header
+			restMessageV2.setRequestHeader('X-Amz-Date', signature.headers['X-Amz-Date']);
+			restMessageV2.setRequestHeader('User-Agent', signature.headers['User-Agent']);
+			restMessageV2.setRequestBody(opts.body);
+			
+			restMessageV2.setEccCorrelator(action + '-' + signature.headers['X-Amz-Date']);
+			
+			response = restMessageV2.executeAsync();
+			response.waitForResponse(30);
+			//check whether response has error and assign the response body for no error
+			responseBody = response.haveError() ? response.getErrorMessage() : response.getBody();
+		
+			if(response.getStatusCode() != 200)
+			{
+				gs.error("Debug>>> AMS_ApiUtil AMS Response Body: " + response.getBody());
+				gs.error("Debug>>> AMS_ApiUtil AMS Response Error: " + response.getErrorMessage() );
+				//throw the exception if request failed which is handled by catch block
+				throw response.getStatusCode();
+			}
+			
+			//convert the responseBody to object
+			parsedResponse = JSON.parse(responseBody);
+			//assign the response headers to parsedResponse object
+			parsedResponse['requestId'] = response.getHeaders();
+			if (logger){
+				//log the response
+				gs.info("Debug>>> AMS_ApiUtil AMS Response Body: " + opts.headers['X-Amz-Target'] + " === " + responseBody );
+				gs.info("Debug>>> AMS_ApiUtil AMS Response Body: " + response.getBody() );
+			}
+			
+			//restMessageV2.setEccParameter('processed',signature.headers['X-Amz-Date']);
+			//gs.info("Debug>>> AMS_ApiUtil : RETURNING parsedResponse for action " + action + "-" + JSON.stringify(parsedResponse) );
+			//return parsedResponse;
+			
+		}
+		
+		catch(ex)
+		{
+			parsedResponse={};
+			parsedResponse["errorMessage"] = JSON.stringify(responseBody);
+			//gs.error("Debug>>> AMS_ApiUtil : EXCEPTION parsedResponse for action " + action + "-" + JSON.stringify(parsedResponse) + "\n \n requestBody was = " + restMessageV2.getRequestBody() + "\n \n AWS response.getBody() was = " + response.getBody() );
+			//handling the exceptions and log the error for each status code
+			switch(ex)
+			{
+				case 400: gs.error("Debug>>> AMS_ApiUtil EXCEPTION AMS HTTP Status:"+ex+" The action or operation requested is invalid. Verify that the action is typed correctly."); 
+					break;
+				case 500: gs.error("Debug>>> AMS_ApiUtil EXCEPTION AMS HTTP Status:"+ex+" An internal server error has occurred.");
+					break;
+				case 403: gs.error("Debug>>> AMS_ApiUtil EXCEPTION AMS HTTP Status:"+ex+" The X.509 certificate or AWS access key ID provided does not exist in our records.");
+					break;
+				case 503: gs.error("Debug>>> AMS_ApiUtil EXCEPTION AMS HTTP Status:"+ex+"The request has failed due to a temporary failure of the server.");
+					break;
+				default:  {
+					//gs.error("Debug>>> AMS_ApiUtil  AMS HTTP Status:"+ex+ response.getErrorMessage());
+					gs.error("Debug>>> AMS_ApiUtil EXCEPTION ECC Queue timeout.." + ex.getMessage() );
+					// let's retry
+					//this.retryCount += 1;
+					//gs.error("Debug>>> AMS_ApiUtil RETRYING retryCount = " + this.retryCount);
+
+					// 					if (this.retryCount < this.maxRetries){
+					// 						gs.error("Debug>>> AMS_ApiUtil RETRYING this.serviceType = " + this.serviceType);
+					// 						gs.error("Debug>>> AMS_ApiUtil RETRYING this.action = " + this.action);
+					// 						gs.error("Debug>>> AMS_ApiUtil RETRYING this.body = " + this.body);
+					// 						this.getParsedResponseBody(this.serviceType, this.action, this.body);
+					// 					}
+
+				}
+			}
+			//return parsedResponse;
+		}
+		
+		//execute this block even when there is an exception
+		finally
+		{
+ 			requestBody = restMessageV2 ? restMessageV2.getRequestBody():null;
+			
+			if (logger)
+			{
+				//log the request body
+				gs.info("Debug>>> AMS_ApiUtil  AMS Request Body: " + requestBody);
+				gs.info("Debug>>> AMS_ApiUtil  AMS Response Body: " + JSON.stringify(responseBody));
+				//gs.info("Debug>>> AMS_ApiUtil  AMS RequestId: " + parsedResponse.requestId ? parsedResponse.requestId["x-amzn-RequestId"] : null);//log requestId
+			}
+			return parsedResponse;
+		}
+		
+	},
+	
+	type: 'AMS_ApiUtil'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>saikrishna</sys_created_by>
+        <sys_created_on>2017-04-12 06:50:25</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>54730e8edb867200ef73d8c0cf9619a9</sys_id>
+        <sys_mod_count>76</sys_mod_count>
+        <sys_name>AMS_ApiUtil</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_include_54730e8edb867200ef73d8c0cf9619a9</sys_update_name>
+        <sys_updated_by>ams_admin</sys_updated_by>
+        <sys_updated_on>2017-06-14 14:00:52</sys_updated_on>
+    </sys_script_include>
+</record_update>

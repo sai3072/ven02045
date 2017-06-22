@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_109369_ams.AMS_ResourceFetch</api_name>
+        <client_callable>false</client_callable>
+        <description>Calling Apis To get resources such as Vpcs, Stacks, Subnets ,Amis</description>
+        <name>AMS_ResourceFetch</name>
+        <script><![CDATA[var nextToken = "";
+// initialize the request body
+var body = {};
+var maxResults = parseInt(gs.getProperty('x_109369_ams.NextToken.AMSMaxResults'));
+// get the property value of AMSRestCalls(Boolean Value)
+var logger = gs.getProperty('x_109369_ams.debug.AMSRestCalls');
+var totalResults = 0;
+var AMS_ResourceFetch = Class.create();
+AMS_ResourceFetch.prototype = {
+	initialize : function() 
+	{
+		// create object for AMSApiUtil initialize corresponding import set table name
+		this.amsUtil = new AMS_ApiUtil(); 
+		this.vpcImportSetTable = 'x_109369_ams_import_set_vpcs';
+		this.stackImportSetTable = 'x_109369_ams_import_set_stacks';
+		this.subnetImportSetTable = 'x_109369_ams_import_set_subnets';
+		this.amiImportSetTable = 'x_109369_ams_import_set_amis';
+		// intialize the service type
+		this.supportService = 'support';
+		this.changeService = 'amscm';
+		this.provisioningService = 'amsskms';
+		// intialize Correspondence
+		this.totalCorrespondence = '';
+	},
+	
+	// function to get List of VPCs
+	getListOfVPCSummariesAndInsert : function(nextToken) 
+	{
+		body = {MaxResults : maxResults,NextToken : nextToken};
+		// raise a request
+		var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.provisioningService, 'ListVpcSummaries', body);
+		var jsonBody = JSON.stringify(parsedResponseBody);
+		
+		// Check for VpcSummaries in Response body
+		if (jsonBody.indexOf('VpcSummaries') > -1)
+		{ 
+			var vpcGR = new GlideRecord(this.vpcImportSetTable);
+			// For loop to insert records
+			for (var i = 0; i < parsedResponseBody.VpcSummaries.length; i++) 
+			{
+				var record = parsedResponseBody.VpcSummaries[i];
+				vpcGR.initialize();
+				// VPC ID
+				vpcGR.u_vpc_id = record.VpcId;
+				// VPC Name
+				vpcGR.u_vpc_name = record.Name; 
+				// VPC Description
+				vpcGR.u_vpc_description = record.Description; 
+				// VPC Region
+				vpcGR.u_vpc_region = record.Region; 
+				// VPC Visibility
+				vpcGR.u_vpc_visibility = record.Visibility.Id; 
+				// Created Time
+				vpcGR.u_vpc_created_date = record.CreatedTime; 
+				// Modified Time
+				vpcGR.u_vpc_modified_date = record.LastModifiedTime;
+				// Ams generated Request Id
+				vpcGR.u_vpc_amazon_request_id = parsedResponseBody.requestId["x-amzn-Requestid"]; 
+				vpcGR.insert();
+			}
+			nextToken = parsedResponseBody.NextToken;
+			
+			// check for nexttoken in respose 
+			if (undefined !== nextToken)
+			{
+				// call the api with next token
+				this.getListOfVPCSummariesAndInsert(nextToken);
+			}
+			
+			return true;
+		}
+		
+		else return false;
+	},
+	
+	// function to get List of Stacks
+	getListOfStackSummariesAndInsert : function(nextToken) 
+	{
+		body = {MaxResults : maxResults,NextToken : nextToken};
+		// raise a request
+		var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.provisioningService, 'ListStackSummaries', body);
+		var jsonBody = JSON.stringify(parsedResponseBody);
+		
+		// Check for StackSummaries in Response body
+		if (jsonBody.indexOf('StackSummaries') > -1)
+		{ 
+			// Import Set extended Stack table
+			var stackGR = new GlideRecord(this.stackImportSetTable); 
+			// For loop to insert records to staging table from response
+			for (var i = 0; i < parsedResponseBody.StackSummaries.length; i++) 
+			{
+				var record = parsedResponseBody.StackSummaries[i];
+				stackGR.initialize();
+				// Stack Name
+				stackGR.u_stack_name = record.Name; 
+				// Stack Description
+				stackGR.u_stack_description = record.Description;
+				// Stack ID
+				stackGR.u_stack_id = record.StackId; 
+				// Stack template ID
+				stackGR.u_stack_template_id = record.StackTemplateId; 
+				// Assigining the VPC id
+				stackGR.u_vpc_id = record.VpcId; 
+				// Ams generated RequestId
+				stackGR.u_stack_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"]; 
+				stackGR.insert();
+			}
+			nextToken = parsedResponseBody.NextToken;
+			
+			// check for nexttoken in respose
+			if (undefined !== nextToken)
+			{ 
+				// call the api with next token
+				this.getListOfStackSummariesAndInsert(nextToken);
+			}
+			
+			return true;
+		} 
+		
+		else return false;
+	},
+	
+	// function to get List of Subnets
+	getListOfSubnetSummariesAndInsert : function(nextToken) 
+	{
+		body = {MaxResults : maxResults,NextToken : nextToken};
+		// raise a request
+		var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.provisioningService, 'ListSubnetSummaries', body);
+		
+		var jsonBody = JSON.stringify(parsedResponseBody);
+		
+		// Check for SubnetSummaries in Response body
+		if (jsonBody.indexOf('SubnetSummaries') > -1)
+		{ 
+			// Import Set extended Subnet table
+			var subnetGR = new GlideRecord(this.subnetImportSetTable);
+			
+			// For loop to insert records to staging table from response
+			for (var count = 0; count < parsedResponseBody.SubnetSummaries.length; count++) 
+			{
+				var record = parsedResponseBody.SubnetSummaries[count];
+				subnetGR.initialize();
+				// Subnet Nam
+				subnetGR.u_subnet_name = record.Name; 
+				// Subnet Description
+				subnetGR.u_subnet_description = record.Description; 
+				// Subnet ID
+				subnetGR.u_subnet_id = record.SubnetId; 
+				// Subnet Visibility
+				subnetGR.u_subnet_visibility = record.Visibility.Id; 
+				// Assign the VPC Id of the subnet
+				subnetGR.u_vpc_id = record.VpcId; 
+				// creation time
+				subnetGR.u_subnet_created = record.CreatedTime;
+				// Modified time
+				subnetGR.u_subnet_modified = record.LastModifiedTime;
+				// Ams generated Request Id
+				subnetGR.u_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"]; 
+				subnetGR.insert();
+			}
+			
+			nextToken = parsedResponseBody.NextToken;
+			
+			// check for nexttoken in respose
+			if (undefined !== nextToken) 
+			{ 
+				// call the api with next token
+				this.getListOfSubnetSummariesAndInsert(nextToken);
+			}
+			
+			return true;
+		} 
+		
+		else return false;
+	},
+	
+	// function to get List of Amis
+	getListOfAMIsAndInsert : function(vpcId, nextToken) 
+	{
+		var record = "";
+		body = {MaxResults : maxResults,NextToken : nextToken,VpcId : vpcId};
+		// raise a request
+		var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.provisioningService, 'ListAmis', body);
+		var jsonBody = JSON.stringify(parsedResponseBody);
+		
+		// Check for Amis in Response body
+		if (jsonBody.indexOf('Amis') > -1) 
+		{
+			var amiGR = new GlideRecord(this.amiImportSetTable);
+			// For loop to insert records
+			for (var count = 0; count < parsedResponseBody.Amis.length; count++) 
+			{
+				record = parsedResponseBody.Amis[count];
+				amiGR.initialize();
+				// AMI Name
+				amiGR.u_ami_name = record.Name; 
+				// AMI Description
+				amiGR.u_ami_description = record.Description; 
+				// AMI Id
+				amiGR.u_ami_id = record.AmiId; 
+				// Created time
+				amiGR.u_ami_created_date = record.CreationTime;				
+				amiGR.u_ami_vpc_id = vpcId;
+				// Ams generated Request Id
+				amiGR.u_ami_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"]; 
+				amiGR.insert();
+			}
+			nextToken = record.NextToken;
+			
+			// check for nexttoken in respose
+			if (undefined !== nextToken) 
+			{ 
+				// call the api with next token
+				this.getListOfAMIsAndInsert(vpcId, nextToken);
+			}
+			
+			return true;
+		} 
+		
+		else return false;
+	},
+	
+	// function to get VPC
+	getVPCAndInsert : function(vpcId) 
+	{
+		body = {VpcId : vpcId};
+		// raise a request
+		var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.provisioningService, 'GetVpc', body);
+		var jsonBody = JSON.stringify(parsedResponseBody);
+		
+		// Check for Vpc in Response body
+		if (jsonBody.indexOf('Vpc') > -1)
+		{ 
+			var vpcGR = new GlideRecord(this.vpcImportSetTable);
+			vpcGR.initialize();
+			// VPC Name
+			vpcGR.u_vpc_name = parsedResponseBody.Vpc.Name; 
+			// VPC ID
+			vpcGR.u_vpc_id = parsedResponseBody.Vpc.VpcId; 
+			// VPC Description
+			vpcGR.u_vpc_description = parsedResponseBody.Vpc.Description; 
+			// VPC Region
+			vpcGR.u_vpc_region = parsedResponseBody.Vpc.Region; 
+			// VPC Visibility
+			vpcGR.u_vpc_visibility = parsedResponseBody.Vpc.Visibility.Id;
+			// Created Time
+			vpcGR.u_vpc_created_date = parsedResponseBody.Vpc.CreatedTime; 
+			// Modified Time
+			vpcGR.u_vpc_modified_date = parsedResponseBody.Vpc.LastModifiedTime;
+			// Ams generated Request Id
+			vpcGR.u_vpc_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"]; 
+			vpcGR.insert();
+			return true;
+		}
+		
+		else return false;
+	},
+	
+	// function to get Stack
+	getStackAndInsert : function(stackId) 
+	{
+		body = {StackId : stackId};
+		// raise a request
+		var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.provisioningService, 'GetStack', body);
+		var jsonBody = JSON.stringify(parsedResponseBody);
+		
+		// Check for Stack in Response body
+		if (jsonBody.indexOf('Stack') > -1) 
+		{
+			// Import Set extended stack table
+			var stackGR = new GlideRecord(this.stackImportSetTable);
+			stackGR.initialize();
+			// Stack Name
+			stackGR.u_stack_name = parsedResponseBody.Stack.Name; 
+			// Stack ID
+			stackGR.u_stack_id = parsedResponseBody.Stack.StackId; 
+			// Stack Description
+			stackGR.u_stack_description = parsedResponseBody.Stack.Description; 
+			// VPC ID
+			stackGR.u_vpc_id = parsedResponseBody.Stack.VpcId;
+			// Stack Template ID
+			stackGR.u_stack_template_id = parsedResponseBody.Stack.StackTemplateId;
+			// Stack status
+			stackGR.u_stack_status = parsedResponseBody.Stack.Status.Id; 
+			// Ams generated RequestId
+			stackGR.u_stack_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"]; 
+			stackGR.insert();
+			return true;
+		}
+		
+		else return false;
+	},
+	
+	// function to get Subnet
+	getSubnetAndInsert : function(subnetId) 
+	{
+		body = {SubnetId : subnetId};
+		// raise a request
+		var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.provisioningService, 'GetSubnet', body);
+		var jsonBody = JSON.stringify(parsedResponseBody);
+		
+		// Check for Subnet in Response body
+		if (jsonBody.indexOf('Subnet') > -1)
+		{ 
+			var subnetGR = new GlideRecord(this.subnetImportSetTable);
+			var record = parsedResponseBody.Subnet;
+			subnetGR.initialize();
+			// Subnet Name
+			subnetGR.u_subnet_name = record.Name; 
+			// Subnet Description
+			subnetGR.u_subnet_description = record.Description; 
+			// Subnet ID
+			subnetGR.u_subnet_id = record.SubnetId; 
+			// Subnet Visibility
+			subnetGR.u_subnet_visibility = record.Visibility.Id; 
+			// Subnet Region
+			subnetGR.u_subnet_region = record.Region; 
+			// Assigning Vpc
+			subnetGR.u_vpc_id = record.VpcId; 
+			// creation time
+			subnetGR.u_subnet_created = record.CreatedTime;
+			// Modified time
+			subnetGR.u_subnet_modified = record.LastModifiedTime;
+			// Ams generated RequestId
+			subnetGR.u_subnet_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"]; 
+			subnetGR.insert();
+			return true;
+		} 
+		
+		else return false;
+	},
+	
+	type : 'AMS_ResourceFetch'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>madhav</sys_created_by>
+        <sys_created_on>2017-04-12 06:17:11</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>428bf946db867200ef73d8c0cf961951</sys_id>
+        <sys_mod_count>235</sys_mod_count>
+        <sys_name>AMS_ResourceFetch</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_include_428bf946db867200ef73d8c0cf961951</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-15 13:54:10</sys_updated_on>
+    </sys_script_include>
+</record_update>

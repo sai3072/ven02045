@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>unload</directory>
+        <documentkey>113dd3c2dbca7200ef73d8c0cf96198c</documentkey>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;record_update table="sysauto_script"&gt;
+    &lt;sysauto_script action="INSERT_OR_UPDATE"&gt;
+        &lt;active&gt;true&lt;/active&gt;
+        &lt;condition/&gt;
+        &lt;conditional&gt;false&lt;/conditional&gt;
+        &lt;name&gt;Managed Services GetRfc&lt;/name&gt;
+        &lt;run_as display_value="priyanka "&gt;e75da407db213200ef73d8c0cf961959&lt;/run_as&gt;
+        &lt;run_as_tz/&gt;
+        &lt;run_dayofmonth&gt;1&lt;/run_dayofmonth&gt;
+        &lt;run_dayofweek&gt;1&lt;/run_dayofweek&gt;
+        &lt;run_period/&gt;
+        &lt;run_start&gt;2017-04-12 13:22:36&lt;/run_start&gt;
+        &lt;run_time&gt;1970-01-01 09:00:00&lt;/run_time&gt;
+        &lt;run_type&gt;on_demand&lt;/run_type&gt;
+        &lt;script&gt;&lt;![CDATA[// Call AMSRfcFetch script
+var amsGetRfcApi = new AMSRfcFetch();
+//Fetch VpcId from VPC table
+var grRfcId = new GlideRecord('x_109369_ams_rfcs');
+grRfcId.query();
+while(grRfcId.next())
+{
+	//Call getRFC API
+	var getRFCInsert = amsGetRfcApi.getRfcAndInsert(grRfcId.u_rfcs_id.toString());
+	if(!getRFCInsert)
+	{
+		if ('true' == gs.getProperty('debug.AMSRestCalls'))// No rfcs Found
+			gs.info("Debug &gt;&gt;&gt;AMS GetRfc :"+grRfcId.u_rfcs_id+" is not inserted");	
+	}
+}
+]]&gt;&lt;/script&gt;
+        &lt;sys_class_name&gt;sysauto_script&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;priyanka&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2017-04-12 13:24:16&lt;/sys_created_on&gt;
+        &lt;sys_customer_update&gt;true&lt;/sys_customer_update&gt;
+        &lt;sys_id&gt;113dd3c2dbca7200ef73d8c0cf96198c&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;8&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;Managed Services GetRfc&lt;/sys_name&gt;
+        &lt;sys_package display_value="AMS" source="x_109369_ams"&gt;5b693bf9db427200ef73d8c0cf961927&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;
+        &lt;sys_scope display_value="AMS"&gt;5b693bf9db427200ef73d8c0cf961927&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sysauto_script_113dd3c2dbca7200ef73d8c0cf96198c&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;sahitya&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2017-05-17 09:49:31&lt;/sys_updated_on&gt;
+        &lt;upgrade_safe&gt;false&lt;/upgrade_safe&gt;
+    &lt;/sysauto_script&gt;
+&lt;/record_update&gt;
+</payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>saikrishna</sys_created_by>
+        <sys_created_on>2017-05-19 10:01:22</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>2af195c2db323600ef73d8c0cf961931</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Managed Services GetRfc</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_metadata_link_2af195c2db323600ef73d8c0cf961931</sys_update_name>
+        <sys_updated_by>saikrishna</sys_updated_by>
+        <sys_updated_on>2017-05-19 10:01:22</sys_updated_on>
+        <tablename>sysauto</tablename>
+    </sys_metadata_link>
+</record_update>

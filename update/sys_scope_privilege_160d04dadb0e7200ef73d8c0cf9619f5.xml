@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_scope_privilege">
+    <sys_scope_privilege action="INSERT_OR_UPDATE">
+        <operation>read</operation>
+        <source_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</source_scope>
+        <status>allowed</status>
+        <sys_class_name>sys_scope_privilege</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-04-12 16:51:33</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>160d04dadb0e7200ef73d8c0cf9619f5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_109369_sentinel_stacks</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_scope_privilege_160d04dadb0e7200ef73d8c0cf9619f5</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-04-12 16:51:33</sys_updated_on>
+        <target_name>x_109369_sentinel_stacks</target_name>
+        <target_scope display_value="">e34decc3db213200ef73d8c0cf9619f1</target_scope>
+        <target_type>sys_db_object</target_type>
+    </sys_scope_privilege>
+</record_update>

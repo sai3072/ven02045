@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_109369_ams.AMS_GetRFCFormFields</api_name>
+        <client_callable>true</client_callable>
+        <description>Get RFC Form fields Dynamically using changeType ID.</description>
+        <name>AMS_GetRFCFormFields</name>
+        <script><![CDATA[var AMS_GetRFCFormFields = Class.create();
+AMS_GetRFCFormFields.prototype =  Object.extendsObject(global.AbstractAjaxProcessor, {
+    getFields: function() {
+		var changeTypeId = this.getParameter('sysparm_changeTypeId');
+		//Gliderecord to Ams Rfc form table
+		var rfcFormGR = new GlideRecord('x_109369_ams_rfc_form');
+		rfcFormGR.addQuery('u_rfcs_form_change_type_id',changeTypeId);
+		rfcFormGR.query();
+		var fields = {};
+		//querying the changetype id if record found assign all values to map object and return that object
+		while(rfcFormGR.next())
+		{
+			//declare the object
+			var singleField = {};
+			//assign the parameter name,type default values
+			singleField["paramName"] = rfcFormGR.u_rfcs_form_parameter_name.toString();
+			singleField["paramType"] = rfcFormGR.u_rfcs_form_parameter_type.toString();
+			singleField["num"] = rfcFormGR.u_rfcs_form_enum.toString();
+			singleField["default"] = rfcFormGR.u_rfcs_form_default_value.toString();
+			singleField["mandatory"] = rfcFormGR.u_rfcs_form_ismandatory.toString();
+			singleField["snowParamType"] = rfcFormGR.u_rfcs_form_snow_fieldtype.toString();
+			//set the description,minlength,maxLength,minimum,maximum to the parameter
+			singleField["description"] = rfcFormGR.u_rfcs_form_description.toString();
+			singleField["minLength"] = rfcFormGR.u_rfcs_form_minimumlength.toString();
+			singleField["maxLength"] = rfcFormGR.u_rfcs_form_maximumlength.toString();
+			singleField["minimum"] = rfcFormGR.u_rfcs_form_minimumvalue.toString();
+			singleField["maximum"] = rfcFormGR.u_rfcs_form_maximumvalue.toString();
+			singleField["minItems"] = rfcFormGR.u_rfcs_form_minimumitems.toString();
+			singleField["maxItems"] = rfcFormGR.u_rfcs_form_maximumitems.toString();
+			singleField["pattern"] = rfcFormGR.u_rfcs_form_pattern.toString();
+			//check for aws param type and assign aws param type if not null
+			singleField["awsParamType"] = (rfcFormGR.u_rfcs_form_aws_param_type) ? rfcFormGR.u_rfcs_form_aws_param_type.toString() : "";
+			fields[rfcFormGR.u_rfcs_form_parameter_name.toString()] = singleField;
+		}
+		//Returns map object of fields
+		return JSON.stringify(fields);
+    },
+	
+    type: 'AMS_GetRFCFormFields'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>madhav</sys_created_by>
+        <sys_created_on>2017-05-15 12:03:55</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>2e41cdf0db7a7200ef73d8c0cf96194b</sys_id>
+        <sys_mod_count>22</sys_mod_count>
+        <sys_name>AMS_GetRFCFormFields</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_include_2e41cdf0db7a7200ef73d8c0cf96194b</sys_update_name>
+        <sys_updated_by>saikrishna</sys_updated_by>
+        <sys_updated_on>2017-06-05 12:09:30</sys_updated_on>
+    </sys_script_include>
+</record_update>

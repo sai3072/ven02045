@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_ui_action">
+    <sys_ui_action action="INSERT_OR_UPDATE">
+        <action_name>case_reply_submit_case</action_name>
+        <active>true</active>
+        <client>true</client>
+        <comments/>
+        <condition>current.u_case_reply_check==true</condition>
+        <form_action>true</form_action>
+        <form_button>true</form_button>
+        <form_context_menu>false</form_context_menu>
+        <form_link>false</form_link>
+        <hint/>
+        <list_action>false</list_action>
+        <list_banner_button>false</list_banner_button>
+        <list_button>false</list_button>
+        <list_choice>false</list_choice>
+        <list_context_menu>false</list_context_menu>
+        <list_link>false</list_link>
+        <list_save_with_form_button>false</list_save_with_form_button>
+        <name>Submit</name>
+        <onclick>runClientCode()</onclick>
+        <order>300</order>
+        <script><![CDATA[function runClientCode(){
+// 	alert('u_case_reply_check' + g_form.getValue('u_case_reply_check') );
+// 	alert('u_case_reply' + g_form.getValue('u_case_reply') );
+    g_form.addInfoMessage('Communicating with AWS. This could take 10-20 secs. Please wait..');
+	
+	try {
+		if(g_form.getValue('u_case_id')!='') {
+			var caseId = g_form.getValue('u_case_id');
+			var ccEmailAddresses = g_form.getValue('u_case_cc_emails');
+			var communicationBody = g_form.getValue('u_case_reply');
+			if (communicationBody.length == 0 ) {
+				g_form.clearMessages();
+				g_form.addErrorMessage('Please enter your reply');
+				return;
+			}
+			var ga = new GlideAjax('AmsRefresh_UI_Action');  
+			ga.addParam('sysparm_name','addCommunicationToCase');
+			ga.addParam('caseId', caseId);
+			ga.addParam('ccEmailAddresses', ccEmailAddresses);
+			ga.addParam('communicationBody', communicationBody);
+			ga.getXML(addCommunicationToCase);
+		} else
+		{
+			g_form.addErrorMessage('No CaseId found');			
+		}
+			
+	} catch (e) {
+        alert("error: " + e.message);
+    }
+}	
+function addCommunicationToCase(response) {
+   var answer = response.responseXML.documentElement.getAttribute("answer"); 
+	if(answer){
+	   g_form.clearMessages();
+	   g_form.addInfoMessage('Updated case with your reply.. Please wait, refreshing data from AWS..');
+	   var ga = new GlideAjax('AmsRefresh_UI_Action');  
+	   ga.addParam('sysparm_name','updateCase');
+	   var caseId = g_form.getValue('u_case_id');	
+	   ga.addParam('caseIdList', caseId);
+	   ga.getXML(updateCase);
+	   gsftSubmit(null, g_form.getFormElement(), 'case_reply_submit');
+	} else {
+		g_form.clearMessages();
+		g_form.addErrorMessage('Sorry, an error occurred while adding your reply..');
+	}
+}
+
+
+function updateCase(response) {
+   var answer = response.responseXML.documentElement.getAttribute("answer");
+	//alert('updateCase ' + answer);
+	if(answer){
+		g_form.clearMessages();
+		g_form.addInfoMessage('Updated case in AWS. Refreshing the page....');
+		g_form.save();
+		//gsftSubmit(null, g_form.getFormElement(), 'case_reply_submit');
+		
+// 		var caseId = g_form.getValue('u_case_id');
+// 		var ga = new GlideAjax('AmsRefresh_UI_Action');  
+// 		ga.addParam('sysparm_name','updateCommunications');
+// 		ga.addParam('caseId', caseId);
+// 		ga.getXML(updateCommunications);
+// 		if(g_form.getValue('u_case_state') == 'resolved')
+// 		{
+// 			g_form.addInfoMessage("Case update being submitted. Please wait..");
+// 			var ga = new GlideAjax('AmsRefresh_UI_Action');  
+// 			ga.addParam('sysparm_name','updateCase');
+// 			ga.addParam('caseIdList', [caseId]); 
+// 			ga.getXML(updateCase);			
+// 		}
+		//g_form.addInfoMessage("All communications finished. Data will be refreshed shortly..");
+	} else {
+		g_form.clearMessages();
+		g_form.addErrorMessage('Sorry, an error occurred while updating your case..');
+	}
+	
+}
+
+// function updateCommunications(response) {
+//    var answer = response.responseXML.documentElement.getAttribute("answer");
+// 	if(answer){
+// 	   g_form.clearMessages();
+// 	   g_form.addInfoMessage('All data refreshed. Thanks for your patience.');
+// 	   gsftSubmit(null, g_form.getFormElement(), 'case_reply_submit');
+// 	} else {
+// 		g_form.clearMessages();
+// 		g_form.addErrorMessage('Sorry, an error occurred while communicating with AWS..');
+// 	}
+//    //alert('updateCommunications ' + answer);
+//    //g_form.clearMessages();
+//    //g_form.setValue('u_case_reply' ,'') ;
+//    //g_form.setValue('u_case_reply_check', false);
+	
+// }
+
+
+if (typeof window == 'undefined') {
+	reloadForm();
+}
+
+function reloadForm() {//this function will be run server side
+	current.u_case_reply_check = false;
+	current.u_case_reply = '';
+	current.update();
+	//action.setRedirectURL(current);
+}]]></script>
+        <show_insert>false</show_insert>
+        <show_multiple_update>false</show_multiple_update>
+        <show_query>false</show_query>
+        <show_update>true</show_update>
+        <sys_class_name>sys_ui_action</sys_class_name>
+        <sys_created_by>priyanka</sys_created_by>
+        <sys_created_on>2017-04-14 06:46:19</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>44b5107edb8eb200ef73d8c0cf96190b</sys_id>
+        <sys_mod_count>74</sys_mod_count>
+        <sys_name>Submit</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_ui_action_44b5107edb8eb200ef73d8c0cf96190b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-15 06:35:40</sys_updated_on>
+        <table>x_109369_ams_case</table>
+        <ui11_compatible>true</ui11_compatible>
+        <ui16_compatible>true</ui16_compatible>
+    </sys_ui_action>
+</record_update>

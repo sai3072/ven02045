@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="sys_import_set_row" label="Import Set VPCs" max_length="40" name="x_109369_ams_import_set_vpcs" type="collection">
+        <element label="Amazon Request Id" max_length="1000" name="u_vpc_amazon_request_id" type="string"/>
+        <element label="Created" max_length="40" name="u_vpc_created_date" type="string"/>
+        <element label="Description" max_length="1000" name="u_vpc_description" type="string"/>
+        <element label="VPC ID" max_length="40" name="u_vpc_id" type="string"/>
+        <element label="Modified" max_length="40" name="u_vpc_modified_date" type="string"/>
+        <element label="VPC Name" max_length="40" name="u_vpc_name" type="string"/>
+        <element label="Region" max_length="32" name="u_vpc_region" reference="x_109369_ams_regions" type="reference"/>
+        <element label="Visibility" max_length="40" name="u_vpc_visibility" type="string"/>
+        <index name="index">
+            <element name="u_vpc_region"/>
+        </index>
+    </element>
+</database>

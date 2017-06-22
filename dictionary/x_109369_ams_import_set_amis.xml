@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="sys_import_set_row" label="Import Set AMIs" max_length="40" name="x_109369_ams_import_set_amis" type="collection">
+        <element label="Amazon Request Id" max_length="1000" name="u_ami_amazon_request_id" type="string"/>
+        <element label="Created" max_length="40" name="u_ami_created_date" type="string"/>
+        <element label="Description" max_length="1000" name="u_ami_description" type="string"/>
+        <element label="AMI ID" max_length="40" name="u_ami_id" type="string"/>
+        <element label="AMI Name" max_length="40" name="u_ami_name" type="string"/>
+        <element label="VPC ID" max_length="40" name="u_ami_vpc_id" type="string"/>
+    </element>
+</database>

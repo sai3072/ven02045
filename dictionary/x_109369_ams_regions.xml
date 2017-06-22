@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="cmdb" label="Regions" max_length="40" name="x_109369_ams_regions" type="collection">
+        <element display="true" label="Region" max_length="40" name="u_region" type="string"/>
+    </element>
+</database>

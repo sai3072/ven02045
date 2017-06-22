@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="RFC Categories" max_length="40" name="x_109369_ams_rfc_categories" type="collection">
+        <element display="true" label="Category" max_length="40" name="u_rfc_categories_category" type="string"/>
+        <index name="index">
+            <element name="u_rfc_categories_category"/>
+        </index>
+    </element>
+</database>

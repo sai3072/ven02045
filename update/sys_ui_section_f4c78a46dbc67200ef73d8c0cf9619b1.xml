@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_section caption="" section_id="f4c78a46dbc67200ef73d8c0cf9619b1" sys_domain="global" table="x_109369_ams_stacks" version="3" view="">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_stack_name</element>
+            <position>0</position>
+            <sys_created_by>Tej</sys_created_by>
+            <sys_created_on>2017-04-12 17:27:41</sys_created_on>
+            <sys_id>23451816db4e7200ef73d8c0cf961927</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_109369_ams_stacks" sys_domain="global" view="Default view">f4c78a46dbc67200ef73d8c0cf9619b1</sys_ui_section>
+            <sys_updated_by>Tej</sys_updated_by>
+            <sys_updated_on>2017-04-12 17:27:41</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_stack_id</element>
+            <position>1</position>
+            <sys_created_by>Tej</sys_created_by>
+            <sys_created_on>2017-04-12 17:27:41</sys_created_on>
+            <sys_id>a3451816db4e7200ef73d8c0cf961927</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_109369_ams_stacks" sys_domain="global" view="Default view">f4c78a46dbc67200ef73d8c0cf9619b1</sys_ui_section>
+            <sys_updated_by>Tej</sys_updated_by>
+            <sys_updated_on>2017-04-12 17:27:41</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_stack_status</element>
+            <position>2</position>
+            <sys_created_by>Tej</sys_created_by>
+            <sys_created_on>2017-04-12 17:27:41</sys_created_on>
+            <sys_id>27451816db4e7200ef73d8c0cf961927</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_109369_ams_stacks" sys_domain="global" view="Default view">f4c78a46dbc67200ef73d8c0cf9619b1</sys_ui_section>
+            <sys_updated_by>Tej</sys_updated_by>
+            <sys_updated_on>2017-04-12 17:27:41</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_stack_template_id</element>
+            <position>3</position>
+            <sys_created_by>Tej</sys_created_by>
+            <sys_created_on>2017-04-12 17:27:41</sys_created_on>
+            <sys_id>a7451816db4e7200ef73d8c0cf961927</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_109369_ams_stacks" sys_domain="global" view="Default view">f4c78a46dbc67200ef73d8c0cf9619b1</sys_ui_section>
+            <sys_updated_by>Tej</sys_updated_by>
+            <sys_updated_on>2017-04-12 17:27:41</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_vpc_id</element>
+            <position>4</position>
+            <sys_created_by>Tej</sys_created_by>
+            <sys_created_on>2017-04-12 17:27:41</sys_created_on>
+            <sys_id>2b451816db4e7200ef73d8c0cf961927</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_109369_ams_stacks" sys_domain="global" view="Default view">f4c78a46dbc67200ef73d8c0cf9619b1</sys_ui_section>
+            <sys_updated_by>Tej</sys_updated_by>
+            <sys_updated_on>2017-04-12 17:27:41</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption/>
+            <header>false</header>
+            <name>x_109369_ams_stacks</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>sahitya</sys_created_by>
+            <sys_created_on>2017-04-12 07:09:17</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>f4c78a46dbc67200ef73d8c0cf9619b1</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_name>x_109369_ams_stacks</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+            <sys_update_name>sys_ui_section_f4c78a46dbc67200ef73d8c0cf9619b1</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-06-22 07:57:14</sys_updated_on>
+            <sys_user/>
+            <title>true</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

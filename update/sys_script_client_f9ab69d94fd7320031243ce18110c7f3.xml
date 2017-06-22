@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description>Refresh case on load</description>
+        <field>active</field>
+        <global>false</global>
+        <messages>Refreshing data from AWS onload... </messages>
+        <name>Incident_onLoad_Refresh</name>
+        <order/>
+        <script><![CDATA[function onLoad(){
+    g_form.addInfoMessage('Fetching data from AWS. This could take 10-20 secs. Please wait..');
+	g_form.setValue('u_case_reply_check','false');
+	try {
+		var caseId = g_form.getValue('u_case_id');
+		var ga = new GlideAjax('AmsRefresh_UI_Action');  
+		ga.addParam('sysparm_name','updateCase');
+		ga.addParam('caseIdList', [caseId]); 
+		ga.getXML(updateCase);	
+		//need to initialize again
+// 		var ga2 = new GlideAjax('AmsRefresh_UI_Action');
+// 		ga2.addParam('sysparm_name','updateCommunications');
+// 		ga2.addParam('caseId', caseId); 
+// 		ga2.getXML(updateCommunications);	
+	} catch (e) {
+        alert("error: " + e.message);
+    }
+	
+	//alert('hello again');
+}	
+function updateCase(response) {
+   //alert('hello inside' + JSON.stringify(response) );	
+   var answer = response.responseXML.documentElement.getAttribute("answer");
+	g_form.clearMessages();
+   //alert('updateCase status ' + answer);
+}
+// function updateCommunications(response) {
+//    //alert('hello inside' + JSON.stringify(response) );	
+//    var answer = response.responseXML.documentElement.getAttribute("answer");
+//    //alert('updateCommunications status ' + answer);
+// }
+
+if (typeof window == 'undefined') {
+	reloadForm();
+}
+
+function reloadForm() {//this function will be run server side
+//	current.u_case_state ='resolved';
+//	current.u_case_reply_check = false;
+//	action.setRedirectURL(current);
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>ams_admin</sys_created_by>
+        <sys_created_on>2017-06-11 00:31:12</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>f9ab69d94fd7320031243ce18110c7f3</sys_id>
+        <sys_mod_count>12</sys_mod_count>
+        <sys_name>Incident_onLoad_Refresh</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_client_f9ab69d94fd7320031243ce18110c7f3</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-13 22:01:58</sys_updated_on>
+        <table>x_109369_ams_incidents</table>
+        <type>onLoad</type>
+        <ui_type>0</ui_type>
+        <view/>
+    </sys_script_client>
+</record_update>

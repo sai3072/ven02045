@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="u_rfcs_rdsinstancetype" table="x_109369_ams_rfcs" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.m1.medium</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>1</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:21:09</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>dbec7eb8db26b200ef73d8c0cf96196a</sys_id>
+            <sys_mod_count>3</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:21:31</sys_updated_on>
+            <value>db.m1.medium</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.m1.large</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>2</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:20:21</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>1fac7eb8db26b200ef73d8c0cf961917</sys_id>
+            <sys_mod_count>3</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:21:33</sys_updated_on>
+            <value>db.m1.large</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.m1.xlarge</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>3</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:20:32</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>b0ecf2f8db26b200ef73d8c0cf961977</sys_id>
+            <sys_mod_count>4</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:21:50</sys_updated_on>
+            <value>db.m1.xlarge</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.m2.xlarge</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>4</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:22:09</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>1c1d36f8db26b200ef73d8c0cf9619e3</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:06</sys_updated_on>
+            <value>db.m2.xlarge</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.m2.2xlarge</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>5</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:22:29</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>c74d7af8db26b200ef73d8c0cf9619b0</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:08</sys_updated_on>
+            <value>db.m2.2xlarge</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.m2.4xlarge</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>6</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:22:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>846dbeb8db26b200ef73d8c0cf96193d</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:11</sys_updated_on>
+            <value>db.m2.4xlarge</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.m3.medium</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>7</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:15:28</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>9a7bf2b8db26b200ef73d8c0cf961955</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:18</sys_updated_on>
+            <value>db.m3.medium</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.m3.large</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>8</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:15:48</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>89cb76b8db26b200ef73d8c0cf9619b2</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:20</sys_updated_on>
+            <value>db.m3.large</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.m3.xlarge</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>9</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:16:08</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>06dbf2b8db26b200ef73d8c0cf961956</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:22</sys_updated_on>
+            <value>db.m3.xlarge</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.m3.2xlarge</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>10</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:16:22</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>8bebf2b8db26b200ef73d8c0cf961972</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:24</sys_updated_on>
+            <value>db.m3.2xlarge</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.r3.large</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>11</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:17:23</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>0efbb2b8db26b200ef73d8c0cf9619eb</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:29</sys_updated_on>
+            <value>db.r3.large</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.r3.xlarge</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>12</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:17:36</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>913c76b8db26b200ef73d8c0cf9619db</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:32</sys_updated_on>
+            <value>db.r3.xlarge</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.r3.2xlarge</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>13</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:17:49</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>5c4cf2b8db26b200ef73d8c0cf961973</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:34</sys_updated_on>
+            <value>db.r3.2xlarge</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.r3.4xlarge</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>14</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:18:08</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>a34cb6b8db26b200ef73d8c0cf9619c7</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:36</sys_updated_on>
+            <value>db.r3.4xlarge</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.r3.8xlarge</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>15</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:18:20</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>1c6c3eb8db26b200ef73d8c0cf9619a9</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:41</sys_updated_on>
+            <value>db.r3.8xlarge</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.t2.micro</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>16</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:18:39</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>876cbab8db26b200ef73d8c0cf9619e4</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:44</sys_updated_on>
+            <value>db.t2.micro</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.t2.small</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>17</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:19:07</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>ab7cbeb8db26b200ef73d8c0cf961907</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:46</sys_updated_on>
+            <value>db.t2.small</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsinstancetype</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>db.t2.medium</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>18</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:19:27</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>de9c7eb8db26b200ef73d8c0cf96193b</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 10:23:51</sys_updated_on>
+            <value>db.t2.medium</value>
+        </sys_choice>
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>u_rfcs_rdsinstancetype</element>
+            <name>x_109369_ams_rfcs</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 10:15:28</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>1756fbf8db6b3200b527f91ebf96197b</sys_id>
+            <sys_mod_count>58</sys_mod_count>
+            <sys_name>u_rfcs_rdsinstancetype</sys_name>
+            <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+            <sys_update_name>sys_choice_x_109369_ams_rfcs_u_rfcs_rdsinstancetype</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-06-22 07:56:42</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>

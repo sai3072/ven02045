@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_properties">
+    <sys_properties action="INSERT_OR_UPDATE">
+        <choices/>
+        <description>To get the maximum number of records in the next token.</description>
+        <ignore_cache>false</ignore_cache>
+        <is_private>false</is_private>
+        <name>x_109369_ams.NextToken.AMSMaxResults</name>
+        <read_roles/>
+        <suffix>NextToken.AMSMaxResults</suffix>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>madhav</sys_created_by>
+        <sys_created_on>2017-04-12 06:23:00</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>260db10adb867200ef73d8c0cf9619e4</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>x_109369_ams.NextToken.AMSMaxResults</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_properties_260db10adb867200ef73d8c0cf9619e4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-08 11:42:20</sys_updated_on>
+        <type>integer</type>
+        <value>100</value>
+        <write_roles/>
+    </sys_properties>
+    <sys_translated_text action="delete_multiple" query="documentkey=260db10adb867200ef73d8c0cf9619e4"/>
+</record_update>

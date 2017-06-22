@@ -1,0 +1,1131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_macro">
+    <sys_ui_macro action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>general</category>
+        <description>To get Sections depending upon the ChangeTypeId.</description>
+        <media_type/>
+        <name>AMS_CreateDynamicFieldsForRFC</name>
+        <scoped_name>x_109369_ams_AMS_CreateDynamicFieldsForRFC</scoped_name>
+        <sys_class_name>sys_ui_macro</sys_class_name>
+        <sys_created_by>madhav</sys_created_by>
+        <sys_created_on>2017-05-10 11:06:39</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>5e390787dba67200ef73d8c0cf9619e5</sys_id>
+        <sys_mod_count>1697</sys_mod_count>
+        <sys_name>AMS_CreateDynamicFieldsForRFC</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_ui_macro_5e390787dba67200ef73d8c0cf9619e5</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-19 19:29:20</sys_updated_on>
+        <xml><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<j:jelly xmlns:j="jelly:core" xmlns:g="glide" xmlns:g2="null" xmlns:j2="null" trim="false">
+<g:requires name="scripts/lib/jquery_includes.js"/>
+<style>
+      *{font-family: 'Roboto', sans-serif;}
+	@keyframes click-wave {
+	  0% {
+		height: 40px;
+		width: 40px;
+		opacity: 0.35;
+		position: relative;
+	  }
+	  100% {
+		height: 100px;
+		width: 100px;
+		margin-left: -40px;
+		margin-top: -40px;
+		opacity: 0;
+	  }
+	}
+	.heading{
+			border-bottom:1px solid #cccccc;
+			margin-bottom:20px;
+	}
+	.col-form-label{
+			font-weight: bold;
+			text-align:right;
+	}
+		  <!--switch css start-->
+		  .switch-wrap{
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	}
+	.switch{
+	 background: #cccccc;
+	 border-radius: 32px;
+	 display: inline-flex;
+	 align-items: center;
+	 justify-content: center;
+	 height: 20px;
+	 position: relative;
+	 width: 40px;
+	 max-width: 110px;
+	 margin: auto;
+	}
+	.switch-wrap label{
+	 color: #747474;
+	 font-size: 16px;
+	 font-weight: 300;
+	 line-height: 42px;
+	text-align:center;
+	 top: 0;
+	 text-transform: uppercase;
+	 -webkit-transition: color .2s ease;
+	 -moz-transition: color .2s ease;
+	 -ms-transition: color .2s ease;
+	 -o-transition: color .2s ease;
+	 transition: color .2s ease;
+	}
+	.switch input {
+	 height: 100%;
+	 left: 0;
+	 opacity: 0;
+	 position: absolute;
+	 top: 0;
+	 width: 100%;
+	 z-index: 2;
+	}
+	.switch input:checked~.switch-toggle {
+	 left: 4px;
+	}
+	.switch input~:checked~.switch-toggle {
+	 left: 22px;
+	}
+	.switch input:checked {
+	 z-index: 0;
+	}
+	.switch-toggle{
+	 background: #4a4a4a;
+	 border-radius: 50%;
+
+	 width: 15px; 
+	 height: 15px;
+	 left: 0;
+	 position: absolute;
+	 top: 3px;
+	 -webkit-transition: left .2s ease;
+	 -moz-transition: left .2s ease;
+	 -ms-transition: left .2s ease;
+	 -o-transition: left .2s ease;
+	 transition: left .2s ease;
+	 z-index: 1;
+	}
+		  <!--switch css end-->
+		  .justify-center{
+			display:flex;
+			justify-content:space-between;
+			align-items:center;
+	}
+	td.justify-center{
+		padding: 5px 10px;
+	}
+			.justify-center .radio{
+				display:flex;
+			}
+
+	.option-input {
+	  -webkit-appearance: none;
+	  -moz-appearance: none;
+	  -ms-appearance: none;
+	  -o-appearance: none;
+	  appearance: none;
+	  position: relative;
+	  top: 0;
+	  right: 0;
+	  bottom: 0;
+	  left: 5px;
+	  height: 40px;
+	  width: 40px;
+	  transition: all 0.15s ease-out 0s;
+	  background: #cbd1d8;
+	  border: none;
+	  color: #fff;
+	  cursor: pointer;
+	  display: inline-block;
+	  margin-right: 0.5rem;
+	  outline: none;
+	  position: relative;
+	  z-index: 1000;
+	}
+	.option-input:hover {
+	  background: #9faab7;
+	}
+	.option-input:checked {
+	  background: #40e0d0;
+	}
+	.option-input:checked::before {
+	  height: 40px;
+	  width: 40px;
+	  position: absolute;
+	  content: '✔';
+	  display: inline-block;
+	  font-size: 26.66667px;
+	  text-align: center;
+	  line-height: 40px;
+	}
+	.option-input:checked::after {
+	  -webkit-animation: click-wave 0.65s;
+	  -moz-animation: click-wave 0.65s;
+	  animation: click-wave 0.65s;
+	  background: #40e0d0;
+	  content: '';
+	  display: block;
+	  position: relative;
+	  z-index: 100;
+	}
+	.option-input.radio {
+	  border-radius: 50%;
+	}
+	.option-input.radio::after {
+	  border-radius: 50%;
+	}
+	.table>tbody .hidden-row {
+	  padding: 0 8px;
+	}
+	.bg-aws-color {
+	 background: #eee;	
+	}
+	
+</style>
+<!-- MomentJS Plugin -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.10/moment-timezone-with-data.js"></script>
+<!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.min.css"/>
+<!-- Bootstrap Tags-Input Plugin -->
+<!--link rel="stylesheet" href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"/>
+<script src="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script-->	
+<!-- Bootstrap select picker plugin -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.3.0/prototype.js"></script>
+
+<script>
+	var $snowJQ = jQuery.noConflict();
+ <!-- ********* Function to remove the Dynamic Fields from the main RFC Form ******* -->	
+    function hideUIMacro(){
+		try {
+			$snowJQ("#bodyDiv").empty();//$snowJQ("dynForm").remove();
+		}
+		catch(err) {
+			console.log('Nothing to remove ' + err.message);
+		} 
+	}
+<!-- ******** Function to get the Dynamic fields using changeyeId	******** -->
+function getFieldsToCreateDynamicForm(id){
+	var ga = new GlideAjax('AMS_GetRFCFormFields');
+	ga.addParam('sysparm_name', 'getFields');
+	ga.addParam('sysparm_changeTypeId', id);
+	ga.getXMLWait();
+	var res = ga.getAnswer();
+	var params = JSON.parse(res);
+	buildHtmlTable(params);
+}
+<!-- ********** Function for date picker	********  -->
+function prepareSelectPickers(){
+	var allSelectPickers = $snowJQ('#bodyDiv').find('select');
+	for (var i =0; allSelectPickers.length > i ; i++){
+		if (allSelectPickers[i].id != "") {
+			$snowJQ('#' + allSelectPickers[i].id + '')
+			.selectpicker({
+				liveSearch: true,
+				liveSearchStyle: "contains",
+				actionsBox: true,
+				showTick: true
+			}); 	
+		}
+	}
+}
+<!-- ******* Function to validate all the mandatory fields	******** -->
+function validateAllRequiredInputs(){
+	var requiredIDs = document.querySelectorAll(".requiredID");
+	var emptyFieldMap={};
+	for (var i = 0; requiredIDs.length > i; i++) {
+		var inputVar = requiredIDs[i].querySelectorAll('input, textarea, select, radio');
+		if (inputVar.length >0 ) {		
+			if(!inputVar[0].value) {
+				emptyFieldMap["isValid"] = false;	
+				emptyFieldMap["fieldName"]=inputVar[0].getAttribute("name");
+				return emptyFieldMap;
+			}else{
+					emptyFieldMap["isValid"] = true;
+				}
+		}
+	}
+	return emptyFieldMap;
+}
+<!-- ******* Function to get all the dynamic created field values which is called from client script ***** -->
+function getValues() {
+		 var executionparameters_properties={};
+		 var executionparameters_params={};
+		 var fieldMap={};
+	<!-- Get all the required field values whose class name is div.parameters -->
+   	     var parametersIDs = document.querySelectorAll("div.parameters");
+			for (var i = 0; parametersIDs.length > i; i++) {
+				 var inputVar = parametersIDs[i].querySelectorAll('input, textarea, select, radio');
+				 if (inputVar.length >0 ) {		
+				   if(inputVar[0].value) 
+				     if(inputVar[0].getAttribute("name") ) 
+						executionparameters_params[inputVar[0].getAttribute("name")] = getInputType(inputVar[0].value, inputVar[0].getAttribute("paramType"));						
+				    } 
+			}
+			<!-- Get all the other field values whose class name is div.properties --> 
+			var propertiesIDs = document.querySelectorAll("div.properties");
+			for (var i = 0; propertiesIDs.length > i; i++) {
+				 var inputVar = propertiesIDs[i].querySelectorAll('input, textarea, select, radio');
+				 if (inputVar.length >0 ) {		
+				   if(inputVar[0].value) 
+				     if(inputVar[0].getAttribute("name") ) 
+						executionparameters_properties[inputVar[0].getAttribute("name")] = getInputType(inputVar[0].value, inputVar[0].getAttribute("paramType"));						
+				    } 
+			}
+			 
+			executionparameters_properties["requestedStartTime"] = (document.getElementById("requestedStartTime").value);<!-- Add Requested start and end time -->
+			executionparameters_properties["requestedEndTime"] = (document.getElementById("requestedEndTime").value);
+			var tagz = document.getElementById("HiddenTags");
+<!-- 	Try block for checking the value in HiddenTags -->
+			try{
+					if (tagz.value) {
+						var tmpArr = (JSON.parse(tagz.value)).tmpArr;
+						executionparameters_properties["Tags"] = tmpArr;
+					}
+			}catch(err){
+				console.log("Error = "+err.message);
+			}
+			executionparameters_properties["Parameters"] = executionparameters_params;
+			return trimEmptyValues(executionparameters_properties) ;
+}
+<!-- ******* Function to convert the value according to the input type	*****  -->
+function getInputType(value, valuetype) {
+		if (valuetype === "array"){
+			var tmp = value.split(',');
+			if(!Array.isArray(tmp)) tmp = tmp.push(value);
+			return tmp;
+		} else if (valuetype === "number"){
+			return parseFloat(value);
+		} else if (valuetype === "boolean"){
+			return (value == "true");
+		} else if (valuetype === "string"){
+			return value;
+		} else if (valuetype === "integer"){
+			return parseInt(value);
+		} else {
+			return value;
+		}
+}	
+	
+	<!-- ****** Function to remove empty spaces in each values fetched from the fields ******	 -->
+function trimEmptyValues(obj){
+ var propNames = Object.getOwnPropertyNames(obj);
+  for (var i = 0; propNames.length > i; i++) {
+    var propName = propNames[i];
+    if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "") {
+      delete obj[propName];
+    } else if (typeof(obj[propName]) === "object"){
+    		trimEmptyValues((obj[propName]));
+    	}
+  }
+  return obj;
+}
+<!-- ***** Function to create the date in the Date and Time picker ***** -->
+function createDate(){
+		var dateChosen = $snowJQ('#datePicker').datepicker('getDate');
+		var timeChosen = $snowJQ("#time").val().split(":") ;
+		var timezoneChosen = $snowJQ("#timezones").val() ;
+		if (!dateChosen) {
+			// force current date
+			dateChosen = moment();
+			dateChosen.hour(timeChosen[0]);
+			dateChosen.minute(timeChosen[1]);
+		} else {
+			dateChosen.setHours(timeChosen[0]);
+			dateChosen.setMinutes(timeChosen[1]);
+		}
+		
+		var myDateTime = moment(dateChosen).format();
+		myDateTime = myDateTime.split('+')[0];
+		var finalDateChosen = moment.tz(myDateTime, timezoneChosen);
+		finalDateChosen.format();
+		var finalDateUTC = moment.utc(finalDateChosen);
+		$snowJQ("#requestedStartTime").val(finalDateUTC.toISOString());
+		var finalEndDataChosen = finalDateUTC.add(1,'days');
+		$snowJQ("#requestedEndTime").val(finalEndDataChosen.toISOString());	
+		console.log('finalDateUTC.toISOString() ' + finalDateUTC.toISOString());
+		console.log('finalEndDataChosen.toISOString() ' + finalEndDataChosen.toISOString());
+		console.log(' val ' + $snowJQ("#requestedStartTime").val());
+
+}
+<!-- ****** Function to create current date	****** -->
+function prepareDateTimePicker(){
+		var container=$snowJQ('.dynForm').length>0 ? $snowJQ('.dynform').parent() : "body";
+		var now = moment().add(15,'m').format("HH:mm");
+		var currDate = moment().toString();
+		$snowJQ('#time')
+		.on("keyup", function(e){
+			var key=String.fromCharCode(e.keyCode);
+			var value=$snowJQ(this).val();
+    		if(value.length==2)$snowJQ(this).val($snowJQ(this).val()+':');
+		})
+		.on("change", function(e){
+			var patt = new RegExp("^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$");
+			var res = patt.test(e.target.value);
+			if(res) {
+				$snowJQ('#time').parent().parent().removeClass("bg-danger");
+				$snowJQ("#time").parent().next().hide();
+				createDate();
+				updateRfcJsonValues()
+			} else {
+				$snowJQ('#time').parent().parent().addClass('bg-danger');
+				$snowJQ("#time").parent().next().show();
+			}
+
+		})
+		$snowJQ("#time").attr("placeholder" , now);
+		$snowJQ("#time").val(now);
+		
+		var timezoneNames = moment.tz.names();
+		var x = document.getElementById("timezones");
+		
+		for (var i = 0; timezoneNames.length > i; i++) {
+			var option = document.createElement("option");
+			option.text = timezoneNames[i];
+			option.value = timezoneNames[i];
+			x.add(option);
+  		}  		
+		
+		$snowJQ("#timezones option[value= '" + moment.tz.guess() + "'] ").attr("selected" , "selected");
+		var tmp = $snowJQ("#timezones").find(":selected").text();
+		
+		$snowJQ('#timezones')
+		.on("change", function(e){createDate();updateRfcJsonValues()})
+		
+		$snowJQ('#datePicker')
+		.datepicker({
+            format: 'yyyy/mm/dd',
+			container: container,
+			todayHighlight: true,
+			autoclose: true,
+			startDate: '+0d',
+			todayBtn:true
+        })
+		.on('changeDate', function(e) {
+			createDate();
+			updateRfcJsonValues();
+        })
+        .on('hide',function(){ 
+			var a = $snowJQ(this);
+			setTimeout(function(){a.show();},2);
+		});
+		console.log('currDate is ' + currDate);
+		$snowJQ('#datePicker').datepicker('setDate', currDate);
+		var setVal = $snowJQ("#datePicker").datepicker('getDate');
+		console.log ('setVal = ' + setVal);
+		$snowJQ("#startDate").val(currDate);
+		createDate();
+	}
+<!-- *** Function to update the RFC JSON field value	**** -->
+	function updateRfcJsonValues(){
+		var rfcJson = {};
+		rfcJson["executionParameters"] = getValues();
+		(document.getElementById("rfcJson")).value = JSON.stringify(rfcJson);	
+	}
+	 	
+	function addIds(componentID, id){
+		var component=document.getElementById(componentID.name).value;
+		if(component){
+				if(component.include(id)){
+					alert(id+" already added!!");
+						return;
+					}
+				else{
+					if(componentID.name.include("Subnet") || componentID.name=="StackIds"){
+						document.getElementById(componentID.name).value=component+","+id;
+					}else{
+						document.getElementById(componentID.name).value=id;
+					}
+				}
+	}
+	else{
+			document.getElementById(componentID.name).value=id;
+		}
+	}
+<!-- ***** Function to clear the selected values from the drop-down	***** -->
+	function clearAll(nodeName){
+	var component=document.getElementById(nodeName).value;
+	if(nodeName){
+		document.getElementById(nodeName).value="";
+		document.getElementById(nodeName+"-select").selectedIndex = 0;
+	return null;
+		}
+	}
+	
+	<!-- **** Function to check the Time in start time  schedule section ****  -->
+		function checkDate(scheduleTime){
+			var el = document.getElementById('time').placeholder;
+			var selectedTime = document.getElementById('time').value;
+			if(selectedTime>el){
+				return true;
+			}else{
+				
+				document.getElementById('time').value = el;
+				return false;
+			}	
+		}
+	
+	
+<!-- ***** Function to validate the given field(item) value using pattern	***** -->
+	function validate(item) {
+		<!--**If HTML5 input pattern mismatch check fails **-->
+		item.parent().parent().removeClass('bg-danger');
+		item.parent().parent().children('#helptext').hide();
+		var errMessage = "";
+		try{
+			var isValid = item[0].checkValidity();
+			if(!isValid) {
+	<!-- ****If pattern check fails ****-->
+				
+				var patte = item[0].getAttribute("pattern");
+				if(patte){
+				var patt = new RegExp(item[0].getAttribute("pattern"));
+					var res = patt.test(item[0].value);
+					if(!res) { 
+						errMessage = "Please match pattern " + item[0].getAttribute("pattern");
+						item.parent().parent().addClass('bg-danger');
+						item.parent().parent().children('#helptext').html(errMessage); 
+						item.parent().parent().children('#helptext').show();
+					} else { // could be errors due to the rest item[0].validity.patternMismatch will STILL be true.
+						if( item[0].validity.tooShort){
+								errMessage = "Min length is " + item[0].minLength;
+						} else if ( item[0].validity.tooLong){
+								errMessage = "Max length is " + item[0].maxLength;
+						} else if ( item[0].validity.rangeOverflow) {
+								errMessage = "Max value is " + item[0].max;
+						} else if( item[0].validity.rangeUnderflow) {
+								errMessage = "Min value is " + item[0].min;
+						} else if( item[0].validity.patternMismatch) {
+								errMessage = ""; // forcefully blank this out AND remove error bg
+
+						}
+						if (errMessage === "") {
+							// forcefully ignore
+							item.parent().parent().removeClass('bg-danger');
+							item.parent().parent().children('#helptext').hide();	
+						} else {
+							item.parent().parent().addClass('bg-danger');
+							item.parent().parent().children('#helptext').html(errMessage);
+							item.parent().parent().children('#helptext').show();
+						}
+					}
+				}else{
+						errMessage = item[0].id+" must be lower or equal to "+item[0].max;
+						item.parent().parent().addClass('bg-danger');
+						item.parent().parent().children('#helptext').html(errMessage); 
+						item.parent().parent().children('#helptext').show();
+				}
+			} else { // passes all checks
+				item.parent().parent().removeClass('bg-danger');
+				item.parent().parent().children('#helptext').hide();
+				updateRfcJsonValues();	
+			}
+			
+		} catch (err){
+			console.log('Could not apply bg-danger to the row');
+			console.log(err);
+		}
+}
+<!-- ***** Function to validate the array field type ***** -->
+function validateArrays(inboundItem){ 
+	var item = document.getElementById(inboundItem.name);
+	var valueOfItem = item.value;
+	var items = valueOfItem.split(',');
+	
+	var minItems = item.getAttribute("minItems");
+	var maxItems = item.getAttribute("maxItems");
+	var errMessage = item.validationMessage;
+	if(item.getAttribute("pattern")){
+		for(var i=0; items.length>i ; i++){
+			var re = new RegExp(item.getAttribute("pattern"));
+			if(!re.test(items[i])) {
+					errMessage = "Please match pattern " + item.getAttribute("pattern");
+					item.parentElement.parentElement.classList.add('bg-danger');
+					item.parentElement.parentElement.querySelector("#helptext").innerHTML=errMessage;
+					item.parentElement.parentElement.querySelector("#helptext").style.display = 'block';
+					return false;
+				} else {
+					item.parentElement.parentElement.classList.remove('bg-danger');
+					item.parentElement.parentElement.querySelector("#helptext").style.display = 'none';
+				}
+		}
+	}
+	if (!minItems) minItems = -1; <!-- **** if no minimum value **** -->
+	if (!maxItems) maxItems = Infinity; <!-- **** if no maximum value  *** -->
+	
+	if ( minItems > items.length || items.length > maxItems){
+		item.parentElement.parentElement.classList.add('bg-danger');
+		errMessage = "Total items must be between min " + minItems + " and max " + maxItems;
+		item.parentElement.parentElement.querySelector("#helptext").innerHTML=errMessage;
+		item.parentElement.parentElement.querySelector("#helptext").style.display = 'block';	
+		return false;
+	} else {
+		item.parentElement.parentElement.classList.remove('bg-danger');
+		item.parentElement.parentElement.querySelector("#helptext").style.display = 'none';
+		return true;
+	}
+}
+<!-- ***** Function to validate all the fields	***** -->
+function validateAll(){
+	var allItems = document.querySelectorAll("div.parameters, div.properties");
+	var isValid = true;
+	for (var i = 0; allItems.length > i; i++) {
+		var inputVar = allItems[i].querySelectorAll('input, textarea, select, radio');
+		if (inputVar.length >0 ) {		
+			isValid = inputVar[0].checkValidity();
+			if(!isValid) {
+				inputVar[0].parentElement.parentElement.classList.add('bg-danger');
+				return false;			
+			} else {
+<!-- 				inputVar[0].parentElement.parentElement.classList.remove('bg-danger'); -->
+			}
+		}
+		if(inputVar[0].parentElement.parentElement.className.includes('bg-danger')){
+			alert("Please clear the error caused by the field =  "+inputVar[0].name);
+			return false;
+		}
+	}
+	var tagz = document.getElementById("HiddenTags");
+<!-- 	Try block for checking the value in HiddenTags -->
+			try{
+					if (tagz.value) {
+						var tmpArr = (JSON.parse(tagz.value)).tmpArr;
+						for(var i=0;tmpArr.length>i;i++){
+							if(Object.keys(tmpArr[i]).length>0){
+							Object.keys(tmpArr[i]).forEach(function(key) {
+								if(!tmpArr[i][key]){
+									alert("Please give value for "+ key +" in Tags");
+										isValid= false;
+										return isValid;
+									}
+								});
+								if(!isValid){
+									break;
+									}
+							}
+						}
+					}
+			}catch(err){
+				console.log("Error = "+err.message);
+			} 
+	if(document.getElementById("timeDIV").className.includes("bg-danger")){
+		alert("The Time format is invalid");
+		return false;
+	}
+	return isValid;
+}
+	
+<!-- ****** Function to add rows during Run-time in Tags field ***** -->
+function addRows(){
+	document.getElementById("tagsContainer").parentElement.classList.add("bg-aws-color");
+	<!--  Find the key for each row = total existing rows + 1 since before adding a row, the total is less by 1 -->
+	var totalRows = 0;
+	var keypairs = document.querySelectorAll("tr[id^='keypair-']");
+<!-- 	Get total rows -->
+	if(keypairs) totalRows = keypairs.length;
+	if(totalRows > 6) { alert('Sorry, we currently have a limit of 7 tags only'); return null;}
+	var currentRow = totalRows + 1;
+	var tr1String = "";
+	tr1String = '<tr id="keypair-' 
+			+ currentRow + 
+			'"> <td><div><label for="value-' 
+			+ currentRow + 
+			'" class="col-form-label">Value *</label> <input name="value-' 
+			+ currentRow + 
+			'" id="value-' 
+			+ currentRow + 
+			'" type="text" placeholder="Value" pattern="^[a-zA-Z0-9\\s_./=+-]{1,255}$" minLength="1" maxLength="255" class="form-control input-md" onchange="updateTagsField();"/></div><div><label for="key-' 
+			+ currentRow + 
+			'" class="col-form-label">Key *</label> <input name="key-' 
+			+ currentRow + 
+			'" id="key-' 
+			+ currentRow + 
+			'" type="text" placeholder="Key" pattern="^[a-zA-Z0-9\\s_./=+-]{1,255}$"  minLength="1" maxLength="255" class="form-control input-md" onchange="updateTagsField();" /></div></td></tr>';
+			<!-- Start the table -->
+			tr1String += '<tr id="actions-row-' + currentRow + '"> <td>';
+			if (totalRows == 0){
+				<!--  only add the delete button -->
+				tr1String += '<button id="delete_row-' + currentRow + '" class="btn btn-default" onclick="updateTagsField();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
+			} else {
+	        	tr1String += '<button id="move_row_up-' + currentRow + '" class="btn btn-default" ><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button>'
+				tr1String += '<button id="move_row_down-' + currentRow + '" class="btn btn-default" disabled="true"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></button>'
+				tr1String += '<button id="delete_row-' + currentRow + '" class="btn btn-default" onclick="updateTagsField();"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';		
+			}
+			<!--  End the table -->
+			tr1String += '</td></tr>';
+			
+		document.getElementById("tagsContainer").querySelector("table tbody")
+	  		.insertAdjacentHTML('beforeend',tr1String );
+<!-- 	  	 Get the previous row and enable its down arrow -->
+	  	if (document.getElementById("move_row_down-" + totalRows)) document.getElementById("move_row_down-" + totalRows).disabled=false;
+<!-- 	  	Attach delete eventlistener -->
+	  	document.querySelector('#delete_row-'+ currentRow).onclick = 
+	  		function(e) { 
+				e.preventDefault();
+	  			var node1 = this.parentElement.parentElement; <!--  gives the tr the button is in -->
+<!-- 		 need to disable the down arrow of previous row			  			 -->
+	  			var node2 = node1.previousElementSibling;  <!-- gives you the tr the key-value are in	 --> 
+	  			var node3 = node2.previousElementSibling;  <!-- gives you the tr the previous actions buttons are in  -->			
+	  			node1.remove();  <!-- remove self -->
+	  			node2.remove(); <!-- remove the keypair for this action button  -->
+	  			var move_down_button = node3.querySelector("[id^='move_row_down-']");
+	  			if (move_down_button) move_down_button.disabled="true"; // disable the down button 	
+	  			updateTagsField();
+	  		}
+<!-- 	Attach up row eventlistener -->
+	  	if(document.querySelector('#move_row_up-'+ currentRow)) { 
+	  		document.querySelector('#move_row_up-'+ currentRow).onclick = 
+	  			function(e) {
+					e.preventDefault();
+					var parentNode = document.getElementById("tagsContainer").querySelector("table tbody");
+					var node3 = document.querySelector('#actions-row-'+ totalRows);
+					var node1 = node3.previousElementSibling;
+					var node2 = node3.nextElementSibling;
+					parentNode.insertBefore(node2, node1);
+					parentNode.insertBefore(node3, node1);
+					updateTagsField();
+	  			}
+	  	}
+<!-- 	Attach down row eventlistener -->
+	  	if(document.querySelector('#move_row_down-'+ currentRow)) { 
+	  		document.querySelector('#move_row_down-'+ currentRow).onclick = 
+	  			function(e) { 
+					e.preventDefault();
+					var parentNode = document.getElementById("tagsContainer").querySelector("table tbody");
+					var node3 = document.querySelector('#actions-row-'+ currentRow);
+					var node1 = node3.previousElementSibling;
+					var node2 = node3.nextElementSibling;
+					parentNode.insertBefore(node1, node2);
+					parentNode.insertBefore(node2, node3);
+					updateTagsField();
+	  			}
+	  	}
+	updateTagsField();
+}
+	
+<!-- **** Function to add the Key Value for the Tags Field	***** -->
+function updateTagsField(){
+	  var keypairs = document.querySelectorAll("tr[id^='keypair-']");
+	  var totalRows = 0;
+	  if(keypairs) {totalRows = keypairs.length;}
+	  if (totalRows > 0 ){
+		  var finalArray= '{ "tmpArr" : [';
+		  for (var i = 0; totalRows > i; i++) {
+			 var key = keypairs[i].querySelector('input[name^=key]');
+			 if (key) {key = (key.value) ? key.value : "";}
+			 var val = keypairs[i].querySelector('input[name^=value]');
+			 if (val) {val = (val.value) ? val.value : "";}
+			 finalArray += '{ "Key":"' + key + '" , "Value":"' + val + '" }'
+			 if (i != (keypairs.length -1)) finalArray += ',';
+		  };
+		  finalArray += ']}';
+		  var tmp = {"Tags" : JSON.parse(finalArray) };
+		document.getElementById("HiddenTags").value = finalArray;
+	  }else{
+			document.getElementById("HiddenTags").value = '{ "tmpArr" : []}';
+		}
+	  updateRfcJsonValues();	
+}
+	<!-- ***** The main function to create the dynamic fields *****	 -->
+function buildHtmlTable(params) {
+      var bodyDiv = document.getElementById('bodyDiv');
+<!-- 	Try block for removing the dynamically created form, which will not be their for the first time. -->
+		try {
+			$snowJQ("dynForm").remove(); <!-- If the form is created, remove it -->
+		}
+		catch(err) {
+			console.log('Nothing to remove ' + err.message);
+		}
+<!-- 	Create the main Form formX-->
+		var formX = document.createElement("form");
+		formX.setAttribute("id", "dynForm");
+<!--    Create DIV for Start Time -->
+		var startTimeContainer = document.createElement("div");
+		startTimeContainer.setAttribute("class", "container");
+		startTimeContainer.setAttribute("id", "startTimeContainer");
+		var startTimeContainerRow = document.createElement("div");
+		startTimeContainerRow.setAttribute("class", "row");
+		startTimeContainerRow.innerHTML='<h2>Start time</h2><hr />';
+		startTimeContainer.appendChild(startTimeContainerRow);
+		var startTimeContainerRowDiv = document.createElement("div");
+		startTimeContainerRowDiv.setAttribute("class", "form-group");
+		startTimeContainerRowDiv.innerHTML = 
+		'<div class="row requiredID properties">\
+			<div class="radio">\
+				<label>\
+					<input type="radio" value="true" checked="true" data-toggle="collapse" name="timeZone" data-target="#startTimDiv"/>ASAP (10 minutes after RFC is submitted)\
+				</label>\
+			</div>\
+			<div class="radio">\
+				<label>\
+					<input type="radio" value="false" data-toggle="collapse" id="timeZone" name="timeZone" data-target="#startTimDiv"></input>Scheduled</label>\
+			</div>\
+		</div>\
+		<div class="row properties">\
+		  <div class="form-group collapse" id="startTimDiv">\
+			<div class="col-sm-4 date">\
+					<div class="input-group date" id="datePicker" >\
+	  					<input type="text" class="form-control" id="startDate" name="startDate"/><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>\
+					</div>\
+			</div>\
+		  <div class="col-sm-2" id="timeDIV">\
+					<div class="input-group">\
+						<input class="form-control" id="time" name="time" type="time" placeholder="00:00" maxlength="5" onchange="checkDate($snowJQ(this))"/>\
+					</div>\
+			  <div class="text-danger" style="display: none" id="helptext">Invalid Time </div>\  
+		  </div>\
+		  <div class="col-sm-4">\
+					<div class="input-group">\
+						<select class="form-control" id="timezones" name="timezones" placeholder="Timezones" />\
+					</div>\
+					<span style="display:flex; align-items:left;top:-25px;" class="col-sm-1 pull-right glyphicon glyphicon-info-sign" data-toggle="tooltip" title="The start date must be at least 10 minutes after the time of RFC submission."></span>\</div>\
+		  </div>\
+	</div>\
+	<div><input type="hidden" name="requestedStartTime" id="requestedStartTime"/></div>\
+	<div><input type="hidden" name="requestedEndTime" id="requestedEndTime"/></div>';
+	
+		startTimeContainer.appendChild(startTimeContainerRowDiv);
+		formX.appendChild(startTimeContainer);
+<!-- ***** Description container rfcDescriptionContainer ***** -->
+		var rfcDescriptionContainer = document.createElement("div");
+		rfcDescriptionContainer.setAttribute("class", "container");
+		rfcDescriptionContainer.setAttribute("id", "rfcDescriptionContainer");
+		var rfcDescriptionContainerRow = document.createElement("div");
+		rfcDescriptionContainerRow.setAttribute("class", "row");
+		rfcDescriptionContainerRow.innerHTML = '<div class="row heading">\
+         <div class="col-sm-5"><h2>RFC description</h2></div>\
+         <div class="col-sm-4">\
+            <div class="switch-wrap">\
+               <label class="col-sm-4" for="md-switch-on">Basic</label>\
+               <div class="switch col-sm-4">\
+                  <input type="radio" data-toggle="collapse" data-target=".optionalID" name="md-switch" id="md-switch-off" checked="true" />\
+                  <input type="radio" data-toggle="collapse" data-target=".optionalID" name="md-switch" id="md-switch-on" />\
+                  <span class="switch-toggle" />\
+               </div>\
+               <label for="md-switch-off" class="col-sm-4">Advanced</label>\
+            </div>\
+         </div>\
+         <span class="justify-center glyphicon glyphicon-info-sign" style="height:40px; justify-content:center;" data-toggle="tooltip" title="Basic and advanced view of rfc creation." />\
+      </div>\
+      <div class="form-group requiredID properties">\
+         <label class="col-sm-4 col-form-label" for="Subject">Subject*</label>\
+         <div class="col-sm-7">\
+            <input type="text" class="form-control" rows="5" paramType="text" name="Subject" id="Subject"  onchange="updateRfcJsonValues()"/>\
+         </div>\
+      </div>\
+      <div class="form-group bg-info optionalID properties collapse">\
+         <label class="col-sm-4 col-form-label" for="description">Description</label>\
+         <div class="col-sm-7">\
+            <textarea class="form-control" rows="5" paramType="text" name="description" id="advncDescription" onchange="updateRfcJsonValues()"/>\
+         </div>\
+      </div>\
+      <div class="form-group bg-info optionalID properties collapse">\
+         <label class="col-sm-4 col-form-label" for="worstCasesScenario">Worst-case scenario</label>\
+         <div class="col-sm-7">\
+            <textarea class="form-control" rows="5" paramType="text" name="worstCasesScenario" id="worstCasesScenario" onchange="updateRfcJsonValues()"/>\
+         </div>\
+      </div>\
+      <div class="form-group bg-info optionalID properties collapse">\
+         <label class="col-sm-4 col-form-label" for="implementationPlan">Implementation plan</label>\
+         <div class="col-sm-7">\
+            <textarea class="form-control" rows="5" paramType="text" name="implementationPlan" id="implementationPlan" onchange="updateRfcJsonValues()"/>\
+         </div>\
+      </div>\
+      <div class="form-group bg-info optionalID properties collapse">\
+         <label class="col-sm-4 col-form-label" for="rollbackPlan">Rollback plan</label>\
+         <div class="col-sm-7">\
+            <textarea class="form-control" rows="5" paramType="text" name="rollbackPlan" id="rollbackPlan" onchange="updateRfcJsonValues()"/>\
+         </div>\
+      </div>\
+      <div class="form-group bg-info optionalID properties collapse">\
+         <label class="col-sm-4 col-form-label" for="expectedOutcome">Expected outcome</label>\
+         <div class="col-sm-7">\
+            <textarea class="form-control" rows="5" paramType="text" name="expectedOutcome" id="expectedOutcome"  onchange="updateRfcJsonValues()"/>\
+         </div>\
+      </div>';
+		rfcDescriptionContainer.appendChild(rfcDescriptionContainerRow);
+		formX.appendChild(rfcDescriptionContainer);		
+<!-- *****	Resource Information container resourceInformationContainer **** -->
+		var resourceInformationContainer = document.createElement("div");
+		resourceInformationContainer.setAttribute("class", "container");
+		resourceInformationContainer.setAttribute("id", "resourceInformationContainer");
+		var resourceInformationContainerRow = document.createElement("div");
+		resourceInformationContainerRow.setAttribute("class", "row");
+		resourceInformationContainerRow.innerHTML='<h2>Resource information</h2><hr />';
+		resourceInformationContainer.appendChild(resourceInformationContainerRow);
+<!-- ***	Parameters Container parameterContainer  *****  -->
+	    var parameterContainer= document.createElement("div");
+		parameterContainer.setAttribute("class", "container");
+		parameterContainer.setAttribute("id", "parameterContainer");
+		var parameterContainerRow = document.createElement("div");
+		parameterContainerRow.setAttribute("class", "row");
+		parameterContainerRow.innerHTML='<h3>Parameters</h3><hr />';
+		parameterContainer.appendChild(parameterContainerRow);
+<!-- ****	Loop the params map to create the field ***** -->
+		for (var i = 0; Object.keys(params).length > i; i++) {
+			var tmp = params[Object.keys(params)[i]];
+			var inputType;
+<!-- ****	Switch case for the data type while creating fields  **** -->
+			switch (tmp.paramType) {
+				case "string":
+					if (tmp.snowParamType === "String" ){
+						inputType = "text"
+					} else if (tmp.snowParamType === "Choice" || tmp.snowParamType=== "Reference"){
+						inputType = "select"
+					} 			 
+					break;
+				case "array":
+					if(tmp.snowParamType === "Reference"){
+					   inputType = "select";
+					} else if(tmp.paramName === "Tags"){
+					   inputType = "select-multiple"
+					}else{
+						inputType = "List";
+					}
+					break;
+				case "number":
+					inputType = "number"
+					break;
+				case "integer":
+					inputType = "number"
+					break;
+				case "boolean":
+					inputType = "boolean";
+					break;
+				default:
+					inputType = "text"
+
+			}
+<!-- **** The Parent Div of the field  ***** -->
+			var divX = document.createElement("div");
+			var collapseOrNot = (tmp.mandatory != "true") ? "collapse" : "";
+			var optionalOrRequiredID = (tmp.mandatory != "true") ? "optionalID" : "requiredID";
+			var optionalFieldBG = (tmp.mandatory != "true") ? " bg-info " : "";
+			divX.setAttribute("class", "form-group" + optionalFieldBG + " " + optionalOrRequiredID + " " + collapseOrNot + " " + tmp.awsParamType);
+		    
+			var str = "";
+			var mand = (tmp.mandatory === "true") ? "*" : "";
+			var mandStr = (tmp.mandatory === "true") ? "required" : "";
+			str += '<label class="col-sm-4 col-form-label" for="' + tmp.paramName + '">' + tmp.paramName + mand + '</label>';
+	
+			var additionalTypes="";
+			if (tmp.default) additionalTypes += 'placeholder="' + tmp.default + '" ';
+			if (tmp.minimum) additionalTypes += 'min="' + tmp.minimum + '" ';
+			if (tmp.maximum) additionalTypes += 'max="' + tmp.maximum + '" ';
+			if (tmp.pattern) additionalTypes += 'pattern="' + tmp.pattern + '" ';
+			if(tmp.paramName === "StackTemplateId"){
+				divX.setAttribute("class","form-group bg-info optionalID properties collapse");
+			 }
+<!-- ***** Create field for data type text and number  ***** -->
+			if (inputType === 'text' || inputType === 'number') {             
+				if(tmp.pattern){
+				str += '<div class="col-sm-7" >';
+			    str += '<input type="' 
+					+ inputType + 
+					'" step="0.01" class="form-control" name="' 
+					+ tmp.paramName + 
+					'" id="' 
+					+ tmp.paramName + 
+					'" value="' 
+					+ tmp.default + 
+					'"  min="' 
+					+ tmp.minimum + 
+					'" max="' 
+					+ tmp.maximum + 
+					'" onchange="validate($snowJQ(this))" pattern="' + tmp.pattern + '" paramType="' + tmp.paramType + '" 
+					maxlength="' + tmp.maxLength + '" minlength="' + tmp.minLength + '"/></div>';
+					}
+				else{
+					str += '<div class="col-sm-7" >';
+					str += '<input type="' 
+					+ inputType + 
+					'" step="0.01" class="form-control" name="' 
+					+ tmp.paramName + 
+					'" id="' 
+					+ tmp.paramName + 
+					'" value="' 
+					+ tmp.default + 
+					'"  min="' 
+					+ tmp.minimum + 
+					'" max="' 
+					+ tmp.maximum + 
+					'" onchange="validate($snowJQ(this))" paramType="' + tmp.paramType + '" /></div>';}
+	}
+<!-- ***** Create field for the boolean data type  ***** -->
+			if (inputType === 'boolean') {            
+				if(tmp.snowParamType == 'True/False'){
+					var checkedStr = ((tmp.default === true) ? true: false);
+					str += '<div class="col-sm-7"><div class="radio"><label><input id="' + tmp.paramName + '" type="radio" paramType="' + tmp.paramType + '" name="' + tmp.paramName + '" value="true" checked="'+checkedStr+'"  onchange="updateRfcJsonValues()">true</input></label></div>';
+					str += '<div class="radio"><label><input type="radio" paramType="' + tmp.paramType + '" name="' + tmp.paramName + '" value="false" checked="'+checkedStr+'">false</input></label></div></div>';
+				}
+			}
+<!-- ***** Create field for the Tags Field	**** -->
+			if (inputType === 'select-multiple'){
+				str += '<div class="container" id="tagsContainer" name="tagsContainer">';
+				str +=   '<div class="row" id="tagsTableRow" name="tagsTableRow">';
+				str += 		'<div class="col-md-4 col-md-offset-2 column">';
+				str += 			'<table class="table bg-aws-color" id="keypair-table">';
+				str += 				'<tbody>';
+				str +=                '<tr><td><input type="hidden" id="HiddenTags" class="hidden-row"></input></td></tr>';
+				str += 				'</tbody>';
+				str += 			'</table>';
+				str += 		'</div>';
+				str += 	'</div>';
+				str += 	'<button id="add_row" type="button" class="btn btn-default pull-left" onclick="addRows()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>';
+				str += '</div><div class="col-sm-8 col-md-offset-4 text-danger" style="display: none" id="helptext"/>';
+			}
+<!-- ***** Create field for the Drop-down Field ***** -->
+			if (inputType === 'select'){
+				 if(tmp.snowParamType !== "Reference") {
+					 if(tmp.paramName === "StackTemplateId"){
+						 str += '<div class="col-sm-7"><div class="radio"><label><input id="' + tmp.paramName + '" paramType="' + tmp.paramType + '" name="' + tmp.paramName + '" type="radio" value="' + tmp.num + '" checked="checked">'+tmp.num+'</input></label></div></div>';
+					  } else {
+						var options = tmp.num.split(',');
+						var optionStr = '';
+						options.forEach( (option) => {
+	if(tmp.default == option) optionStr+= '<option value="' + option + '" selected="true">' + option + '</option>'
+	else optionStr+= '<option value="' + option + '" >' + option + '</option>' });
+						str += '<div class="col-sm-7" id="'+ tmp.paramName +'"><select class="form-control" id="'+ tmp.paramName +'"  paramType="' + tmp.paramType + '" name="'+ tmp.paramName +'" value="'+tmp.default+'">'+ optionStr +'</select></div>'; 
+					  }
+				} else {
+				//var addThis = (tmp.paramType === "array") ? "select-multiple" : "";
+				str += '<div class="col-sm-4"><input id="' + tmp.paramName + '"  paramType="' + tmp.paramType + '" name="' + tmp.paramName + '" type="' + tmp.paramType + '" class="form-control" readonly="true" minItems="' + tmp.minItems + '" maxItems="' + tmp.maxItems + '"></input></div> ';
+				var commonGA;
+<!-- *** SNOW Ajax calls depending upon the param name **** -->
+				if (tmp.paramName == 'VpcId') {
+				commonGA = new GlideAjax('AMS_GetResources');
+				commonGA.addParam('sysparm_name', 'getVpcs');
+				}
+				if (tmp.paramName == 'StackIds' || tmp.paramName == 'StackId') {
+				commonGA = new GlideAjax('AMS_GetResources');
+				commonGA.addParam('sysparm_name', 'getStacks');
+				}
+				if (tmp.paramName == 'AmiId') {
+				commonGA = new GlideAjax('AMS_GetResources');
+				commonGA.addParam('sysparm_name', 'getAmis');
+				}
+				if (tmp.paramName.includes("Subnet")) {
+				commonGA = new GlideAjax('AMS_GetResources');
+				commonGA.addParam('sysparm_name', 'getSubnets');
+				}
+			   commonGA.getXMLWait();
+			   var responseXML = commonGA.getAnswer();
+			   var options = responseXML.split(',');
+			   	
+			   var paramName = tmp.paramName;
+			   var optionStr = '<option value="" selected="true">' + 'none' + '</option>';
+			   options.forEach( (option) =>
+					   optionStr += '<option value="' + option + '" >' + option + '</option>' );
+			   
+			   str += '<div class="col-sm-2"><select class="form-control" onchange="addIds(this, this.value); updateRfcJsonValues(); validateArrays(this);" name="' + tmp.paramName +'" id="' + tmp.paramName +'-select"> ' 
+			   + optionStr + '</select></div>';
+				str += '<button type="button" onclick="clearAll(this.name);updateRfcJsonValues()" name="' + tmp.paramName +'" class="btn btn-default">Clear All</button><div class="col-sm-8 col-md-offset-4 text-danger" style="display: none" id="helptext"/>';
+				 }
+			}
+<!-- **** Create field for Drop-Down with multiple selection	**** -->
+			if(inputType === 'List'){
+				if (tmp.paramName === 'SubnetIds') {
+				   str += '<div class="col-sm-4"><div><label><input id="' + tmp.paramName + '"  paramType="' + tmp.paramType + '" name="' + tmp.paramName + '" type="text" value="' + tmp.num + '" class="form-control"  onchange="validate($snowJQ(this))"></input></label></div></div> ';
+				   var commonGA = new GlideAjax('AMS_GetResources');
+				   commonGA.addParam('sysparm_name', 'getSubnets');
+				   commonGA.getXMLWait();
+				   var responseXML = commonGA.getAnswer();
+				   var options = responseXML.split(',');
+				   var optionStr = '<option value="" selected="true">' + 'none' + '</option>';
+				   options.forEach( (option) =>
+				   optionStr += '<option value="' + option + '">' + option + '</option>' );
+				   str += '<div class="col-sm-2" id="' 
+					   + tmp.paramName + 
+					   '" ><select class="form-control" id="' 
+					   + tmp.paramName + 
+					   '"  paramType="' + tmp.paramType + '" name="' 
+					   + tmp.paramName + 
+					   '"> ' 
+					   + optionStr + 
+					   '</select></div>';
+			   } else {
+						if(tmp.pattern){
+							str += '<div class="col-sm-7" >';
+							str += '<input type="' 
+								+ inputType + 
+								'" class="form-control" name="' 
+								+ tmp.paramName + 
+								'" id="' 
+								+ tmp.paramName + 
+								'" value="' 
+								+ tmp.default + 
+								'"  min="' 
+								+ tmp.minimum + 
+								'" max="' 
+								+ tmp.maximum + 
+								'" onchange="validateArrays(this);updateRfcJsonValues();" 
+								pattern="' + tmp.pattern + '" paramType="' + tmp.paramType + '" 
+								minItems="' + tmp.minItems + '" maxItems="' + tmp.maxItems + '" /></div>';
+						} else {
+								str += '<div class="col-sm-7" >';
+								str += '<input type="text" class="form-control" name="' 
+								+ tmp.paramName + 
+								'" id="' 
+								+ tmp.paramName + 
+								'" value="' 
+								+ tmp.default + 
+								'"  min="' 
+								+ tmp.minimum + 
+								'" max="' 
+								+ tmp.maximum + 
+								'" onchange="validateArrays(this);updateRfcJsonValues();" 
+								paramType="' + tmp.paramType + '" 
+								minItems="' + tmp.minItems + '" maxItems="' + tmp.maxItems + '"/></div>';
+							}
+				}
+			}
+			 
+			str += '<span style="display:flex; align-items:center;height: 40px;" class="col-sm-1 pull-right glyphicon glyphicon-info-sign" data-toggle="tooltip" title="' + tmp.description + '" /><div class="col-sm-8 col-md-offset-4 text-danger" style="display: none" id="helptext"/>';
+			divX.innerHTML = str;
+
+			if(tmp.paramName === 'Description' ||tmp.paramName === 'StackTemplateId'){
+				resourceInformationContainer.appendChild(divX);
+			 }else{
+				parameterContainer.appendChild(divX);
+			 }
+		}
+<!-- ****	RFC JSON Field DIV  *****-->
+		var rfcJsonContainer = document.createElement("div");
+		rfcJsonContainer.setAttribute("class", "container optionalID collapse");
+		rfcJsonContainer.setAttribute("id", "rfcJsonContainer");
+		var rfcJsonContainerRow = document.createElement("div");
+		rfcJsonContainerRow.setAttribute("class", "row");
+		rfcJsonContainerRow.innerHTML='<h2>RFC JSON</h2><hr/>\
+		<div class="row">\
+			<div class="col-sm-12 optionalID collapse" >\
+				<textarea class="form-control" rows="5" name="rfcJson" id="rfcJson" readonly="true" ></textarea>\
+			</div>\
+		</div>\
+		';
+		rfcJsonContainer.appendChild(rfcJsonContainerRow);	
+		formX.appendChild(resourceInformationContainer);<!--  Add the Resource Container to the main Form -->
+		formX.appendChild(parameterContainer); <!-- Next Add the parameter container to the main Form -->
+		formX.appendChild(rfcJsonContainer); <!-- Next Add the RFC JSON to the main Form -->
+		bodyDiv.appendChild(formX); <!-- Add the main form to the html body -->
+		prepareDateTimePicker(); 
+		//prepareSelectPickers();
+		updateRfcJsonValues();
+	}
+   </script>   
+	 <div id="bodyDiv" style="text-align: left; padding:25px;margin:25px;" />
+</j:jelly>]]></xml>
+    </sys_ui_macro>
+</record_update>

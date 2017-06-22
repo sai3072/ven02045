@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <condition/>
+        <conditional>false</conditional>
+        <name>AMS_ ActionsMasterScript</name>
+        <run_as/>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_period/>
+        <run_start>2017-04-19 17:50:31</run_start>
+        <run_time>1970-01-01 08:00:00</run_time>
+        <run_type>on_demand</run_type>
+        <script><![CDATA[//FETCH RFC's
+//Call AMS_RfcFetch script
+var amsFetchRfcsListSummaries = new AMS_RfcFetch();
+
+//Call ListRFCsSummaries API
+var isRfcsInserted = amsFetchRfcsListSummaries.getListOfRfcsAndInsert();
+if(!isRfcsInserted)
+{
+	// No RFCs Found
+	if ('true' == gs.getProperty('debug.AMSRestCalls'))
+		gs.info("Debug >>>AMS ListAllRfcs : 1 or more records were not inserted");		
+}
+
+else
+{
+	// Call AMS_RfcFetch script
+	var amsGetRfcApi = new AMS_RfcFetch();
+	
+	//Fetch RFCId from RFC table
+	var grRfcId = new GlideRecord('x_109369_ams_rfcs');
+	grRfcId.query();
+	while(grRfcId.next())
+	{
+		//Call getRFC API
+		var getRFCInsert = amsGetRfcApi.getRfcAndInsert(grRfcId.u_rfcs_id.toString());
+		if(!getRFCInsert)
+		{
+			// No rfcs Found
+			if ('true' == gs.getProperty('debug.AMSRestCalls'))
+				gs.info("Debug >>>AMS GetRfc :"+grRfcId.u_rfcs_id+" is not inserted");	
+		}
+	}
+
+	//Fetch RFCId from RFC table
+	var grRfcId = new GlideRecord('x_109369_ams_rfcs');
+	grRfcId.query();
+	while(grRfcId.next())
+	{
+		// Call AMS_RfcFetch script
+		var amsListRfcCorrespondenceApi = new AMS_RfcFetch();
+		//Call ListRfcCorrespondences API
+		var getRFCInsert = amsListRfcCorrespondenceApi.getCorrespondenceForRfcAndInsert(grRfcId.u_rfcs_id.toString());
+		if(!getRFCInsert)
+		{
+			// No rfcs Found
+			if ('true' == gs.getProperty('debug.AMSRestCalls'))
+				gs.info("Debug >>>AMS GetRfc :"+grRfcId.u_rfcs_id+" is not inserted");	
+		}
+	}
+}
+	
+//FETCH INCIDENT and SERVICE REQUESTS
+// Call AMS_CaseFetch script
+var amsGetCaseApi = new AMS_CaseFetch();
+var getCaseInsert = amsGetCaseApi.getDescribeCasesAndInsert();
+if(!getCaseInsert)
+{
+	// No cases Found
+	if ('true' == gs.getProperty('debug.AMSRestCalls'))
+		gs.info("Debug >>>AMS Cases are not inserted");	
+}
+
+else
+{
+	//Fetch Case Id from Case table
+	var grCaseId = new GlideRecord('x_109369_ams_case');
+	grCaseId.query();
+	while(grCaseId.next())
+	{
+		// Call AMS_CaseFetch script
+		var amsDescribeCommunicationsApi = new AMS_CaseFetch();
+		//Call getCommunicationsAndInsert API
+		var getCaseCommunicationsInsert = amsDescribeCommunicationsApi.getCommunicationsAndInsert(grCaseId.u_case_id.toString());
+		if(!getCaseCommunicationsInsert)
+		{
+			// No CaseId Found
+			if ('true' == gs.getProperty('debug.AMSRestCalls'))
+				gs.info("Debug >>>AMS DescribeCommunications :" + grCaseId.	u_case_id + " was not inserted");	
+		}
+	}
+}]]></script>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-04-19 17:50:49</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>96add4a0dbd2b600ef73d8c0cf96190c</sys_id>
+        <sys_mod_count>16</sys_mod_count>
+        <sys_name>AMS_ ActionsMasterScript</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sysauto_script_96add4a0dbd2b600ef73d8c0cf96190c</sys_update_name>
+        <sys_updated_by>ams_admin</sys_updated_by>
+        <sys_updated_on>2017-06-14 04:03:24</sys_updated_on>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>

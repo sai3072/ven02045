@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element attributes="no_attachment=true,live_feed=false" extends="x_109369_ams_case" label="Service Requests" max_length="40" name="x_109369_ams_service_requests" type="collection">
+        <element label="State" max_length="40" name="u_service_request_state" read_only="true" type="string"/>
+    </element>
+</database>

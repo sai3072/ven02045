@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>false</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_109369_ams_incidents</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message><![CDATA[<p>Synching data with AWS. Please wait...</p>]]></message>
+        <name>AMS_CreateCaseforIncident</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+	
+	var ccemails;
+	//Get AMS resource object
+	var createtest = new AMS_CaseFetch();
+	//Check empty value for cc_emails
+	if(current.u_case_cc_emails == '')
+		ccemails = '';
+	else
+		ccemails = [current.u_case_cc_emails.toString()];
+	//API call to create case
+	var awsCaseId = createtest.createCaseAndInsert(current.u_case_category.toString(), ccemails, current.u_case_details.toString(), current.u_case_type.toString(), current.u_case_service_code.toString(), current.u_incidents_priority.u_incident_priority_code.toString(), current.u_case_subject.toString());
+	
+	
+	//check whether api is failed or success
+	if(awsCaseId != false){
+		current.u_case_id = awsCaseId;
+		gs.addInfoMessage('Incident successfully created - case Id = ' + awsCaseId);
+		current.update();
+		//Call to update Describe cases for current caseid
+		var getAWSRecord = createtest.getDescribeCasesAndInsert('','',[current.u_case_id.toString()],'','','');
+		if(getAWSRecord){
+			//Update communication for current caseid
+			var getAWSRecordComms = createtest.getCommunicationsAndInsert(current.u_case_id.toString());
+			if(getAWSRecordComms){
+				gs.addInfoMessage('Fetched case communications for - case Id = ' + awsCaseId);
+				//control returns to form here.. but asynchronously
+			} else {
+				gs.addErrorMessage('Could not fetch case communications for - case Id = ' + awsCaseId);
+			}
+		} else {
+			gs.addErrorMessage('Could not fetch case details for - case Id = ' + awsCaseId);
+		}
+		
+	}
+	else
+		{
+		//if creation failed abort the action
+		gs.addErrorMessage('Incident creation failed');
+		
+		current.setAbortAction(true);
+	}
+	
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>priyanka</sys_created_by>
+        <sys_created_on>2017-04-13 09:52:24</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>2c15fb5edb46b200ef73d8c0cf961911</sys_id>
+        <sys_mod_count>79</sys_mod_count>
+        <sys_name>AMS_CreateCaseforIncident</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_2c15fb5edb46b200ef73d8c0cf961911</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-14 13:36:01</sys_updated_on>
+        <template/>
+        <when>async</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=2c15fb5edb46b200ef73d8c0cf961911"/>
+</record_update>

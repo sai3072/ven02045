@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="u_rfcs_rdsdbengine" table="x_109369_ams_rfcs" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsdbengine</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>MYSQL</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>1</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 07:28:06</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>e9655a3cdba2b200ef73d8c0cf961931</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 07:28:14</sys_updated_on>
+            <value>MYSQL</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsdbengine</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>oracle-se1</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>2</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 07:28:37</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>d9759a3cdba2b200ef73d8c0cf9619ce</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 07:29:23</sys_updated_on>
+            <value>oracle-se1</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsdbengine</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>oracle-se</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>3</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 07:28:50</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>c3955e3cdba2b200ef73d8c0cf961936</sys_id>
+            <sys_mod_count>3</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 07:29:27</sys_updated_on>
+            <value>oracle-se</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsdbengine</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>oracle-ee</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>4</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 07:28:45</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>05959a3cdba2b200ef73d8c0cf9619f8</sys_id>
+            <sys_mod_count>3</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 07:29:29</sys_updated_on>
+            <value>oracle-ee</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsdbengine</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>sqlserver-ee</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>5</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 07:29:47</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>84a51e3cdba2b200ef73d8c0cf961929</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 07:30:25</sys_updated_on>
+            <value>sqlserver-ee</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsdbengine</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>sqlserver-se</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>6</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 07:29:56</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>82d59e3cdba2b200ef73d8c0cf9619fd</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 07:30:27</sys_updated_on>
+            <value>sqlserver-se</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsdbengine</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>sqlserver-ex</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>7</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 07:30:14</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>98e5de3cdba2b200ef73d8c0cf9619b0</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 07:30:29</sys_updated_on>
+            <value>sqlserver-ex</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsdbengine</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>sqlserver-web</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>8</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 07:30:41</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>70f5de3cdba2b200ef73d8c0cf961942</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 07:31:08</sys_updated_on>
+            <value>sqlserver-web</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_rdsdbengine</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>postgres</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>9</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 07:31:01</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>9b06927cdba2b200ef73d8c0cf9619d0</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-03 07:31:11</sys_updated_on>
+            <value>postgres</value>
+        </sys_choice>
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>u_rfcs_rdsdbengine</element>
+            <name>x_109369_ams_rfcs</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-03 07:28:06</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>9b56fbf8db6b3200b527f91ebf96196b</sys_id>
+            <sys_mod_count>29</sys_mod_count>
+            <sys_name>u_rfcs_rdsdbengine</sys_name>
+            <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+            <sys_update_name>sys_choice_x_109369_ams_rfcs_u_rfcs_rdsdbengine</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-06-22 07:57:01</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>

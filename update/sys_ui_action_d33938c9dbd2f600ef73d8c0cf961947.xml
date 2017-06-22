@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_ui_action">
+    <sys_ui_action action="INSERT_OR_UPDATE">
+        <action_name>amsrfc_refresh</action_name>
+        <active>true</active>
+        <client>true</client>
+        <comments>To retrive latest updates</comments>
+        <condition>current.u_rfcs_id!=''</condition>
+        <form_action>true</form_action>
+        <form_button>true</form_button>
+        <form_context_menu>false</form_context_menu>
+        <form_link>false</form_link>
+        <hint/>
+        <list_action>false</list_action>
+        <list_banner_button>false</list_banner_button>
+        <list_button>false</list_button>
+        <list_choice>false</list_choice>
+        <list_context_menu>false</list_context_menu>
+        <list_link>false</list_link>
+        <list_save_with_form_button>false</list_save_with_form_button>
+        <name>Refresh</name>
+        <onclick>doRefresh()</onclick>
+        <order>100</order>
+        <script><![CDATA[function doRefresh(){
+    g_form.addInfoMessage('Fetching data from AWS. This could take 10-20 secs. Please wait..');
+	try {
+		var rfcId = g_form.getValue('u_rfcs_id');
+		if (!rfcId) return;
+		var ga = new GlideAjax('AmsRefresh_UI_Action');  
+		ga.addParam('sysparm_name','updateRfc');
+		ga.addParam('rfcId', rfcId); 
+		ga.getXML(updateRfc);	
+	} catch (e) {
+        g_form.addErrorMessage("error: " + e.message);
+		return;
+    }
+}	
+function updateRfc(response) {
+   var answer = response.responseXML.documentElement.getAttribute("answer");
+   g_form.clearMessages();
+   if(answer){
+	    var rfcId = g_form.getValue('u_rfcs_id');
+		if (!rfcId) return;
+	    g_form.addInfoMessage('Updated RFC... Fetching communication data from AWS. Please wait..');
+	    var ga = new GlideAjax('AmsRefresh_UI_Action');  
+		ga.addParam('sysparm_name','getCorrespondenceForRfc');
+		ga.addParam('rfcId', rfcId); 
+		ga.getXML(getCorrespondenceForRfc);	
+   } else {
+	   g_form.addErrorMessage('Error in updating RFC data from AWS.');
+	   return;
+   }
+}
+
+function getCorrespondenceForRfc(response){
+	var answer = response.responseXML.documentElement.getAttribute("answer");
+	//alert(answer);
+    g_form.clearMessages();
+	if (answer){
+		g_form.addInfoMessage('Updated RFC & communication data from AWS. Refreshing page...');
+		gsftSubmit(null, g_form.getFormElement(), 'amsrfc_refresh');
+	} else {
+		g_form.addErrorMessage('Error in fetching communication data from AWS.');
+	}
+}
+
+// if we need it later
+if (typeof window == 'undefined') {
+	reloadForm();
+}
+
+function reloadForm() {//this function will be run server side
+	action.setRedirectURL(current);
+}
+// var amsGetRfcApi = new AMS_RfcFetch();
+// //Call to update rfc for current rfcid
+// var getRFCInsert = amsGetRfcApi.getRfcAndInsert(current.u_rfcs_id.toString());
+// //Call to update correspondence for current rfcid
+// var getRFCCorrespondenceInsert = amsGetRfcApi.getCorrespondenceForRfcAndInsert(current.u_rfcs_id.toString());
+// action.setRedirectURL(current);]]></script>
+        <show_insert>false</show_insert>
+        <show_multiple_update>false</show_multiple_update>
+        <show_query>false</show_query>
+        <show_update>true</show_update>
+        <sys_class_name>sys_ui_action</sys_class_name>
+        <sys_created_by>sahitya</sys_created_by>
+        <sys_created_on>2017-04-21 09:09:39</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>d33938c9dbd2f600ef73d8c0cf961947</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_name>Refresh</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_ui_action_d33938c9dbd2f600ef73d8c0cf961947</sys_update_name>
+        <sys_updated_by>ams-admin</sys_updated_by>
+        <sys_updated_on>2017-06-14 19:07:07</sys_updated_on>
+        <table>x_109369_ams_rfcs</table>
+        <ui11_compatible>true</ui11_compatible>
+        <ui16_compatible>false</ui16_compatible>
+    </sys_ui_action>
+</record_update>

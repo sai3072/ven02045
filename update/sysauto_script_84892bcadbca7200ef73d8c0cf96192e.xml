@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <condition/>
+        <conditional>false</conditional>
+        <name>AMS_ResourcesMasterScript</name>
+        <run_as/>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_period/>
+        <run_start>2017-03-28 18:57:16</run_start>
+        <run_time>1970-01-01 08:00:00</run_time>
+        <run_type>on_demand</run_type>
+        <script><![CDATA[//Call AMS_ResourceFetch script
+var amsFetchVpcsListSummaries = new AMS_ResourceFetch();
+
+//Call ListVpcSummaries API
+var isVpcInserted = amsFetchVpcsListSummaries.getListOfVPCSummariesAndInsert();
+
+if(isVpcInserted)
+	{
+	//Call AMS_ResourceFetch script
+	var amsGetVpcApi = new AMS_ResourceFetch();
+		
+	//Fetch VpcId from VPC table
+	var grVpcVpcId = new GlideRecord('x_109369_ams_vpcs');
+	grVpcVpcId.query();
+	while(grVpcVpcId.next())
+	{
+		//Call getVpc API
+		var getVpcInsert = amsGetVpcApi.getVPCAndInsert(grVpcVpcId.u_vpc_id.toString());
+		
+		if(!getVpcInsert)
+		{
+			// No VPCs Found
+			if ('true' == gs.getProperty('debug.AMSRestCalls'))
+				gs.info("Debug >>>AMS GetVPC :"+grVpcVpcId.u_vpc_id+" is not inserted");
+		}
+	}
+	var nextToken = "";	
+	
+	//Call AMS_ResourceFetch script
+	var amsFetchAmisListSummaries = new AMS_ResourceFetch();
+	
+	//Fetch VpcId from VPC table
+	var grAmiVpcId = new GlideRecord('x_109369_ams_vpcs');
+	grAmiVpcId.query();
+	while(grAmiVpcId.next())
+	{
+		//Call ListAmis API
+		var isAmisInserted = amsFetchAmisListSummaries.getListOfAMIsAndInsert(grAmiVpcId.u_vpc_id.toString(), nextToken);
+		if(!isAmisInserted)
+	{
+		if ('true' == gs.getProperty('debug.AMSRestCalls'))
+			gs.info("Debug>>> No Vpcs  Found");
+	}
+	}
+	
+	//Call AMS_ResourceFetch script
+	var amsFetchSubnetsListSummaries = new AMS_ResourceFetch();
+	
+	//Call ListSubnetSummaries API
+	var isSubnetInserted = amsFetchSubnetsListSummaries.getListOfSubnetSummariesAndInsert();
+		
+	if(!isSubnetInserted)
+	{
+		if ('true' == gs.getProperty('debug.AMSRestCalls'))
+			gs.info("Debug>>> No Subnets Found");
+	}
+		
+	else//Call this only when ListOfSubnetSummaries is success
+	{
+		//Call AMS_ResourceFetch script
+		var amsGetSubnetApi = new AMS_ResourceFetch();
+		
+		//Fetch subnetId from Subnet table
+		var grSubnetId = new GlideRecord('x_109369_ams_subnets');
+		grSubnetId.query();
+		while(grSubnetId.next())
+		{
+			//Call getSubnet API
+			var getSubnetInsert = amsGetSubnetApi.getSubnetAndInsert(grSubnetId.u_subnet_id.toString());
+			
+			if(!getSubnetInsert)
+			{
+				// No subnets Found
+				if ('true' == gs.getProperty('debug.AMSRestCalls'))
+					gs.info("Debug >>>AMS GetSubnet :"+grSubnetId.u_subnet_id+" is not inserted");
+			}
+		}
+	}
+	
+	//Call AMS_ResourceFetch script
+	var amsFetchStackListSummaries = new AMS_ResourceFetch();
+		
+	//Call ListStackSummaires API
+	var isStackInserted = amsFetchStackListSummaries.getListOfStackSummariesAndInsert();
+		
+	if(!isStackInserted)
+		{
+		if ('true' == gs.getProperty('debug.AMSRestCalls'))
+			gs.info("Debug>>> No Stacks Found");
+	}
+		
+	else
+		{//Call this only when ListOfStackSummaries is success
+		//Call AMS_ResourceFetch script
+		var amsGetStackApi = new AMS_ResourceFetch();
+			
+		//Fetch stackId from Stack table
+		var grStackId = new GlideRecord('x_109369_ams_stacks');
+		grStackId.query();
+		while(grStackId.next())
+			{
+			//Call getStack API
+			var getStackInsert = amsGetStackApi.getStackAndInsert(grStackId.u_stack_id.toString());
+				
+			if(!getStackInsert)
+			{
+				// No stacks Found
+				if ('true' == gs.getProperty('debug.AMSRestCalls'))
+					gs.info("Debug >>>AMS GetStack :"+grStackId.u_stack_id+" is not inserted");
+			}
+		}
+	}
+}
+
+else
+{
+		//log isVpcInserted is false// No VPCs Found
+		if ('true' == gs.getProperty('debug.AMSRestCalls'))
+			gs.info("Debug>>> AMS MasterScript : 1 or more VPCs were not inserted");
+}
+]]></script>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>saikrishna</sys_created_by>
+        <sys_created_on>2017-04-12 14:16:18</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>84892bcadbca7200ef73d8c0cf96192e</sys_id>
+        <sys_mod_count>16</sys_mod_count>
+        <sys_name>AMS_ResourcesMasterScript</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sysauto_script_84892bcadbca7200ef73d8c0cf96192e</sys_update_name>
+        <sys_updated_by>ams_admin</sys_updated_by>
+        <sys_updated_on>2017-06-14 04:03:40</sys_updated_on>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>

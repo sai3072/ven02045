@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition/>
+        <conditional>false</conditional>
+        <name>Managed Services GetChangeTypeVersions</name>
+        <run_as display_value="">c68d2407db213200ef73d8c0cf96195b</run_as>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_period/>
+        <run_start>2017-04-20 12:30:15</run_start>
+        <run_time>1970-01-01 08:05:00</run_time>
+        <run_type>daily</run_type>
+        <script><![CDATA[var grOperations = new GlideRecord('x_109369_ams_rfc_change_type_operations');
+grOperations.query();
+while(grOperations.next())
+{
+	var amsGetChangeTypeVersions= new AMSResourceFetch();
+	//Call getCommunicationsAndInsert API
+	var rfc_change_type_operations_change_type_id = grOperations.u_rfc_change_type_operations_change_type_id.toString();
+	var amsGetChangeTypeVersionsInsert;
+	try {
+		gs.info('Managed Services GetChangeTypeVersions Fetching for RfcId >>>>' + rfc_change_type_operations_change_type_id);
+		amsGetChangeTypeVersionsInsert = amsGetChangeTypeVersions.getChangeTypeVersionAndInsert(rfc_change_type_operations_change_type_id);
+	} catch (err){
+		gs.error('Managed Services GetChangeTypeVersions ERROR >>>>' + err);
+	}
+}]]></script>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>sahitya</sys_created_by>
+        <sys_created_on>2017-04-20 12:36:02</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>64fd98b0dbdab600ef73d8c0cf9619c7</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>Managed Services GetChangeTypeVersions</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sysauto_script_64fd98b0dbdab600ef73d8c0cf9619c7</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-04-27 21:11:05</sys_updated_on>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>

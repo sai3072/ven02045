@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_109369_ams.AMS_GetResources</api_name>
+        <client_callable>true</client_callable>
+        <description>To get resources and store it in the variable as options/choice  to corresponding fields in RFC Form.</description>
+        <name>AMS_GetResources</name>
+        <script><![CDATA[var AMS_GetResources = Class.create();
+AMS_GetResources.prototype = Object.extendsObject(global.AbstractAjaxProcessor,
+		{
+			getVpcs : function() {
+				// Glide Record to VPCs Table
+				var gr = new GlideRecord('x_109369_ams_vpcs');
+				// fetch all records from vpc table
+				gr.query();
+				var map = [];
+				while (gr.next()) 
+				{
+					// Pushing available Vpcs to corresponding field
+					map.push(gr.u_vpc_id.toString());
+				}
+				return map.toString();
+			},
+
+			getStacks : function() {
+				// Glide Record to Stacks Table
+				var gr = new GlideRecord('x_109369_ams_stacks');
+				// fetch all records from Stacks table
+				gr.query();
+				var map = [];
+				while (gr.next())
+				{
+					// Pushing available Stacks to corresponding field
+					map.push(gr.u_stack_id.toString());
+				}
+				return map.toString();
+			},
+
+			getAmis : function() {
+				// Glide Record to Amis Table
+				var gr = new GlideRecord('x_109369_ams_amis');
+				// fetch all records from Amis table
+				gr.query();
+				var map = [];
+				while (gr.next())
+				{
+					// Pushing available Amis to corresponding field
+					map.push(gr.u_ami_id.toString());
+				}
+				return map.toString();
+			},
+
+			getSubnets : function() {
+				// Glide Record to Subnets Table
+				var gr = new GlideRecord('x_109369_ams_subnets');
+				// fetch all records from Subnets table
+				gr.query();
+				var map = [];
+				while (gr.next())
+				{
+					// Pushing available subnets to corresponding Field
+					map.push(gr.u_subnet_id.toString());
+				}
+				return map.toString();
+			},
+
+			type : 'AMS_GetResources'
+		});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>sahitya</sys_created_by>
+        <sys_created_on>2017-05-19 07:16:20</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>884be802dbfef200ef73d8c0cf9619ca</sys_id>
+        <sys_mod_count>21</sys_mod_count>
+        <sys_name>AMS_GetResources</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_include_884be802dbfef200ef73d8c0cf9619ca</sys_update_name>
+        <sys_updated_by>saikrishna</sys_updated_by>
+        <sys_updated_on>2017-06-05 12:05:22</sys_updated_on>
+    </sys_script_include>
+</record_update>

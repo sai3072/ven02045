@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="sys_import_set_row" label="Import set Change Type Version" max_length="40" name="x_109369_ams_import_set_change_type_version" type="collection">
+        <element attributes="edge_encryption_enabled=true" label="Approval Condition" max_length="400" name="u_rfc_change_type_version_approvalcondition" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="AwsApproval" max_length="40" name="u_rfc_change_type_version_approvalcondition_aws_approval" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="CustomerApproval" max_length="40" name="u_rfc_change_type_version_approvalcondition_customer_approval" type="string"/>
+        <element label="Automation Status" max_length="40" name="u_rfc_change_type_version_automationstatus" type="string"/>
+        <element label="ChangeTypeId" max_length="40" name="u_rfc_change_type_version_changetypeid" type="string"/>
+        <element label="CreatedTime" max_length="40" name="u_rfc_change_type_version_createdtime" type="string"/>
+        <element label="Deprecation Message" max_length="40" name="u_rfc_change_type_version_deprecationmessage" type="string"/>
+        <element label="Deprecation Time" max_length="40" name="u_rfc_change_type_version_deprecationtime" type="string"/>
+        <element label="Execution Input Schema" max_length="1000" name="u_rfc_change_type_version_executioninputschema" type="string"/>
+        <element label="Expected Execution Duration In Minutes" max_length="40" name="u_rfc_change_type_version_expectedexecutiondurationinminutes" type="string"/>
+        <element label="Version" max_length="40" name="u_rfc_change_type_version_version" type="string"/>
+    </element>
+</database>

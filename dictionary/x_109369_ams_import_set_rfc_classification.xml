@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="sys_import_set_row" label="Import set RFC classification" max_length="40" name="x_109369_ams_import_set_rfc_classification" type="collection">
+        <element label="Amazon Request id" max_length="40" name="u_rfc_classification_amazon_request_id" type="string"/>
+        <element label="CatSubcatItemOper" max_length="200" name="u_rfc_classification_catsubcatitemoper" type="string"/>
+        <element label="ChangeTypeId" max_length="40" name="u_rfc_classification_change_type_id" type="string"/>
+        <element label="item" max_length="100" name="u_rfc_classification_item" type="string"/>
+        <element label="Operation" max_length="100" name="u_rfc_classification_operation" type="string"/>
+        <element label="Subcategory" max_length="100" name="u_rfc_classification_subcategory" type="string"/>
+        <element label="Category" max_length="100" name="u_rfc_classsification_category" type="string"/>
+    </element>
+</database>

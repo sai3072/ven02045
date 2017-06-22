@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_form_sections form_id="9f6d86cadbc67200ef73d8c0cf96193e" sys_domain="global" table="x_109369_ams_rfcs" version="3">
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>0</position>
+            <sys_created_by>sahitya</sys_created_by>
+            <sys_created_on>2017-04-12 07:34:01</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>136d86cadbc67200ef73d8c0cf961941</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_109369_ams_rfcs" name="x_109369_ams_rfcs" sys_domain="global" view="Default view">9f6d86cadbc67200ef73d8c0cf96193e</sys_ui_form>
+            <sys_ui_section caption="NULL" display_value="" name="x_109369_ams_rfcs" sys_domain="global" view="Default view">f8ac4a8adbc67200ef73d8c0cf9619d6</sys_ui_section>
+            <sys_updated_by>sahitya</sys_updated_by>
+            <sys_updated_on>2017-04-12 07:34:01</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>1</position>
+            <sys_created_by>sahitya</sys_created_by>
+            <sys_created_on>2017-04-12 07:34:01</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>db6d86cadbc67200ef73d8c0cf961941</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_109369_ams_rfcs" name="x_109369_ams_rfcs" sys_domain="global" view="Default view">9f6d86cadbc67200ef73d8c0cf96193e</sys_ui_form>
+            <sys_ui_section caption="Execution Parameters" display_value="Execution Parameters" name="x_109369_ams_rfcs" sys_domain="global" view="Default view">976d86cadbc67200ef73d8c0cf96193d</sys_ui_section>
+            <sys_updated_by>sahitya</sys_updated_by>
+            <sys_updated_on>2017-04-12 07:34:01</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>2</position>
+            <sys_created_by>sahitya</sys_created_by>
+            <sys_created_on>2017-04-12 07:34:01</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>936d86cadbc67200ef73d8c0cf961945</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_109369_ams_rfcs" name="x_109369_ams_rfcs" sys_domain="global" view="Default view">9f6d86cadbc67200ef73d8c0cf96193e</sys_ui_form>
+            <sys_ui_section caption="Execution Output" display_value="Execution Output" name="x_109369_ams_rfcs" sys_domain="global" view="Default view">5f6d86cadbc67200ef73d8c0cf96193d</sys_ui_section>
+            <sys_updated_by>sahitya</sys_updated_by>
+            <sys_updated_on>2017-04-12 07:34:01</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>3</position>
+            <sys_created_by>sahitya</sys_created_by>
+            <sys_created_on>2017-04-12 07:34:01</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>5f6d86cadbc67200ef73d8c0cf961948</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_109369_ams_rfcs" name="x_109369_ams_rfcs" sys_domain="global" view="Default view">9f6d86cadbc67200ef73d8c0cf96193e</sys_ui_form>
+            <sys_ui_section caption="Correspondence" display_value="Correspondence" name="x_109369_ams_rfcs" sys_domain="global" view="Default view">176d86cadbc67200ef73d8c0cf96193e</sys_ui_section>
+            <sys_updated_by>sahitya</sys_updated_by>
+            <sys_updated_on>2017-04-12 07:34:01</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form action="INSERT_OR_UPDATE">
+            <name>x_109369_ams_rfcs</name>
+            <roles/>
+            <sys_class_name>sys_ui_form</sys_class_name>
+            <sys_created_by>sahitya</sys_created_by>
+            <sys_created_on>2017-04-12 07:34:01</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>9f6d86cadbc67200ef73d8c0cf96193e</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_name>x_109369_ams_rfcs</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+            <sys_update_name>sys_ui_form_sections_9f6d86cadbc67200ef73d8c0cf96193e</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-06-22 07:57:02</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_form>
+    </sys_ui_form_sections>
+</record_update>

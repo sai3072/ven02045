@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="AMIs" max_length="40" name="x_109369_ams_amis" type="collection">
+        <element label="Created" max_length="40" name="u_ami_created" read_only="true" type="glide_date_time"/>
+        <element label="Description" max_length="1000" name="u_ami_description" read_only="true" type="string"/>
+        <element display="true" label="AMI ID" max_length="40" name="u_ami_id" read_only="true" type="string"/>
+        <element label="AMI Name" max_length="40" name="u_ami_name" read_only="true" type="string"/>
+        <element label="VPC ID" max_length="32" name="u_vpc_id" read_only="true" reference="x_109369_ams_vpcs" type="reference"/>
+        <index name="index">
+            <element name="u_vpc_id"/>
+        </index>
+        <index name="index2">
+            <element name="u_ami_id"/>
+        </index>
+    </element>
+</database>

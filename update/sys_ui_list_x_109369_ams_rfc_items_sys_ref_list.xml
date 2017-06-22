@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_list parent="" relationship="" sys_domain="global" table="x_109369_ams_rfc_items" version="2" view="sys_ref_list">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_rfc_items_item</element>
+            <list_id display_value="x_109369_ams_rfc_items" element="NULL" name="x_109369_ams_rfc_items" parent="NULL" relationship="NULL" sys_domain="global" view="b24417619422320092c0d40a7bef4629">318c52bedb6e3200ef73d8c0cf9619d9</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-09 13:06:50</sys_created_on>
+            <sys_id>b98c52bedb6e3200ef73d8c0cf9619d9</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-09 13:06:50</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_rfc_items_category</element>
+            <list_id display_value="x_109369_ams_rfc_items" element="NULL" name="x_109369_ams_rfc_items" parent="NULL" relationship="NULL" sys_domain="global" view="b24417619422320092c0d40a7bef4629">318c52bedb6e3200ef73d8c0cf9619d9</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-09 13:06:50</sys_created_on>
+            <sys_id>318c52bedb6e3200ef73d8c0cf9619da</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-09 13:06:50</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_rfc_items_subcategory</element>
+            <list_id display_value="x_109369_ams_rfc_items" element="NULL" name="x_109369_ams_rfc_items" parent="NULL" relationship="NULL" sys_domain="global" view="b24417619422320092c0d40a7bef4629">318c52bedb6e3200ef73d8c0cf9619d9</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-09 13:06:50</sys_created_on>
+            <sys_id>b18c52bedb6e3200ef73d8c0cf9619da</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-09 13:06:50</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>x_109369_ams_rfc_items</name>
+            <parent/>
+            <position/>
+            <relationship/>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-09 13:06:50</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>318c52bedb6e3200ef73d8c0cf9619d9</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_name>x_109369_ams_rfc_items</sys_name>
+            <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+            <sys_update_name>sys_ui_list_x_109369_ams_rfc_items_sys_ref_list</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-06-22 07:56:46</sys_updated_on>
+            <sys_user/>
+            <view display_value="Reference List" name="sys_ref_list">b24417619422320092c0d40a7bef4629</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+</record_update>

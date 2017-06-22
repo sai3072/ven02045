@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <condition/>
+        <conditional>false</conditional>
+        <name>AMS_ListRfcCorrespondences</name>
+        <run_as/>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_period>1970-01-01 12:00:00</run_period>
+        <run_start>2017-06-02 10:30:00</run_start>
+        <run_time>1970-01-01 08:00:00</run_time>
+        <run_type>daily</run_type>
+        <script><![CDATA[//Fetch RFCId from RFC table
+var grRfcId = new GlideRecord('x_109369_ams_rfcs');
+grRfcId.addQuery('u_rfcs_status!=Success^u_rfcs_status!=Failure');
+grRfcId.query();
+while(grRfcId.next())
+{
+	// Call AMS_RfcFetch script
+var amsListRfcCorrespondenceApi = new AMS_RfcFetch();
+	
+	//Call ListRfcCorrespondences API
+	var getRFCInsert = amsListRfcCorrespondenceApi.getCorrespondenceForRfcAndInsert(grRfcId.u_rfcs_id.toString());
+	
+	if(!getRFCInsert)
+	{
+		// No rfcs Found
+		if ('true' == gs.getProperty('debug.AMSRestCalls'))
+			gs.info("Debug >>>AMS GetRfc :"+grRfcId.u_rfcs_id+" is not inserted");	
+	}
+}
+
+]]></script>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>saikrishna</sys_created_by>
+        <sys_created_on>2017-04-12 14:12:55</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>eeb8ef8adbca7200ef73d8c0cf961948</sys_id>
+        <sys_mod_count>30</sys_mod_count>
+        <sys_name>AMS_ListRfcCorrespondences</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sysauto_script_eeb8ef8adbca7200ef73d8c0cf961948</sys_update_name>
+        <sys_updated_by>ams_admin</sys_updated_by>
+        <sys_updated_on>2017-06-14 04:03:25</sys_updated_on>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>

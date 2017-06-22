@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_documentation element="u_rfc_customer_approval_status" label="Customer approval status" language="en" table="x_109369_ams_import_set_rfcs">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>u_rfc_customer_approval_status</element>
+            <help/>
+            <hint/>
+            <label>Customer approval status</label>
+            <language>en</language>
+            <name>x_109369_ams_import_set_rfcs</name>
+            <plural>Customer approval status</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-04-12 07:08:35</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>aa97c246dbc67200ef73d8c0cf961970</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Customer approval status</sys_name>
+            <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+            <sys_update_name>sys_documentation_x_109369_ams_import_set_rfcs_u_rfc_customer_approval_status_en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-04-12 07:08:35</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

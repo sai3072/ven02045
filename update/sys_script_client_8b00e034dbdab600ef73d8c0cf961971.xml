@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description>Clear values of subcategory,items,operation on change of category</description>
+        <field>u_rfcs_category</field>
+        <global>true</global>
+        <messages/>
+        <name>AMS_ClearValuesOnChangeSubcategory</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+	if (isLoading || newValue === '') {
+		return;
+	}
+	g_form.clearValue('u_rfcs_subcategory');
+	g_form.clearValue('u_rfcs_items');
+	g_form.clearValue('u_rfcs_operation');
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>priyanka</sys_created_by>
+        <sys_created_on>2017-04-20 12:39:26</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>8b00e034dbdab600ef73d8c0cf961971</sys_id>
+        <sys_mod_count>26</sys_mod_count>
+        <sys_name>AMS_ClearValuesOnChangeSubcategory</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_client_8b00e034dbdab600ef73d8c0cf961971</sys_update_name>
+        <sys_updated_by>sahitya</sys_updated_by>
+        <sys_updated_on>2017-06-02 08:08:28</sys_updated_on>
+        <table>x_109369_ams_rfcs</table>
+        <type>onChange</type>
+        <ui_type>0</ui_type>
+        <view>Create_a_request_for_change</view>
+    </sys_script_client>
+</record_update>

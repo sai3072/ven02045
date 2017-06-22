@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Incident Priority" max_length="40" name="x_109369_ams_incident_priority" type="collection">
+        <element display="true" label="Priority code" max_length="40" name="u_incident_priority_code" type="string"/>
+    </element>
+</database>

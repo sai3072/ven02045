@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_109369_ams.AMS_RfcFetch</api_name>
+        <client_callable>false</client_callable>
+        <description>Handles Rfc related Operations like create,Update,Cancel</description>
+        <name>AMS_RfcFetch</name>
+        <script><![CDATA[var nextToken = "";
+var body = {}; // initialize the request body
+	// get the property value of Nexttoken Maxresults
+	var maxResults = parseInt(gs.getProperty('x_109369_ams.NextToken.AMSMaxResults'));
+	// get the property value of AMSRestCalls(Boolean Value)
+	var logger = gs.getProperty('x_109369_ams.debug.AMSRestCalls');
+	var totalResults = 0;
+	var AMS_RfcFetch = Class.create();
+	AMS_RfcFetch.prototype = {
+		initialize : function()
+		{
+			// create object for AMS_ApiUtil initialize corresponding import set table name
+			this.amsUtil = new AMS_ApiUtil();
+			this.rfcImportSetTable = 'x_109369_ams_import_set_rfcs';
+			this.changeTypeCategories = 'x_109369_ams_import_set_rfc_categories';
+			this.changeTypeSubcategories = 'x_109369_ams_import_set_rfc_subcategories';
+			this.changeTypeItems = 'x_109369_ams_import_set_rfc_items';
+			this.changeTypeOperations = 'x_109369_ams_import_set_rfc_operations';
+			this.changeTypeVersion = 'x_109369_ams_import_set_change_type_version';
+			this.changeTypeClassifications = 'x_109369_ams_import_set_rfc_classification';
+			// intialize the service type
+			this.supportService = 'support';
+			this.changeService = 'amscm';
+			this.provisioningService = 'amsskms';
+			// intialize Correspondence
+			this.totalCorrespondence = '';
+		},
+		
+		// function to get List of Rfcs
+		getListOfRfcsAndInsert : function(nextToken)
+		{
+			body = {MaxResults : 100,NextToken : nextToken};
+				// raise a request
+				var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.changeService, 'ListRfcSummaries', body);
+				var jsonBody = JSON.stringify(parsedResponseBody);
+				
+				// Check for RfcSummaries in Response body
+				if (jsonBody.indexOf('RfcSummaries') > -1)
+					{
+					var rfcGR = new GlideRecord(this.rfcImportSetTable);
+					var record = "";
+					// For loop to insert records
+					for (var count = 0; count < parsedResponseBody.RfcSummaries.length; count++)
+						{
+						record = parsedResponseBody.RfcSummaries[count];
+						//initialize the record
+						rfcGR.initialize();
+						rfcGR.u_rfc_subject = record.Title;
+						rfcGR.u_rfc_id = record.RfcId;
+						rfcGR.u_rfc_status = record.Status.Id;
+						rfcGR.u_rfc_scheduled = record.CreatedTime;
+						rfcGR.u_rfc_created_date = record.CreatedTime;
+						rfcGR.u_rfc_last_modified_date = record.LastModifiedTime;
+						//Capture the request id in the field
+						rfcGR.u_rfc_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"];
+						rfcGR.insert();
+					}
+					
+					nextToken = parsedResponseBody.NextToken;
+					// check for nexttoken in respose
+					if (undefined !== nextToken)
+						{
+						//call the function with nextToken to get next records
+						this.getListOfRfcsAndInsert(nextToken);
+					}
+					
+					return true;
+				}
+				
+				else return false;
+				},
+			
+			// function to get Rfc
+			getRfcAndInsert : function(rfcId)
+			{
+				body = {RfcId : rfcId};
+					// raise a request
+					var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.changeService, 'GetRfc', body);
+					var jsonBody = JSON.stringify(parsedResponseBody);
+					
+					// Check for Rfc in Response body
+					if (jsonBody.indexOf('Rfc') > -1)
+						{
+						var rfcGR = new GlideRecord(this.rfcImportSetTable);
+						var record = parsedResponseBody.Rfc;
+						//initialize the record
+						rfcGR.initialize();
+						rfcGR.u_rfc_subject = record.Title;
+						rfcGR.u_rfc_id = record.RfcId;
+						rfcGR.u_rfc_status = record.Status.Id;
+						rfcGR.u_rfc_scheduled = record.CreatedTime;
+						//set values from the response to fields
+						rfcGR.u_rfc_created_date = record.CreatedTime;
+						rfcGR.u_rfc_description = record.Description;
+						rfcGR.u_rfc_execution_parameters = record.ExecutionParameters;
+						rfcGR.u_rfc_execution_output = record.ExecutionOutput;
+						rfcGR.u_rfc_aws_approval_status = record.ApprovalState.AwsApprovalStatus.Id;
+						rfcGR.u_rfc_customer_approval_status = record.ApprovalState.CustomerApprovalStatus.Id;
+						rfcGR.u_rfc_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"];
+						//insert the record into table
+						rfcGR.insert();
+						return true;
+					}
+					
+					else return false;
+					},
+				
+				// function to get Correspondence for Rfc
+				getCorrespondenceForRfcAndInsert : function(rfcId, nextToken)
+				{
+					//check for rfcid is null
+					if (!rfcId)
+						{
+						if (logger)
+							gs.error('AMS_RfcFetch >>>> getCorrespondence. rfcId is required');
+						return false;
+					}
+					
+					body = {MaxResults : maxResults,NextToken : nextToken,RfcId : rfcId};
+						// raise a request
+						var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.changeService, 'ListRfcCorrespondences', body);
+						var jsonBody = JSON.stringify(parsedResponseBody);
+						gs.info('AMS_RfcFetch >>>> getCorrespondence. jsonBody = ' + jsonBody);
+					
+						// Check forCorrespondenceEntries in Response body
+						if (jsonBody.indexOf('CorrespondenceEntries') > -1)
+							{
+							gs.info('AMS_RfcFetch >>>> getCorrespondence. parsedResponseBody.CorrespondenceEntries.length = ' + parsedResponseBody.CorrespondenceEntries.length);
+							var record = '';
+							for (var count = 0; count < parsedResponseBody.CorrespondenceEntries.length; count++){
+								record = parsedResponseBody.CorrespondenceEntries[count];
+								// Formatted RFC Correspondence body
+								this.totalCorrespondence += record.CreatedTime+ "\t\t"+ record.CreatedBy+ "\n"+ record.Correspondence+ "\n\n"
+								+ "--------------------------------------------------------------------------------------------------------"+ "\n";
+							}
+							
+							nextToken = parsedResponseBody.NextToken;
+							// check for nexttoken in respose
+							if (undefined != nextToken)
+								{
+								gs.info('AMS_RfcFetch >>>> getCorrespondence. nextToken = ' + nextToken);	
+								//call the function with nextToken to get next records
+								this.getCorrespondenceForRfcAndInsert(rfcId, nextToken);
+							}
+							
+							var rfcCorrespondenseGR = new GlideRecord(this.rfcImportSetTable);
+							//initialize the  values from response body
+							rfcCorrespondenseGR.initialize();
+							rfcCorrespondenseGR.u_rfc_id = rfcId;//Rfc Id
+							rfcCorrespondenseGR.u_rfc_correspondence = this.totalCorrespondence;
+							rfcCorrespondenseGR.u_rfc_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"];
+							//insert the record into table
+							rfcCorrespondenseGR.insert();
+							gs.info('AMS_RfcFetch >>>> getCorrespondence. rfcCorrespondenseGR.insert() called for ' + rfcId);	
+							return true;
+						}
+						
+					},
+					
+					// function to cancel Rfc
+					cancelRfc : function(rfcid, reason)
+					{
+						body = {RfcId : rfcid,Reason : reason};
+							var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.changeService, 'CancelRfc', body);
+							
+							//check whether the request is success
+							if(parsedResponseBody == '')
+								{
+								return true;
+							}
+							else return false;
+							},
+						
+						// function to submit Rfc
+						submitRfc : function(rfcid)
+						{
+							body = {RfcId : rfcid};
+								// raise a request by calling getParsedResponseBody
+								var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.changeService, 'SubmitRfc', body);
+							},
+							
+		                // function to approve Rfc
+						approveRfc : function(rfcid)
+						{
+							body = {RfcId : rfcid};
+								// raise a request by calling getParsedResponseBody
+								var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.changeService, 'ApproveRfc', body);
+							},
+		              // function to reject Rfc
+		              rejectRfc : function(rfcid)
+						{
+							body = {RfcId : rfcid};
+								// raise a request by calling getParsedResponseBody
+								var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.changeService, 'RejectRfc', body);
+							},
+		
+							// function to create Rfc
+							createRfc : function(description, expectedOutcome, implementationPlan, requestedStartTime, requestedEndTime, rollbackPlan, title, worstCaseScenario, changeTypeId, changeTypeVersion, executionParameters)
+							{
+								//if changetypeId or changeTypeVersion or title is null then direclty return
+								if (!changeTypeId || !changeTypeVersion || !title )
+									{
+									if (logger)
+										gs.error('AMS_RfcFetch >>>> createRfc. changeTypeId ,changeTypeVersion, title is required');
+									return false;
+								}
+									//set the default values as null
+									if(!description)description = '';
+									if(!expectedOutcome)expectedOutcome = '';
+									if(!implementationPlan)implementationPlan = '';
+									if(!rollbackPlan)rollbackPlan = '';
+									if(!executionParameters)executionParameters = '';
+									//create the body to raise the request
+								body = {
+									Title : title,
+									ChangeTypeId : changeTypeId,
+									ChangeTypeVersion : changeTypeVersion									
+								};
+								if (requestedStartTime) body["RequestedStartTime"] = requestedStartTime;
+								if (requestedEndTime) body["RequestedEndTime"] = requestedEndTime;
+								if (description) body["Description"] = description;
+								if (expectedOutcome) body["ExpectedOutcome"] = expectedOutcome;
+								if (implementationPlan) body["ImplementationPlan"] = implementationPlan;
+								if (rollbackPlan) body["RollbackPlan"] = rollbackPlan;
+								if (worstCaseScenario) body["WorstCaseScenario"] = worstCaseScenario;
+								if (executionParameters) body["ExecutionParameters"] = executionParameters;
+								gs.info("------------------ body " + JSON.stringify (body) );
+								
+// 								body = {
+// 									Description : description,
+// 									ExpectedOutcome : expectedOutcome,
+// 									ImplementationPlan : implementationPlan,
+// 									RequestedStartTime : requestedStartTime,
+// 									RequestedEndTime : requestedEndTime,
+// 									RollbackPlan : rollbackPlan,
+// 									Title : title,
+// 									WorstCaseScenario : worstCaseScenario,
+// 									ChangeTypeId : changeTypeId,
+// 									ChangeTypeVersion : changeTypeVersion,
+// 									ExecutionParameters : executionParameters
+// 								};
+								
+								//raise the request to create rfc
+								var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.changeService, 'CreateRfc', body);
+								var jsonBody = JSON.stringify(parsedResponseBody);
+								
+								//check whether the responce contains rfcid
+								if (jsonBody.indexOf('RfcId') > -1)
+									{
+									return parsedResponseBody;
+									
+								}
+								else return parsedResponseBody;
+								},
+							
+							// function to get ListChangeTypeCategories for RFC
+							getRfcListChangeTypeCategoriesAndInsert : function(nextToken)
+							{
+								body = {
+									"maxResults" : maxResults,
+									"nextToken" : nextToken
+								};
+								
+								// raise a request to list categories
+								var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.changeService, 'ListChangeTypeCategories', body);
+								var jsonBody = JSON.stringify(parsedResponseBody);
+								
+								// Check for Rfc in Response body
+								if (jsonBody.indexOf('ChangeTypeCategories') > -1)
+									{
+									for (var count = 0; count < parsedResponseBody.ChangeTypeCategories.length; count++)
+										{
+										// loop through the categories and insert into the table
+										var rfcCategoryGR = new GlideRecord(this.changeTypeCategories);
+										rfcCategoryGR.initialize();
+										rfcCategoryGR.u_rfc_categories_category = parsedResponseBody.ChangeTypeCategories[count];
+										rfcCategoryGR.u_rfc_categories_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"];
+										rfcCategoryGR.insert();
+									}
+									
+									nextToken = parsedResponseBody.nextToken;
+									
+									// check for nexttoken in respose
+									if (undefined !== nextToken)
+										{
+										//call the function with nextToken to get next records
+										this.getRfcListChangeTypeCategoriesAndInsert(nextToken);
+									}
+									
+									return true;
+								}
+								
+								else return false;
+								},
+							
+							// function to get ListChangeTypeSubcategories for RFC
+							getRfcListChangeTypeSubcategoriesAndInsert : function(category)
+							{
+								body = {
+									"Category" : category,
+									"locale" : "en",
+									"maxResults" : maxResults,
+									"nextToken" : nextToken
+								};
+								
+								// raise a request to list Subcategories for the specified category
+								var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.changeService, 'ListChangeTypeSubcategories', body);// raise a request
+								var jsonBody = JSON.stringify(parsedResponseBody);
+								
+								// Check for Rfc in Response body
+								if (jsonBody.indexOf('ChangeTypeSubcategories') > -1)
+									{
+									for (var count = 0; count < parsedResponseBody.ChangeTypeSubcategories.length; count++){
+										// loop through the Subcategories and insert into the table
+										var rfcSubcategoryGR = new GlideRecord(this.changeTypeSubcategories);
+										rfcSubcategoryGR.initialize();
+										rfcSubcategoryGR.u_rfc_subcategories_category = category;
+										rfcSubcategoryGR.u_rfc_subcategories_subcategory = parsedResponseBody.ChangeTypeSubcategories[count];
+										rfcSubcategoryGR.u_rfc_subcategories_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"];
+										//concatenate the subcategory and category
+										rfcSubcategoryGR.u_rfc_catsubcategory=category+parsedResponseBody.ChangeTypeSubcategories[count];
+										rfcSubcategoryGR.insert();
+									}
+									
+									return true;
+								}
+								
+								else return false;
+								},
+							
+							// Function to ListChangeTypeItems for RFC
+							getRfcListChangeTypeItemsAndInsert : function(category, subcategory,nextToken)
+							{
+								body = {
+									"Category" : category,
+									"locale" : "en",
+									"maxResults" : maxResults,
+									"nextToken" : nextToken,
+									"Subcategory" : subcategory
+								};
+								
+								// raise a request to list items for the specified Subcategory and category
+								var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.changeService, 'ListChangeTypeItems', body);
+								var jsonBody = JSON.stringify(parsedResponseBody);
+								
+								// Check for ChangeTypeItems in Response body
+								if (jsonBody.indexOf('ChangeTypeItems') > -1)
+									{
+									for (var count = 0; count < parsedResponseBody.ChangeTypeItems.length; count++)
+										{
+										// loop through the items and insert into the table
+										var rfcItemGR = new GlideRecord(this.changeTypeItems);
+										rfcItemGR.initialize();
+										rfcItemGR.u_rfc_items_category = category;// RFC Category
+										rfcItemGR.u_rfc_items_subcategory = subcategory;// RFC Subcategory
+										rfcItemGR.u_rfc_items_item = parsedResponseBody.ChangeTypeItems[count];// RFC item
+										// Ams generated Request Id
+										rfcItemGR.u_rfc_items_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"];
+										rfcItemGR.insert();
+									}
+									
+									nextToken = parsedResponseBody.nextToken;
+									
+									// check for nexttoken in respose
+									if (undefined !== nextToken)
+										{
+										//call the function with nextToken to get next records
+										this.getRfcListChangeTypeItemsAndInsert(category,subcategory,nextToken);
+									}
+									
+									return true;
+								}
+								
+								else return false;
+								},
+							
+							// Function to ListChangeTypeOperations for RFC
+							getRfcListChangeTypeOperationsAndInsert : function(category, item, subcategory, nextToken)
+							{
+								body = {
+									"Category" : category,
+									"Item" : item,
+									"locale" : "en",
+									"maxResults" : maxResults,
+									"nextToken" : nextToken,
+									"Subcategory" : subcategory
+								};
+								
+								// raise a request to list operations for the specified item,Subcategory,category
+								var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.changeService, 'ListChangeTypeOperations', body);
+								var jsonBody = JSON.stringify(parsedResponseBody);
+								
+								// Check for ChangeTypeOperationSummaries inResponsebody
+								if (jsonBody.indexOf('ChangeTypeOperationSummaries') > -1)
+									{
+									for (var count = 0; count < parsedResponseBody.ChangeTypeOperationSummaries.length; count++)
+										{
+										// loop through the operations and insert into the table
+										var rfcOperationGR = new GlideRecord(this.changeTypeOperations);
+										var record = parsedResponseBody.ChangeTypeOperationSummaries[count];
+										//initialize the record
+										rfcOperationGR.initialize();
+										rfcOperationGR.u_rfc_operations_changetypeid = record.ChangeTypeId;
+										rfcOperationGR.u_rfc_operations_operation = record.Operation;
+										rfcOperationGR.u_rfc_operations_category = category;
+										rfcOperationGR.u_rfc_operations_subcategory = subcategory;
+										rfcOperationGR.u_rfc_operations_item = item;
+										//concatenate operation,item,Subcategory,category
+										rfcOperationGR.u_rfc_catsubitemoperation = item+subcategory+category+record.Operation;
+										rfcOperationGR.u_rfc_operations_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"];
+										rfcOperationGR.insert();
+									}
+									
+									nextToken = parsedResponseBody.nextToken;
+									
+									// check for nexttoken in respose
+									if (undefined !== nextToken)
+										{
+										//call the function with nextToken to get next records
+										this.getRfcListChangeTypeOperationsAndInsert(category, item, subcategory, nextToken);
+									}
+									
+									return true;
+								}
+								
+								else return false;
+								},
+							
+								//Function to get Change Type Version and Insert
+								getChangeTypeVersionAndInsert:function(changeTypeId,locale,version)
+								{
+									//check for change type id null
+									if (!changeTypeId)
+										{
+										if (logger)
+											gs.error('AMSResourceFetch >>>> getChangeTypeVersionAndInsert. changeTypeId is required');
+										return false;
+									}
+									
+									body = {"ChangeTypeId": changeTypeId,"Locale": locale,"Version":version};
+										// raise a request to get Changetype id details
+										var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.changeService,'GetChangeTypeVersion',body);
+										var jsonBody = JSON.stringify(parsedResponseBody);
+										
+										// Check for ChangeTypeVersion in Response body
+										if (jsonBody.indexOf('ChangeTypeVersion') > -1)
+											{
+											var record = parsedResponseBody.ChangeTypeVersion;
+											//Insert the response into the table
+											var changeTypeVersionsGR = new GlideRecord(this.changeTypeVersion);
+											//initialize the record
+											changeTypeVersionsGR.initialize();
+											changeTypeVersionsGR.u_rfc_change_type_version_changetypeid = record.ChangeTypeId;
+											changeTypeVersionsGR.u_rfc_change_type_version_createdtime = record.CreatedTime;
+											changeTypeVersionsGR.u_rfc_change_type_version_deprecationmessage = record.DeprecationMessage;
+											changeTypeVersionsGR.u_rfc_change_type_version_deprecationtime = record.DeprecationTime;
+											//capture the values from the responce
+											changeTypeVersionsGR.u_rfc_change_type_version_executioninputschema = record.ExecutionInputSchema;
+											changeTypeVersionsGR.u_rfc_change_type_version_expectedexecutiondurationinminutes = record.ExpectedExecutionDurationInMinutes;
+											changeTypeVersionsGR.u_rfc_change_type_version_version = record.Version;
+											changeTypeVersionsGR.u_rfc_change_type_version_approvalcondition = JSON.stringify(record.ApprovalCondition);
+											changeTypeVersionsGR.u_rfc_change_type_version_approvalcondition_aws_approval = record.ApprovalCondition.AwsApproval.Id;
+											changeTypeVersionsGR.u_rfc_change_type_version_approvalcondition_customer_approval = record.ApprovalCondition.CustomerApproval.Id;
+											changeTypeVersionsGR.u_rfc_change_type_version_automationstatus = record.AutomationStatus.Id;
+											changeTypeVersionsGR.insert();
+											return true;
+										}
+										
+										else return false;
+										},
+									
+									//Function to get List Change Type Classifications
+									getListChangeTypeClassificationSummariesAndInsert:function(nextToken)
+									{
+										body = {  "Locale": 'en',"maxResults": maxResults,"nextToken": nextToken};
+											// raise a request to get Classifications details of change type id
+											var parsedResponseBody = this.amsUtil.getParsedResponseBody(this.changeService,'ListChangeTypeClassificationSummaries',body);
+											var jsonBody = JSON.stringify(parsedResponseBody);
+											
+											// Check for ChangeTypeClassificationSummaries inResponsebody
+											if (jsonBody.indexOf('ChangeTypeClassificationSummaries') > -1)
+												{
+												// loop through each classification
+												for (var count = 0; count < parsedResponseBody.ChangeTypeClassificationSummaries.length; count++)
+													{
+													//intilize the record with response
+													var rfcClassGR = new GlideRecord(this.changeTypeClassifications);
+													rfcClassGR.initialize();
+													//set the value to the record
+													rfcClassGR.u_rfc_classification_subcategory = parsedResponseBody.ChangeTypeClassificationSummaries[count].Subcategory;
+													rfcClassGR.u_rfc_classification_operation = parsedResponseBody.ChangeTypeClassificationSummaries[count].Operation;
+													rfcClassGR.	u_rfc_classification_item = parsedResponseBody.ChangeTypeClassificationSummaries[count].Item;
+													rfcClassGR.u_rfc_classification_change_type_id = parsedResponseBody.ChangeTypeClassificationSummaries[count].ChangeTypeId;
+													rfcClassGR.u_rfc_classsification_category = parsedResponseBody.ChangeTypeClassificationSummaries[count].Category;
+													//capture the amazon request id
+													rfcClassGR.u_rfc_classification_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"];
+													rfcClassGR.insert();
+												}
+												
+												nextToken = parsedResponseBody.nextToken;
+												
+												// check for nexttoken in respose
+												if (undefined !== nextToken)
+													{
+													// call the api with next token
+													this.getListChangeTypeClassificationSummariesAndInsert(nextToken);
+												}
+												return true;
+											}
+											else return false;
+											},
+										
+										type : 'AMS_RfcFetch'
+									};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>saikrishna</sys_created_by>
+        <sys_created_on>2017-05-17 09:25:05</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>2776329ddbfab200ef73d8c0cf9619eb</sys_id>
+        <sys_mod_count>56</sys_mod_count>
+        <sys_name>AMS_RfcFetch</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_include_2776329ddbfab200ef73d8c0cf9619eb</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-20 05:50:21</sys_updated_on>
+    </sys_script_include>
+</record_update>

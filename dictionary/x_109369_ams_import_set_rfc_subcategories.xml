@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="sys_import_set_row" label="Import Set Rfc  Subcategories" max_length="40" name="x_109369_ams_import_set_rfc_subcategories" type="collection">
+        <element label="CatSubcategory" max_length="100" name="u_rfc_catsubcategory" type="string"/>
+        <element label="Amazon Request Id" max_length="100" name="u_rfc_subcategories_amazon_request_id" type="string"/>
+        <element label="Category" max_length="40" name="u_rfc_subcategories_category" type="string"/>
+        <element label="SubCategory" max_length="100" name="u_rfc_subcategories_subcategory" type="string"/>
+    </element>
+</database>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>unload</directory>
+        <documentkey>d8ec08dadb0e7200ef73d8c0cf961991</documentkey>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;record_update table="sysauto_script"&gt;
+    &lt;sysauto_script action="INSERT_OR_UPDATE"&gt;
+        &lt;active&gt;true&lt;/active&gt;
+        &lt;condition/&gt;
+        &lt;conditional&gt;false&lt;/conditional&gt;
+        &lt;name&gt;AMS GetStacks&lt;/name&gt;
+        &lt;run_as display_value="System Administrator"&gt;6816f79cc0a8016401c5a33be04be441&lt;/run_as&gt;
+        &lt;run_as_tz/&gt;
+        &lt;run_dayofmonth&gt;1&lt;/run_dayofmonth&gt;
+        &lt;run_dayofweek&gt;1&lt;/run_dayofweek&gt;
+        &lt;run_period/&gt;
+        &lt;run_start&gt;2017-04-12 16:50:52&lt;/run_start&gt;
+        &lt;run_time&gt;1970-01-01 09:00:00&lt;/run_time&gt;
+        &lt;run_type&gt;daily&lt;/run_type&gt;
+        &lt;script&gt;&lt;![CDATA[//Call AMSResourceFetch script
+var amsGetStackApi = new AMSResourceFetch();
+//Fetch stackId from Stack table
+var grStackId = new GlideRecord('x_109369_sentinel_stacks');
+grStackId.query();
+while(grStackId.next())
+{
+	// Call getStack API
+	var getStackInsert = amsGetStackApi.getStackAndInsert(grStackId.u_stack_id.toString());
+	if(!getStackInsert)
+	{
+		if ('true' == gs.getProperty('debug.AMSRestCalls'))// No Stack Found
+			gs.info("Debug &gt;&gt;&gt;AMS GetStack :"+grStackId.u_stack_id+" is not inserted");	
+	}
+}]]&gt;&lt;/script&gt;
+        &lt;sys_class_name&gt;sysauto_script&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2017-04-12 16:51:20&lt;/sys_created_on&gt;
+        &lt;sys_customer_update&gt;true&lt;/sys_customer_update&gt;
+        &lt;sys_id&gt;d8ec08dadb0e7200ef73d8c0cf961991&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;2&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;AMS GetStacks&lt;/sys_name&gt;
+        &lt;sys_package display_value="AMS" source="x_109369_ams"&gt;5b693bf9db427200ef73d8c0cf961927&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;
+        &lt;sys_scope display_value="AMS"&gt;5b693bf9db427200ef73d8c0cf961927&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sysauto_script_d8ec08dadb0e7200ef73d8c0cf961991&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;saikrishna&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2017-05-19 08:03:44&lt;/sys_updated_on&gt;
+        &lt;upgrade_safe&gt;false&lt;/upgrade_safe&gt;
+    &lt;/sysauto_script&gt;
+&lt;/record_update&gt;
+</payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>saikrishna</sys_created_by>
+        <sys_created_on>2017-05-19 10:01:23</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>7af199c2db323600ef73d8c0cf961948</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>AMS GetStacks</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_metadata_link_7af199c2db323600ef73d8c0cf961948</sys_update_name>
+        <sys_updated_by>saikrishna</sys_updated_by>
+        <sys_updated_on>2017-05-19 10:01:23</sys_updated_on>
+        <tablename>sysauto</tablename>
+    </sys_metadata_link>
+</record_update>

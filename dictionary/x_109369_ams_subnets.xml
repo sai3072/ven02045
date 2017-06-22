@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="cmdb" label="Subnets" max_length="40" name="x_109369_ams_subnets" type="collection">
+        <element label="Created" max_length="40" name="u_subnet_created_date" read_only="true" type="glide_date_time"/>
+        <element label="Description" max_length="1000" name="u_subnet_description" read_only="true" type="string"/>
+        <element display="true" label="Subnet ID" max_length="40" name="u_subnet_id" read_only="true" type="string"/>
+        <element label="Modified" max_length="40" name="u_subnet_modified_date" read_only="true" type="glide_date_time"/>
+        <element label="Subnet Name" max_length="40" name="u_subnet_name" read_only="true" type="string"/>
+        <element label="Region" max_length="32" name="u_subnet_region" read_only="true" reference="x_109369_ams_regions" type="reference"/>
+        <element label="Visibility" max_length="40" name="u_subnet_visibility" read_only="true" type="string"/>
+        <element label="VPC ID" max_length="32" name="u_vpc_id" read_only="true" reference="x_109369_ams_vpcs" type="reference"/>
+        <index name="index">
+            <element name="u_subnet_region"/>
+        </index>
+        <index name="index2">
+            <element name="u_vpc_id"/>
+        </index>
+        <index name="index3">
+            <element name="u_subnet_id"/>
+        </index>
+    </element>
+</database>

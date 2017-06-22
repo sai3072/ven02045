@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <condition/>
+        <conditional>false</conditional>
+        <name>AMS_DescribeCommunications</name>
+        <run_as/>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_period>1970-01-01 12:00:00</run_period>
+        <run_start>2017-06-02 09:30:00</run_start>
+        <run_time>1970-01-01 10:00:00</run_time>
+        <run_type>periodically</run_type>
+        <script><![CDATA[//Fetch Case Id from Case table
+var grCaseId = new GlideRecord('x_109369_ams_case');
+// grCaseId.addQuery('u_case_state','!=','resolved');
+grCaseId.query();
+while(grCaseId.next())
+{
+	// Call AMS_CaseFetch script
+	var amsDescribeCommunicationsApi = new AMS_CaseFetch();
+	
+	//Call getCommunicationsAndInsert API
+	var getCaseCommunicationsInsert = amsDescribeCommunicationsApi.getCommunicationsAndInsert(grCaseId.u_case_id.toString());
+	
+	gs.info("Debug >>> AMS DescribeCommunications schedule received for row :" + grCaseId.number + " response = " + getCaseCommunicationsInsert);
+	
+	if(!getCaseCommunicationsInsert)
+	{
+		//If NO CaseID Found// No CaseId Found
+		if ('true' == gs.getProperty('debug.AMSRestCalls'))
+			gs.info("Debug >>> AMS DescribeCommunications :" + grCaseId.u_case_id + " was not inserted");	
+	}
+}]]></script>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>saikrishna</sys_created_by>
+        <sys_created_on>2017-04-12 13:46:04</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>9d922f86dbca7200ef73d8c0cf96194e</sys_id>
+        <sys_mod_count>31</sys_mod_count>
+        <sys_name>AMS_DescribeCommunications</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sysauto_script_9d922f86dbca7200ef73d8c0cf96194e</sys_update_name>
+        <sys_updated_by>ams_admin</sys_updated_by>
+        <sys_updated_on>2017-06-14 04:03:24</sys_updated_on>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>

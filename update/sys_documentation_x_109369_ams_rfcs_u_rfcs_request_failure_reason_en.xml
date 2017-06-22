@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_documentation element="u_rfcs_request_failure_reason" label="Request Failure Reason" language="en" table="x_109369_ams_rfcs">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>u_rfcs_request_failure_reason</element>
+            <help/>
+            <hint/>
+            <label>Request Failure Reason</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <plural>Request Failure Reasons</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>madhav</sys_created_by>
+            <sys_created_on>2017-05-31 14:56:59</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>61b8800edb4fb200ef73d8c0cf961915</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Request Failure Reason</sys_name>
+            <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+            <sys_update_name>sys_documentation_x_109369_ams_rfcs_u_rfcs_request_failure_reason_en</sys_update_name>
+            <sys_updated_by>madhav</sys_updated_by>
+            <sys_updated_on>2017-05-31 14:56:59</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

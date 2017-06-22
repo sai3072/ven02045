@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_109369_ams.AmsRefresh_UI_Action</api_name>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>AmsRefresh_UI_Action</name>
+        <script><![CDATA[var AmsRefresh_UI_Action = Class.create();
+AmsRefresh_UI_Action.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+   updateCase : function()
+	{
+		try {
+		    var caseId = this.getParameter('caseIdList');
+			if(!caseId) return false;
+			//gs.info("AmsRefresh_UI_Action >>>>> Called with caseIdList "  + JSON.stringify(caseIdList));
+			var amsUtil = new AMS_ApiUtil();
+			var caseImportSetTable ='x_109369_ams_import_set_cases';
+			var incidentImportSetTable = 'x_109369_ams_import_set_incidents';
+			var serviceRequestImportSetTable = 'x_109369_ams_import_set_service_requests';
+			// intialize the service type
+			var supportService = 'support';
+			var caseGR = '';
+			var totalCorrespondence = '';
+			// setup the body
+			var body = {
+				"caseIdList" : [caseId],			
+			};
+
+			gs.info("AmsRefresh_UI_Action >>>>> amsUtil.getParsedResponseBody called with "  + JSON.stringify(body));
+			// raise a request
+			var parsedResponseBody = amsUtil.getParsedResponseBody(supportService, 'DescribeCases', body);
+			var jsonBody = JSON.stringify(parsedResponseBody);
+			gs.info("AmsRefresh_UI_Action >>>>> updateCase amsUtil.getParsedResponseBody returned with "  + jsonBody);
+			// Check for Cases in Response
+			if(jsonBody){
+				if (jsonBody.indexOf('cases') > -1)
+				{
+						var record = '';
+						// loop through the cases
+						record = parsedResponseBody.cases[0];
+						
+						// get the recentCommunications
+
+						if (jsonBody.indexOf('communications') > -1)
+						{
+
+							for (var count = 0; count < record.recentCommunications.communications.length; count++)
+							{
+								// loop through the communication
+								var commRecord = record.recentCommunications.communications[count];
+								// Formatted correspondence body
+								totalCorrespondence += commRecord.timeCreated + "\t\t"+ commRecord.submittedBy + "\n\n"+ commRecord.body + "\n"
+									+ "-------------------------------------------------------------------------------------------------------------------------------------------------------------------"+ "\n";
+							}
+						}
+
+						gs.info("AmsRefresh_UI_Action >>>>>  updateCase parsedResponseBody " + JSON.stringify(parsedResponseBody));
+					
+						if(record.serviceCode == 'sentinel-report-incident') caseGR = new GlideRecord(incidentImportSetTable);
+						else if(record.serviceCode == 'sentinel-service-request') caseGR = new GlideRecord(serviceRequestImportSetTable);
+						else caseGR = new GlideRecord(caseImportSetTable);
+						caseGR.initialize();
+						// Case Id
+						caseGR.u_case_id = record.caseId; 
+						// Case Category Code
+						caseGR.u_case_category = record.categoryCode;
+						// Case email address
+						caseGR.u_case_cc_emails = record.ccEmailAddresses.toString();
+						// Concatenate Case Service code and Case Category code
+						caseGR.u_case_type = record.serviceCode + ', '+ record.categoryCode;
+						// Case Status
+						caseGR.u_case_status = record.status;
+						// Case Subject
+						caseGR.u_case_subject = record.subject;
+						// Case time Created in form view
+						caseGR.u_case_time_created = record.timeCreated;
+						//Case time Created in List view
+						caseGR.u_case_created_date = record.timeCreated;
+						caseGR.u_case_priority = record.severityCode;
+						// Ams generated RequestId
+						caseGR.u_case_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"];
+						caseGR.u_case_correspondence = totalCorrespondence;
+						var caseGRInsertResult = caseGR.insert();
+						gs.info("AmsRefresh_UI_Action >>>>>  updateCase inserted caseGR " + caseGRInsertResult);
+						
+
+					return true;
+				} else {
+					return false;
+				 }
+			} else {
+				return false;
+			}
+		} catch (ex){
+			gs.error('Debug AmsRefresh_UI_Action updateCase EXCEPTION ' + ex.getMessage() );
+			return false;
+		}
+		
+
+	},
+   updateCommunications : function()
+	{
+		var caseId = this.getParameter('caseId');
+		if(!caseId) return false;
+		gs.info("AmsRefresh_UI_Action >>>>> Called updateCommunications with caseIdList "  + JSON.stringify(caseId));
+		
+		var amsUtil = new AMS_ApiUtil();
+		var caseImportSetTable ='x_109369_ams_import_set_cases';
+		var incidentImportSetTable = 'x_109369_ams_import_set_incidents';
+		var serviceRequestImportSetTable = 'x_109369_ams_import_set_service_requests';
+		// intialize the service type
+		var supportService = 'support';
+		var totalCorrespondence = '';
+		
+		// setup body
+		var body = {
+			"caseId" : caseId,			
+		};
+		gs.info("AmsRefresh_UI_Action >>>>> updateCommunications amsUtil.getParsedResponseBody called with "  + JSON.stringify(body));	
+		// raise the request
+		var parsedResponseBody = amsUtil.getParsedResponseBody(supportService,  'DescribeCommunications', body);
+		var jsonBody = JSON.stringify(parsedResponseBody);
+		gs.info("AmsRefresh_UI_Action >>>>> updateCommunications amsUtil.getParsedResponseBody returned with "  + jsonBody);
+				
+		// Check for Communications in Response body
+		if(jsonBody){
+			if (jsonBody.indexOf('communications') > -1)
+			{
+				for (var count = 0; count < parsedResponseBody.communications.length; count++)
+				{
+					// loop through thecommunication
+					var record = parsedResponseBody.communications[count];
+					// Formatted correspondence body
+					totalCorrespondence += record.timeCreated + "\t\t"+ record.submittedBy + "\n\n"+ record.body + "\n"
+						+ "-------------------------------------------------------------------------------------------------------------------------------------------------------------------"+ "\n";
+				}
+// 				var nextToken = parsedResponseBody.nextToken;
+				gs.info("AmsRefresh_UI_Action >>>>> totalCorrespondence "  + totalCorrespondence);
+				// check for nexttoken in respose
+// 				if (undefined !== nextToken)
+// 				{
+// 					// call the api withnext token
+// 					getCommunicationsAndInsert(caseId, nextToken);
+// 				}
+				var commGR = new GlideRecord(caseImportSetTable);
+				commGR.initialize();
+				// Case Id
+				gs.info("AmsRefresh_UI_Action >>>>>  commGR init " );
+				commGR.u_case_id = caseId;
+				gs.info("AmsRefresh_UI_Action >>>>>  commGR commGR.u_case_id " + commGR.u_case_id);		
+				// all Correspondence of case id
+				commGR.u_case_correspondence = totalCorrespondence;
+				gs.info("AmsRefresh_UI_Action >>>>>  commGR commGR.u_case_correspondence " + commGR.u_case_correspondence);					
+				// Ams generated Request Id
+				commGR.u_case_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"];
+gs.info("AmsRefresh_UI_Action >>>>>  commGR commGR.u_case_amazon_request_id " + commGR.u_case_amazon_request_id);									
+				commGR.insert();
+				gs.info("AmsRefresh_UI_Action >>>>> inserted commGR " );
+				return true;
+			}			
+			else 
+			{ return false;}		
+		}
+		else 
+		{ return false;}
+
+		
+	},
+   addCommunicationToCase:function()
+	{
+		try{
+			var caseId = this.getParameter('caseId');
+			if(!caseId) return false;
+			var ccEmailAddresses = [this.getParameter('ccEmailAddresses')];
+			//gs.info("AmsRefresh_UI_Action >>>>> addCommunicationToCase Called 1");
+			var communicationBody = this.getParameter('communicationBody');
+			//gs.info("AmsRefresh_UI_Action >>>>> addCommunicationToCase Called 2");
+			//if(communicationBody.length != 0) return false;
+			//gs.info("AmsRefresh_UI_Action >>>>> addCommunicationToCase Called 3");
+			
+			var amsUtil = new AMS_ApiUtil();
+			var supportService = 'support';
+			var body;
+			gs.info("AmsRefresh_UI_Action >>>>> addCommunicationToCase Called with caseId  "  + caseId + " , ccEmailAddresses " + ccEmailAddresses + " , communicationBody " + communicationBody + ", ccEmailAddresses.length " + ccEmailAddresses.length);
+			
+			if(ccEmailAddresses.length > 1)
+			{
+				body = {
+					"caseId" : caseId, 
+					"ccEmailAddresses": [ ccEmailAddresses ],
+					"communicationBody": communicationBody
+				};
+				gs.info("AmsRefresh_UI_Action >>>>> addCommunicationToCase Called with body "  + JSON.stringify(body));
+			}
+			else
+			{
+				//setup the body when ccEmailAddresses is null
+				body = {
+					"caseId" : caseId,
+					"communicationBody": communicationBody
+				};
+				gs.info("AmsRefresh_UI_Action >>>>> addCommunicationToCase Called with body "  + JSON.stringify(body));
+			}
+			//gs.info("AmsRefresh_UI_Action >>>>> addCommunicationToCase Called with body "  + JSON.stringify(body));
+			// raise a request to post communication to case
+			var parsedResponseBody = amsUtil.getParsedResponseBody(supportService, 'AddCommunicationToCase', body);
+			var jsonBody = JSON.stringify(parsedResponseBody);
+			gs.info("AmsRefresh_UI_Action >>>>> addCommunicationToCase Called with jsonBody "  + jsonBody);
+					
+			// Check for result in Response body
+			if (jsonBody.indexOf('result') > -1)
+			{
+				return true;
+			}
+			else return false;
+		} catch (ex){
+				gs.error('Debug AmsRefresh_UI_Action addCommunicationToCase EXCEPTION ' + ex.getMessage() );
+				return false;
+			}
+		
+	},
+   // Function to resolve Case
+	resolveCase : function()
+	{
+		try {
+			var caseId = this.getParameter('caseId');
+			if(!caseId) {
+				gs.error('Debug AmsRefresh_UI_Action >>>> resolveCase. caseId is required');
+				return false;
+			}
+			var amsUtil = new AMS_ApiUtil();
+			var supportService = 'support';
+			var caseImportSetTable ='x_109369_ams_import_set_cases';
+			var body = {"caseId" : caseId};
+			// raise a request to resolve the case
+			var parsedResponseBody = amsUtil.getParsedResponseBody(supportService, 'ResolveCase', body);
+			var jsonBody = JSON.stringify(parsedResponseBody);
+			if(jsonBody.indexOf('finalCaseStatus')>1) {
+				//initialize the import set table
+				var resolvedCaseGR = new GlideRecord(caseImportSetTable);
+				resolvedCaseGR.initialize();
+				//set the value to status for case id
+				resolvedCaseGR.u_case_id = caseId;
+				resolvedCaseGR.u_case_status = parsedResponseBody.finalCaseStatus;
+				resolvedCaseGR.insert();
+				return true;
+			} else {
+				return false;
+			}
+			
+		} catch (ex){
+				gs.error('Debug AmsRefresh_UI_Action resolveCase EXCEPTION ' + ex.getMessage() );
+				return false;
+			}
+	},
+	// Function to resolve Case
+	updateRfc : function()
+	{
+		try {
+			var rfcId = this.getParameter('rfcId');
+			if(!rfcId) {
+				gs.error('Debug AmsRefresh_UI_Action >>>> updateRfc. rfcId is required');
+				return false;
+			}
+			var amsUtil = new AMS_ApiUtil();
+			var changeService = 'amscm';
+			var rfcImportSetTable = 'x_109369_ams_import_set_rfcs';
+			var body = {RfcId : rfcId};
+			// raise a request to resolve the case
+			var parsedResponseBody = amsUtil.getParsedResponseBody(changeService, 'GetRfc', body);
+			var jsonBody = JSON.stringify(parsedResponseBody);
+			// Check for Rfc in Response body
+			if (jsonBody.indexOf('Rfc') > -1) {
+				var rfcGR = new GlideRecord(rfcImportSetTable);
+				var record = parsedResponseBody.Rfc;
+				//initialize the record
+				rfcGR.initialize();
+				rfcGR.u_rfc_subject = record.Title;
+				rfcGR.u_rfc_id = record.RfcId;
+				rfcGR.u_rfc_status = record.Status.Id;
+				rfcGR.u_rfc_scheduled = record.CreatedTime;
+				//set values from the response to fields
+				rfcGR.u_rfc_created_date = record.CreatedTime;
+				rfcGR.u_rfc_description = record.Description;
+				rfcGR.u_rfc_execution_parameters = record.ExecutionParameters;
+				rfcGR.u_rfc_execution_output = record.ExecutionOutput;
+				rfcGR.u_rfc_aws_approval_status = record.ApprovalState.AwsApprovalStatus.Id;
+				rfcGR.u_rfc_customer_approval_status = record.ApprovalState.CustomerApprovalStatus.Id;
+				rfcGR.u_rfc_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"];
+				//insert the record into table
+				rfcGR.insert();
+				return true;
+			} else {
+				return false;
+			}
+			
+		} catch (ex){
+				gs.error('Debug AmsRefresh_UI_Action updateRfc EXCEPTION ' + ex.getMessage() );
+				return false;
+			}
+	},
+	getCorrespondenceForRfc : function()
+	{
+		var rfcId = this.getParameter('rfcId');
+		if(!rfcId) {
+			gs.error('Debug AmsRefresh_UI_Action >>>> getCorrespondenceForRfc. rfcId is required');
+			return false;
+		}
+		var amsUtil = new AMS_ApiUtil();
+		var changeService = 'amscm';
+		var totalCorrespondence ='';
+		var rfcImportSetTable = 'x_109369_ams_import_set_rfcs';
+			
+		//body = {MaxResults : maxResults, NextToken : nextToken,RfcId : rfcId};
+		var body = {MaxResults : 100, RfcId : rfcId};
+		// raise a request
+		var parsedResponseBody = amsUtil.getParsedResponseBody(changeService, 'ListRfcCorrespondences', body);
+		var jsonBody = JSON.stringify(parsedResponseBody);
+		gs.info('Debug AmsRefresh_UI_Action >>>> getCorrespondence. jsonBody = ' + jsonBody);
+
+		// Check forCorrespondenceEntries in Response body
+		if (jsonBody.indexOf('CorrespondenceEntries') > -1)
+		{
+			gs.info('AmsRefresh_UI_Action >>>> getCorrespondence. parsedResponseBody.CorrespondenceEntries.length = ' + parsedResponseBody.CorrespondenceEntries.length);
+			var record = '';
+			for (var count = 0; count < parsedResponseBody.CorrespondenceEntries.length; count++){
+				record = parsedResponseBody.CorrespondenceEntries[count];
+				// Formatted RFC Correspondence body
+				totalCorrespondence += record.CreatedTime+ "\t\t"+ record.CreatedBy+ "\n"+ record.Correspondence+ "\n\n"
+					+ "--------------------------------------------------------------------------------------------------------"+ "\n";
+			}
+
+//			nextToken = parsedResponseBody.NextToken;
+			// check for nexttoken in respose
+// 			if (undefined != nextToken)
+// 			{
+// 				gs.info('AMS_RfcFetch >>>> getCorrespondence. nextToken = ' + nextToken);	
+// 				//call the function with nextToken to get next records
+// 				this.getCorrespondenceForRfcAndInsert(rfcId, nextToken);
+// 			}
+
+			var rfcCorrespondenseGR = new GlideRecord(rfcImportSetTable);
+			//initialize the  values from response body
+			rfcCorrespondenseGR.initialize();
+			rfcCorrespondenseGR.u_rfc_id = rfcId;//Rfc Id
+			rfcCorrespondenseGR.u_rfc_correspondence = totalCorrespondence;
+			rfcCorrespondenseGR.u_rfc_amazon_request_id = parsedResponseBody.requestId["x-amzn-RequestId"];
+			//insert the record into table
+			rfcCorrespondenseGR.insert();
+			gs.info('AmsRefresh_UI_Action >>>> getCorrespondence. rfcCorrespondenseGR.insert() called for ' + rfcId);	
+			return true;
+		}
+
+	},
+					
+	// function to cancel Rfc
+	cancelRfc : function()
+	{
+		var rfcId = this.getParameter('rfcId');
+		var reason = this.getParameter('reason');
+		if(!rfcId || !reason) {
+			gs.error('Debug AmsRefresh_UI_Action >>>> getCorrespondenceForRfc. rfcId & reason are required');
+			return false;
+		}
+		var amsUtil = new AMS_ApiUtil();
+		var changeService = 'amscm';
+		var body = {RfcId : rfcId, Reason : reason};
+		var parsedResponseBody = amsUtil.getParsedResponseBody(changeService, 'CancelRfc', body);
+		gs.info('Debug AmsRefresh_UI_Action >>>> getCorrespondenceForRfc. parsedResponseBody ' + parsedResponseBody);
+		//check whether the request is success
+		if(parsedResponseBody != null && parsedResponseBody != undefined)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	},
+	// function to approve Rfc
+	approveRfc : function()
+	{
+		var rfcId = this.getParameter('rfcId');
+		//var reason = this.getParameter('reason');
+		if(!rfcId) {
+			gs.error('Debug AmsRefresh_UI_Action >>>> approveRfc. rfcId is required');
+			return false;
+		}
+		var amsUtil = new AMS_ApiUtil();
+		var changeService = 'amscm';
+		var body = {RfcId : rfcId};
+		var parsedResponseBody = amsUtil.getParsedResponseBody(changeService, 'ApproveRfc', body);
+		gs.info('Debug AmsRefresh_UI_Action >>>> approveRfc. parsedResponseBody ' + parsedResponseBody);
+		//check whether the request is success
+		if(parsedResponseBody != null && parsedResponseBody != undefined)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	},
+	// function to reject Rfc
+	rejectRfc : function()
+	{
+		var rfcId = this.getParameter('rfcId');
+		var reason = this.getParameter('reason');
+		if(!rfcId || !reason) {
+			gs.error('Debug AmsRefresh_UI_Action >>>> rejectRfc. rfcId & reason are required');
+			return false;
+		}
+		var amsUtil = new AMS_ApiUtil();
+		var changeService = 'amscm';
+		var body = {RfcId : rfcId, Reason : reason};
+		var parsedResponseBody = amsUtil.getParsedResponseBody(changeService, 'RejectRfc', body);
+		gs.info('Debug AmsRefresh_UI_Action >>>> rejectRfc. parsedResponseBody ' + parsedResponseBody);
+		//check whether the request is success
+		if(parsedResponseBody != null && parsedResponseBody != undefined)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	},
+
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>ams_admin</sys_created_by>
+        <sys_created_on>2017-06-11 00:36:33</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>650d25d94fd7320031243ce18110c729</sys_id>
+        <sys_mod_count>81</sys_mod_count>
+        <sys_name>AmsRefresh_UI_Action</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_include_650d25d94fd7320031243ce18110c729</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-20 06:17:38</sys_updated_on>
+    </sys_script_include>
+</record_update>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>84892bcadbca7200ef73d8c0cf96192e</documentkey>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;record_update table="sysauto_script"&gt;
+    &lt;sysauto_script action="INSERT_OR_UPDATE"&gt;
+        &lt;active&gt;true&lt;/active&gt;
+        &lt;condition/&gt;
+        &lt;conditional&gt;false&lt;/conditional&gt;
+        &lt;name&gt;AMS_MasterScript&lt;/name&gt;
+        &lt;run_as display_value="System Administrator"&gt;6816f79cc0a8016401c5a33be04be441&lt;/run_as&gt;
+        &lt;run_as_tz/&gt;
+        &lt;run_dayofmonth&gt;1&lt;/run_dayofmonth&gt;
+        &lt;run_dayofweek&gt;1&lt;/run_dayofweek&gt;
+        &lt;run_period/&gt;
+        &lt;run_start&gt;2017-03-28 18:57:16&lt;/run_start&gt;
+        &lt;run_time&gt;1970-01-01 08:00:00&lt;/run_time&gt;
+        &lt;run_type&gt;on_demand&lt;/run_type&gt;
+        &lt;script&gt;&lt;![CDATA[//Call AMS_ResourceFetch script
+var amsFetchVpcsListSummaries = new AMS_ResourceFetch();
+
+//Call ListVpcSummaries API
+var isVpcInserted = amsFetchVpcsListSummaries.getListOfVPCSummariesAndInsert();
+
+if(isVpcInserted)
+	{
+	//Call AMS_ResourceFetch script
+	var amsGetVpcApi = new AMS_ResourceFetch();
+		
+	//Fetch VpcId from VPC table
+	var grVpcVpcId = new GlideRecord('x_109369_ams_vpcs');
+	grVpcVpcId.query();
+	while(grVpcVpcId.next())
+	{
+		//Call getVpc API
+		var getVpcInsert = amsGetVpcApi.getVPCAndInsert(grVpcVpcId.u_vpc_id.toString());
+		
+		if(!getVpcInsert)
+		{
+			// No VPCs Found
+			if ('true' == gs.getProperty('debug.AMSRestCalls'))
+				gs.info("Debug &gt;&gt;&gt;AMS GetVPC :"+grVpcVpcId.u_vpc_id+" is not inserted");
+		}
+	}
+	var nextToken = "";	
+	
+	//Call AMS_ResourceFetch script
+	var amsFetchAmisListSummaries = new AMS_ResourceFetch();
+	
+	//Fetch VpcId from VPC table
+	var grAmiVpcId = new GlideRecord('x_109369_ams_vpcs');
+	grAmiVpcId.query();
+	while(grAmiVpcId.next())
+	{
+		//Call ListAmis API
+		var isAmisInserted = amsFetchAmisListSummaries.getListOfAMIsAndInsert(grAmiVpcId.u_vpc_id.toString(), nextToken);
+		if(!isAmisInserted)
+	{
+		if ('true' == gs.getProperty('debug.AMSRestCalls'))
+			gs.info("Debug&gt;&gt;&gt; No Vpcs  Found");
+	}
+	}
+	
+	//Call AMS_ResourceFetch script
+	var amsFetchSubnetsListSummaries = new AMS_ResourceFetch();
+	
+	//Call ListSubnetSummaries API
+	var isSubnetInserted = amsFetchSubnetsListSummaries.getListOfSubnetSummariesAndInsert();
+		
+	if(!isSubnetInserted)
+	{
+		if ('true' == gs.getProperty('debug.AMSRestCalls'))
+			gs.info("Debug&gt;&gt;&gt; No Subnets Found");
+	}
+		
+	else//Call this only when ListOfSubnetSummaries is success
+	{
+		//Call AMS_ResourceFetch script
+		var amsGetSubnetApi = new AMS_ResourceFetch();
+		
+		//Fetch subnetId from Subnet table
+		var grSubnetId = new GlideRecord('x_109369_ams_subnets');
+		grSubnetId.query();
+		while(grSubnetId.next())
+		{
+			//Call getSubnet API
+			var getSubnetInsert = amsGetSubnetApi.getSubnetAndInsert(grSubnetId.u_subnet_id.toString());
+			
+			if(!getSubnetInsert)
+			{
+				// No subnets Found
+				if ('true' == gs.getProperty('debug.AMSRestCalls'))
+					gs.info("Debug &gt;&gt;&gt;AMS GetSubnet :"+grSubnetId.u_subnet_id+" is not inserted");
+			}
+		}
+	}
+	
+	//Call AMS_ResourceFetch script
+	var amsFetchStackListSummaries = new AMS_ResourceFetch();
+		
+	//Call ListStackSummaires API
+	var isStackInserted = amsFetchStackListSummaries.getListOfStackSummariesAndInsert();
+		
+	if(!isStackInserted)
+		{
+		if ('true' == gs.getProperty('debug.AMSRestCalls'))
+			gs.info("Debug&gt;&gt;&gt; No Stacks Found");
+	}
+		
+	else
+		{//Call this only when ListOfStackSummaries is success
+		//Call AMS_ResourceFetch script
+		var amsGetStackApi = new AMS_ResourceFetch();
+			
+		//Fetch stackId from Stack table
+		var grStackId = new GlideRecord('x_109369_ams_stacks');
+		grStackId.query();
+		while(grStackId.next())
+			{
+			//Call getStack API
+			var getStackInsert = amsGetStackApi.getStackAndInsert(grStackId.u_stack_id.toString());
+				
+			if(!getStackInsert)
+			{
+				// No stacks Found
+				if ('true' == gs.getProperty('debug.AMSRestCalls'))
+					gs.info("Debug &gt;&gt;&gt;AMS GetStack :"+grStackId.u_stack_id+" is not inserted");
+			}
+		}
+	}
+}
+
+else
+{
+		//log isVpcInserted is false// No VPCs Found
+		if ('true' == gs.getProperty('debug.AMSRestCalls'))
+			gs.info("Debug&gt;&gt;&gt; AMS MasterScript : 1 or more VPCs were not inserted");
+}
+]]&gt;&lt;/script&gt;
+        &lt;sys_class_name&gt;sysauto_script&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;saikrishna&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2017-04-12 14:16:18&lt;/sys_created_on&gt;
+        &lt;sys_customer_update&gt;true&lt;/sys_customer_update&gt;
+        &lt;sys_id&gt;84892bcadbca7200ef73d8c0cf96192e&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;13&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;AMS_MasterScript&lt;/sys_name&gt;
+        &lt;sys_package display_value="AMS" source="x_109369_ams"&gt;5b693bf9db427200ef73d8c0cf961927&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;
+        &lt;sys_scope display_value="AMS"&gt;5b693bf9db427200ef73d8c0cf961927&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sysauto_script_84892bcadbca7200ef73d8c0cf96192e&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;sahitya&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2017-06-02 10:29:32&lt;/sys_updated_on&gt;
+        &lt;upgrade_safe&gt;false&lt;/upgrade_safe&gt;
+    &lt;/sysauto_script&gt;
+&lt;/record_update&gt;
+</payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>priyanka</sys_created_by>
+        <sys_created_on>2017-04-18 07:23:01</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>24748940db167600ef73d8c0cf96197b</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>AMS_MasterScript</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_metadata_link_24748940db167600ef73d8c0cf96197b</sys_update_name>
+        <sys_updated_by>sahitya</sys_updated_by>
+        <sys_updated_on>2017-06-02 10:29:44</sys_updated_on>
+        <tablename>sysauto</tablename>
+    </sys_metadata_link>
+</record_update>

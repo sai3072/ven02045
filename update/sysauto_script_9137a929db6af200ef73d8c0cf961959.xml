@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <condition/>
+        <conditional>false</conditional>
+        <name>AMS_ListChangeTypeOperations</name>
+        <run_as/>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_period>1970-01-01 04:00:00</run_period>
+        <run_start/>
+        <run_time>1970-01-01 08:30:00</run_time>
+        <run_type>periodically</run_type>
+        <script><![CDATA[//Fetch items from items table
+var grOperation = new GlideRecord('x_109369_ams_rfc_items');
+grOperation.query();
+while(grOperation.next())
+{
+	//Call AMS_RfcFetch script
+	var amslistoperations = new AMS_RfcFetch ();
+	//Call getRfcListChangeTypeOperationsAndInsert API
+	amslistoperations.getRfcListChangeTypeOperationsAndInsert(grOperation.u_rfc_items_category.toString(),grOperation.u_rfc_items_item.toString(),grOperation.u_rfc_items_subcategory.toString());
+}]]></script>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>saikrishna</sys_created_by>
+        <sys_created_on>2017-05-05 12:01:28</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>9137a929db6af200ef73d8c0cf961959</sys_id>
+        <sys_mod_count>31</sys_mod_count>
+        <sys_name>AMS_ListChangeTypeOperations</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sysauto_script_9137a929db6af200ef73d8c0cf961959</sys_update_name>
+        <sys_updated_by>ams_admin</sys_updated_by>
+        <sys_updated_on>2017-06-14 04:03:25</sys_updated_on>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>

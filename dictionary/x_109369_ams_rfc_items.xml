@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="RFC Items" max_length="40" name="x_109369_ams_rfc_items" type="collection">
+        <element label="Category" max_length="32" name="u_rfc_items_category" type="string"/>
+        <element label="CatSubcatItem" max_length="200" name="u_rfc_items_catsubcatitem" type="string"/>
+        <element display="true" label="Item" max_length="100" name="u_rfc_items_item" type="string"/>
+        <element label="Subcategory" max_length="32" name="u_rfc_items_subcategory" type="string"/>
+        <index name="index">
+            <element name="u_rfc_items_category"/>
+        </index>
+        <index name="index2">
+            <element name="u_rfc_items_catsubcatitem"/>
+        </index>
+        <index name="index3">
+            <element name="u_rfc_items_subcategory"/>
+        </index>
+    </element>
+</database>

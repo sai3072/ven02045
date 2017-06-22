@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Changetype version" max_length="40" name="x_109369_ams_changetype_version" type="collection">
+        <element label="Approval Condition" max_length="200" name="u_rfc_change_type_version_approvalcondition" type="string"/>
+        <element label="Automation Status" max_length="32" name="u_rfc_change_type_version_automationstatus" reference="x_109369_ams_rfc_change_type_automation_status" type="reference"/>
+        <element label="AwsApproval" max_length="40" name="u_rfc_change_type_version_awsapproval" type="string"/>
+        <element label="ChangeTypeId" max_length="100" name="u_rfc_change_type_version_changetypeid" type="string"/>
+        <element label="CreatedTime" max_length="40" name="u_rfc_change_type_version_createdtime" type="glide_date_time"/>
+        <element label="CustomerApproval" max_length="40" name="u_rfc_change_type_version_customerapproval" type="string"/>
+        <element label="Deprecation Message" max_length="100" name="u_rfc_change_type_version_deprecationmessage" type="string"/>
+        <element label="Deprecation Time" max_length="40" name="u_rfc_change_type_version_deprecationtime" type="glide_date_time"/>
+        <element label="Description" max_length="500" name="u_rfc_change_type_version_description" type="string"/>
+        <element label="Execution Input Schema" max_length="5000" name="u_rfc_change_type_version_executioninputschema" type="string"/>
+        <element label="Expected Execution Duration In Minutes" max_length="40" name="u_rfc_change_type_version_expectedexecutiondurationinminutes" type="integer"/>
+        <element label="Parameters" max_length="5000" name="u_rfc_change_type_version_parameters" type="string"/>
+        <element label="Required" max_length="400" name="u_rfc_change_type_version_required" type="string"/>
+        <element label="Version" max_length="40" name="u_rfc_change_type_version_version" type="string"/>
+    </element>
+</database>

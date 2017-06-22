@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_109369_ams_changetype_version</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>AMS_InsertIntoRFCForm</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+	var exeMap = {};
+		var changeTypeId = current.u_rfc_change_type_version_changetypeid;
+		var exeParamObj = JSON.parse(current.u_rfc_change_type_version_parameters);
+		//loop through the exeParamObj
+		Object.keys(exeParamObj).forEach(function(key)
+		{
+			//Search for key with name as properties inside exeParamObj[key] FIRST LEVEL
+			if (exeParamObj[key].properties != undefined)
+				{
+				var paramMap = exeParamObj[key].properties;
+				//loop through the paramMap
+				Object.keys(paramMap).forEach(function(propertyKey)
+				{
+					//Again search for key with name properties inside paramMap SECOND LEVEL
+					if(paramMap[propertyKey].properties != undefined)
+						{
+						var paramMapInside = paramMap[propertyKey].properties;
+						Object.keys(paramMapInside).forEach(function(propertyKeyInside)
+						{
+							//Again search for key with name properties inside paramMapInside THIRD LEVEL
+							if(paramMapInside[propertyKeyInside].properties != undefined)
+								{
+								var paramMapInsideInside = paramMapInside[propertyKeyInside].properties;
+								Object.keys(paramMapInsideInside).forEach(function(propertyInsideKeyInside)
+								{
+									//call the common function getFieldswithValues and assign the map to exeMap
+									exeMap[propertyInsideKeyInside] = getFieldswithValues(propertyInsideKeyInside,paramMapInsideInside,changeTypeId,'parameters',propertyKeyInside);
+								});
+							}
+							else{
+								//if paramMapInside doesn't have properties key
+								exeMap[propertyKeyInside] = getFieldswithValues(propertyKeyInside,paramMapInside,changeTypeId,'parameters',propertyKey);
+							}
+						});
+					}
+					else{
+						//if paramMap doesn't have the properties key
+						exeMap[propertyKey] = getFieldswithValues(propertyKey,paramMap,changeTypeId,'parameters',key);
+					}
+				});
+			}
+			else{
+				//if exeParamObj doesn't have the properties key
+				exeMap[key] = getFieldswithValues(key,exeParamObj,changeTypeId,'properties','');
+			}
+		});
+		
+	})(current, previous);
+	// Function to create field with attributes
+	function getFieldswithValues(key,exeParamObj,changeTypeId,awsParam,parentName){
+		var inMap = {};
+			inMap['propertyName'] = key;
+			//loop the exeParamObj map
+			Object.keys(exeParamObj[key]).forEach(function(propertyKey) {
+				// Assign value whether this field is inside the properties or outside properties
+				inMap['awsparam'] = awsParam;
+				// Assign the parent name for this field which helps tp create the JSON request
+				inMap['parentname'] = parentName;
+				if (propertyKey == 'default') {
+					//search for default propertyKey and assign its value to inmap
+					inMap["defaultValue"] = exeParamObj[key][propertyKey].toString();
+				}
+				if (propertyKey == 'type') {
+					//search for type propertyKey and assign its value to inmap
+					inMap["type"] = exeParamObj[key][propertyKey];
+				}
+				if (propertyKey == 'enum') {
+					//search for enum propertyKey and assign its value to inmap
+					inMap["num"] = exeParamObj[key][propertyKey].toString();
+				}
+				if (propertyKey == 'description') {
+					//search for description propertyKey and assign its value to inmap
+					inMap["description"] = exeParamObj[key][propertyKey];
+				}
+				if (propertyKey == 'pattern') {
+					//search for pattern propertyKey and assign its value to inmap
+					inMap["pattern"] = exeParamObj[key][propertyKey];
+				}
+				if (propertyKey == 'minimum') {
+					//search for minimum propertyKey and assign its value to inmap
+					inMap["minimum"] =  exeParamObj[key][propertyKey];
+				}
+				if (propertyKey == 'maximum') {
+					//search for maximum propertyKey and assign its value to inmap
+					inMap["maximum"] =  exeParamObj[key][propertyKey];
+				}
+				if (propertyKey == 'minItems') {
+					//search for minItems propertyKey and assign its value to inmap
+					inMap["minItems"] =  exeParamObj[key][propertyKey];
+				}
+				if (propertyKey == 'maxItems') {
+					//search for maxItems propertyKey and assign its value to inmap
+					inMap["maxItems"] =  exeParamObj[key][propertyKey];
+				}
+				if (propertyKey == 'minLength') {
+					//search for minLength propertyKey and assign its value to inmap
+					inMap["minLength"] =  exeParamObj[key][propertyKey];
+				}
+				if (propertyKey == 'maxLength') {
+					//search for maxLength propertyKey and assign its value to inmap
+					inMap["maxLength"] =  exeParamObj[key][propertyKey];
+				}
+				if (propertyKey == "items") {
+					//search for items propertyKey
+					if (exeParamObj[key][propertyKey].pattern != undefined) {
+						//search for pattern
+						inMap["pattern"] = exeParamObj[key][propertyKey].pattern;
+					}
+					if (exeParamObj[key][propertyKey].type != undefined) {
+						inMap["patternType"] = exeParamObj[key][propertyKey].type;
+					}
+				}
+				
+			});
+			//Insert the field into the RFC Form assigning changeTypeId, which will be easy to fetch while dynamic creation of fields
+			insertIntoRfcForm(inMap,changeTypeId);
+			return inMap;
+		}
+		//Function to insert records into Rfc form table
+		function insertIntoRfcForm(values,id){
+			var requiredList;
+			var snowfield;
+			var rfcFormGR = new GlideRecord('x_109369_ams_rfc_form');
+			rfcFormGR.addQuery('u_rfcs_form_change_type_id',id);
+			rfcFormGR.addQuery('u_rfcs_form_parameter_name',values.propertyName);
+			rfcFormGR.query();
+			//If changeTypeId records are not in the RFC Form table insert new records
+			if(rfcFormGR.next()){
+				//Assigning values to rfc form table records
+				rfcFormGR.u_rfcs_form_parameter_name = values.propertyName;
+				rfcFormGR.u_rfcs_form_change_type_id = id;
+				rfcFormGR.u_rfcs_form_enum = values.num;
+				rfcFormGR.u_rfcs_form_type = values.patternType;
+				rfcFormGR.u_rfcs_form_description = values.description;
+				rfcFormGR.u_rfcs_form_pattern = values.pattern;
+				rfcFormGR.u_rfcs_form_default_value = values.defaultValue;
+				rfcFormGR.u_rfcs_form_minimumvalue = values.minimum;
+				rfcFormGR.u_rfcs_form_maximumvalue = values.maximum;
+				rfcFormGR.u_rfcs_form_minimumlength = values.minLength;
+				rfcFormGR.u_rfcs_form_maximumlength = values.maxLength;
+				rfcFormGR.u_rfcs_form_minimumitems = values.minItems;
+				rfcFormGR.u_rfcs_form_maximumitems = values.maxItems;
+				rfcFormGR.u_rfcs_form_aws_param_type = values.awsparam;
+				rfcFormGR.u_rfcs_parent_name = values.parentname;
+				if(current.u_rfc_change_type_version_required!=''){
+				requiredList = current.u_rfc_change_type_version_required.split(',');
+				//set is mandatory to true if propertyName is in requiredList
+				if(requiredList.indexOf(values.propertyName) >= 0){
+					rfcFormGR.u_rfcs_form_ismandatory = true;
+				}
+				else{
+					rfcFormGR.u_rfcs_form_ismandatory = false;
+				}
+				}
+				else{
+					rfcFormGR.u_rfcs_form_ismandatory = false;
+				}
+				rfcFormGR.u_rfcs_form_parameter_type = values.type;
+				//call the function getSnowFieldType to get field type in Service now
+				snowfield = getSnowFieldType(values.type,values.num,values.propertyName);
+				rfcFormGR.u_rfcs_form_snow_fieldtype = snowfield;
+				rfcFormGR.update();
+			}
+			// If changeTypeId records are present update the values
+			else{
+				rfcFormGR.initialize();
+				rfcFormGR.u_rfcs_form_parameter_name = values.propertyName;
+				rfcFormGR.u_rfcs_form_change_type_id = id;
+				rfcFormGR.u_rfcs_form_enum = values.num;
+				rfcFormGR.u_rfcs_form_type = values.patternType;
+				rfcFormGR.u_rfcs_form_description = values.description;
+				rfcFormGR.u_rfcs_form_pattern = values.pattern;
+				rfcFormGR.u_rfcs_form_minimumvalue = values.minimum;
+				rfcFormGR.u_rfcs_form_maximumvalue = values.maximum;
+				rfcFormGR.u_rfcs_form_minimumlength = values.minLength;
+				rfcFormGR.u_rfcs_form_maximumlength = values.maxLength;
+				rfcFormGR.u_rfcs_form_minimumitems = values.minItems;
+				rfcFormGR.u_rfcs_form_maximumitems = values.maxItems;
+				rfcFormGR.u_rfcs_form_aws_param_type = values.awsparam;
+				rfcFormGR.u_rfcs_parent_name = values.parentname;
+				rfcFormGR.u_rfcs_form_default_value = values.defaultValue;
+				if(current.u_rfc_change_type_version_required!=''){
+				requiredList = current.u_rfc_change_type_version_required.split(',');
+				//set is mandatory to true if propertyName is in requiredList
+				if(requiredList.indexOf(values.propertyName) >= 0){
+					rfcFormGR.u_rfcs_form_ismandatory = true;
+				}else{
+					rfcFormGR.u_rfcs_form_ismandatory = false;
+				}
+				}
+				else{
+					rfcFormGR.u_rfcs_form_ismandatory = false;
+				}
+				rfcFormGR.u_rfcs_form_parameter_type = values.type;
+				//call the function getSnowFieldType to get field type in Service now
+				snowfield = getSnowFieldType(values.type,values.num,values.propertyName);
+				rfcFormGR.u_rfcs_form_snow_fieldtype = snowfield;
+				rfcFormGR.insert();
+			}
+		}
+		//Function to assign servicenow field type
+		function getSnowFieldType(type,num,paramName){
+			var snowType;
+			switch(type)
+			{
+				case "array":
+				// If paramName contains the Subnet value or StackId snow data type to Reference
+				if(paramName.includes("Subnet")||paramName == 'StackIds'){
+					snowType = "Reference";
+				}
+				else{
+					snowType = "List";
+				}
+				break;
+				case "boolean":snowType = "True/False";
+				break;
+				case "integer":snowType = "Integer";
+				break;
+				case "number": snowType = "Integer";
+				break;
+				case "string":
+				if(num != undefined){
+					snowType = "Choice";
+				}
+				else if(paramName == 'StackId'|| paramName == 'VpcId'|| paramName == 'AmiId'){
+					snowType = "Reference";
+				}
+				else{
+					snowType = "String";
+				}
+				break;
+				default: snowType = type;
+			}
+			return snowType;
+		}]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>madhav</sys_created_by>
+        <sys_created_on>2017-05-09 09:28:12</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>835ae93edbea3200ef73d8c0cf961946</sys_id>
+        <sys_mod_count>66</sys_mod_count>
+        <sys_name>AMS_InsertIntoRFCForm</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_835ae93edbea3200ef73d8c0cf961946</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-15 10:02:27</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=835ae93edbea3200ef73d8c0cf961946"/>
+</record_update>

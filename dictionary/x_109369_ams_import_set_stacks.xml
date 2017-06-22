@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="sys_import_set_row" label="Import Set Stacks" max_length="40" name="x_109369_ams_import_set_stacks" type="collection">
+        <element label="Amazon RequestId" max_length="1000" name="u_stack_amazon_request_id" type="string"/>
+        <element label="Description" max_length="1000" name="u_stack_description" type="string"/>
+        <element label="Stack Id" max_length="40" name="u_stack_id" type="string"/>
+        <element label="Stack Name" max_length="40" name="u_stack_name" type="string"/>
+        <element label="Status" max_length="40" name="u_stack_status" type="string"/>
+        <element label="StackTemplateId" max_length="40" name="u_stack_template_id" type="string"/>
+        <element label="VpcId" max_length="40" name="u_vpc_id" type="string"/>
+    </element>
+</database>

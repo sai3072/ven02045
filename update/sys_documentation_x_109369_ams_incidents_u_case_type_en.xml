@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_documentation element="u_case_type" label="Case Type" language="en" table="x_109369_ams_incidents">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>u_case_type</element>
+            <help/>
+            <hint/>
+            <label>Case Type</label>
+            <language>en</language>
+            <name>x_109369_ams_incidents</name>
+            <plural>Case Types</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>Venu</sys_created_by>
+            <sys_created_on>2017-04-12 17:23:13</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>ca441cd2db4e7200ef73d8c0cf9619f5</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_name>Case Type</sys_name>
+            <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+            <sys_update_name>sys_documentation_x_109369_ams_incidents_u_case_type_en</sys_update_name>
+            <sys_updated_by>ams_admin</sys_updated_by>
+            <sys_updated_on>2017-06-10 18:21:26</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

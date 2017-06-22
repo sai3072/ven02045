@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_109369_ams.AMS_GetSubcategories</api_name>
+        <client_callable>true</client_callable>
+        <description>Generating Dynamic values for Subcategory,Items,operations in RFc form choice fields.</description>
+        <name>AMS_GetSubcategories</name>
+        <script><![CDATA[var AMS_GetSubcategories = Class.create();
+AMS_GetSubcategories.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+
+	getSubcatpoc:function(){
+		var subcategories = '';
+		//Gliderecord to Subcategories table to fetch all subcategories
+		var subcategoryGR = new GlideRecord('x_109369_ams_rfc_subcategories');
+		subcategoryGR.addQuery('u_rfc_subcategories_category',this.getParameter('sysparm_category'));
+		subcategoryGR.query();
+		while(subcategoryGR.next())
+		{
+			//Adding subcategories into a variable
+			subcategories += ','+subcategoryGR.u_rfc_subcategories_subcategory;
+		}
+		return subcategories.toString();
+	},
+	
+	getItem:function(){
+		var items = '';
+		//Gliderecord to items table to fetch items for specified category and subcategory
+		var itemGR = new GlideRecord('x_109369_ams_rfc_items'); 
+		itemGR.addQuery('u_rfc_items_category',this.getParameter('sysparm_category'));
+		itemGR.addQuery('u_rfc_items_subcategory',this.getParameter('sysparm_subcategory'));
+		itemGR.query();
+		while(itemGR.next()) 
+		{
+			//Adding items into a variable
+			items += ','+itemGR.u_rfc_items_item;
+		}
+		return items.toString();
+	},
+	
+	getOperation:function(){
+		var operations = '';
+		//Gliderecord to operations table to fetch operations for specified category,subcategory,items
+		var operationGR = new GlideRecord('x_109369_ams_rfc_operations'); 
+		operationGR.addQuery('u_rfc_operations_category',this.getParameter('sysparm_category'));
+		operationGR.addQuery('u_rfc_operations_subcategory',this.getParameter('sysparm_subcategory'));
+		operationGR.addQuery('u_rfc_operations_item',this.getParameter('sysparm_item'));
+		operationGR.query();
+		while(operationGR.next())
+		{
+			//Adding operations into a variable
+			operations += ','+operationGR.u_rfc_operations_operation;
+		}
+		return operations.toString();
+	},
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>saikrishna</sys_created_by>
+        <sys_created_on>2017-05-09 09:36:42</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>a76ce1bedbea3200ef73d8c0cf96195c</sys_id>
+        <sys_mod_count>47</sys_mod_count>
+        <sys_name>AMS_GetSubcategories</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_include_a76ce1bedbea3200ef73d8c0cf96195c</sys_update_name>
+        <sys_updated_by>saikrishna</sys_updated_by>
+        <sys_updated_on>2017-06-05 12:09:05</sys_updated_on>
+    </sys_script_include>
+</record_update>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Rfc Change Type Automation Status" max_length="40" name="x_109369_ams_rfc_change_type_automation_status" type="collection">
+        <element display="true" label="Id" max_length="40" name="u_rfc_change_type_automation_status_id" type="string"/>
+        <element label="Name" max_length="40" name="u_rfc_change_type_automation_status_name" type="string"/>
+    </element>
+</database>

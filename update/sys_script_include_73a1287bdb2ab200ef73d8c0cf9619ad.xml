@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_109369_ams.AMS_GetRequiredFields</api_name>
+        <client_callable>true</client_callable>
+        <description>Get ChangeTypeId and description based on Category,Subcategory,Item and operation.</description>
+        <name>AMS_GetRequiredFields</name>
+        <script><![CDATA[var AMS_GetRequiredFields = Class.create();
+AMS_GetRequiredFields.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+	getDescription:function()
+	{
+		var categoryId = this.getParameter('sysparm_categoryId');
+		var value = '';
+		//query the classification table with category,subcategory,item and operation
+		var itemGR = new GlideRecord('x_109369_ams_rfc_classification');
+		itemGR.addQuery('u_rfc_classification_category',categoryId);
+		itemGR.addQuery('u_rfc_classification_subcategory',this.getParameter('sysparm_subCategoryId'));
+		itemGR.addQuery('u_rfc_classification_items',this.getParameter('sysparm_item'));
+		itemGR.addQuery('u_rfc_classification_operation',this.getParameter('sysparm_operation'));
+		itemGR.query();
+		var changeTypeId = '';
+		
+		if(itemGR.next())
+		{
+			//query the changetype id of classification table with version table
+			var changeIDGR = new GlideRecord('x_109369_ams_changetype_version');
+			changeIDGR.addQuery('u_rfc_change_type_version_changetypeid',itemGR.u_rfc_classification_change_type_id);
+			changeIDGR.query();
+			
+			if(changeIDGR.next())
+			{
+				changeTypeId = changeIDGR.u_rfc_change_type_version_changetypeid;
+				value = "Change Type Id:\n" + changeIDGR.u_rfc_change_type_version_changetypeid+"\n\n"+"Description: \n"+ changeIDGR.u_rfc_change_type_version_description+"\n\n";
+				//change type version is something assign to value
+				
+				if(changeIDGR.u_rfc_change_type_version_version != undefined)
+				{
+					value += "Change Type Version: \n"+changeIDGR.u_rfc_change_type_version_version+" \n\n";
+				}
+				
+				//automation status is something assign to value
+				if(changeIDGR.u_rfc_change_type_version_automationstatus != undefined)
+				{
+					value += "Execution Mode:"+"\n"+changeIDGR.u_rfc_change_type_version_automationstatus.getDisplayValue()+"\n\n";
+				}
+				value += "AWS Approval Required";
+			}
+			
+			else
+			{
+				value = "Change Type Id:\n" +itemGR.u_rfc_classification_change_type_id+"\n\n"+"Description:\n"+
+				"You do not have permission to create an RFC with this CTI";}
+			}
+		
+		//declare map object and assign the values in to that
+			var fieldMap = {};
+				fieldMap["description"] = value;
+		        fieldMap["classificationChangeTypeId"] = itemGR.u_rfc_classification_change_type_id;		
+				if(changeTypeId != null || changeTypeId != '')
+				{
+					fieldMap["changeTypeId"]=changeTypeId.toString();
+				}
+		else
+		{
+			fieldMap["changeTypeId"] = changeTypeId;
+		}
+		
+		//return object
+		return JSON.stringify(fieldMap);
+			},
+			
+			type: 'AMS_GetRequiredFields'
+		});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>madhav</sys_created_by>
+        <sys_created_on>2017-05-12 07:11:24</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>73a1287bdb2ab200ef73d8c0cf9619ad</sys_id>
+        <sys_mod_count>24</sys_mod_count>
+        <sys_name>AMS_GetRequiredFields</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_include_73a1287bdb2ab200ef73d8c0cf9619ad</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-19 06:54:21</sys_updated_on>
+    </sys_script_include>
+</record_update>

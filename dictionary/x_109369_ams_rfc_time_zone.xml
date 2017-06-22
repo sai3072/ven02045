@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Rfc Time Zone" max_length="40" name="x_109369_ams_rfc_time_zone" type="collection">
+        <element label="Abbrevation" max_length="100" name="u_rfcs_abbrevation" type="string"/>
+        <element display="true" label="Time Zone" max_length="50" name="u_rfcs_timezone" type="string"/>
+        <element label="Value" max_length="100" name="u_rfcs_timezone_value" type="string"/>
+    </element>
+</database>

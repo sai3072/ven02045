@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="RFC Form" max_length="40" name="x_109369_ams_rfc_form" type="collection">
+        <element label="AwsParamType" max_length="40" name="u_rfcs_form_aws_param_type" type="string"/>
+        <element label="Category" max_length="40" name="u_rfcs_form_category" type="string"/>
+        <element label="Change Type Id" max_length="40" name="u_rfcs_form_change_type_id" type="string"/>
+        <element label="Default Value" max_length="50" name="u_rfcs_form_default_value" type="string"/>
+        <element label="Description" max_length="500" name="u_rfcs_form_description" type="string"/>
+        <element label="Enum" max_length="200" name="u_rfcs_form_enum" type="string"/>
+        <element label="Is Mandatory" max_length="40" name="u_rfcs_form_ismandatory" type="boolean"/>
+        <element label="Items" max_length="100" name="u_rfcs_form_items" type="string"/>
+        <element label="Maximum items" max_length="40" name="u_rfcs_form_maximumitems" type="string"/>
+        <element label="Maximum length" max_length="40" name="u_rfcs_form_maximumlength" type="string"/>
+        <element label="Maximum Value" max_length="40" name="u_rfcs_form_maximumvalue" type="string"/>
+        <element label="Minimum items" max_length="40" name="u_rfcs_form_minimumitems" type="string"/>
+        <element label="Minimum length" max_length="40" name="u_rfcs_form_minimumlength" type="string"/>
+        <element label="Minimum Value" max_length="40" name="u_rfcs_form_minimumvalue" type="string"/>
+        <element label="Operation" max_length="40" name="u_rfcs_form_operation" type="string"/>
+        <element label="Parameter Name" max_length="100" name="u_rfcs_form_parameter_name" type="string"/>
+        <element label="Parameter Type" max_length="40" name="u_rfcs_form_parameter_type" type="string"/>
+        <element label="Pattern" max_length="500" name="u_rfcs_form_pattern" type="string"/>
+        <element label="Pattern Type" max_length="500" name="u_rfcs_form_pattern_type" type="string"/>
+        <element label="Servicenow Field Type" max_length="40" name="u_rfcs_form_snow_fieldtype" type="string"/>
+        <element label="Sub Category" max_length="50" name="u_rfcs_form_subcategory" type="string"/>
+        <element label="Type" max_length="40" name="u_rfcs_form_type" type="string"/>
+        <element label="Parent Name" max_length="40" name="u_rfcs_parent_name" type="string"/>
+    </element>
+</database>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <condition/>
+        <conditional>false</conditional>
+        <name>AMS_ClassificationwithChangetypeVersionMasterscript</name>
+        <run_as display_value="">c68d2407db213200ef73d8c0cf96195b</run_as>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_period/>
+        <run_start>2017-04-12 14:06:20</run_start>
+        <run_time>1970-01-01 08:15:00</run_time>
+        <run_type>on_demand</run_type>
+        <script><![CDATA[//Call AMS_RfcFetch script
+var listChangeTypeClassifications = new AMS_RfcFetch ();
+// Call getListChangeTypeClassificationSummariesAndInsert Api
+var isInserted = listChangeTypeClassifications.getListChangeTypeClassificationSummariesAndInsert();
+
+if(!isInserted)
+{
+	// No Change Type Classifications Found
+	if ('true' == gs.getProperty('debug.AMSRestCalls'))
+		gs.info("Debug >>>AMS Change Type Classifications are not inserted");	
+}
+else{
+	//Fetch Classifications from Classification table
+var grClassification = new GlideRecord('x_109369_ams_rfc_classification');
+grClassification.query();
+while(grClassification.next())
+{
+	//Call AMS_RfcFetch Script
+	var amsGetChangeTypeVersions= new AMS_RfcFetch ();
+	
+	// Call amsGetChangeTypeVersionsInsert API
+	var rfc_classifications_changetypeid = grClassification.u_rfc_classification_change_type_id.toString();
+	var amsGetChangeTypeVersionsInsert;
+	//Exception Handling while getting records
+	try {
+		amsGetChangeTypeVersionsInsert = amsGetChangeTypeVersions.getChangeTypeVersionAndInsert(rfc_classifications_changetypeid);
+	} 
+	catch (err)
+	{
+		gs.error('AMS GetChangeTypeVersions ERROR >>>>' + err);
+	}
+}
+}]]></script>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>sahitya</sys_created_by>
+        <sys_created_on>2017-04-12 14:10:41</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>ca37638adbca7200ef73d8c0cf961937</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>AMS_ClassificationwithChangetypeVersionMasterscript</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sysauto_script_ca37638adbca7200ef73d8c0cf961937</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-14 21:14:30</sys_updated_on>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>

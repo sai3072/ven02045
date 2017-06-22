@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="cmdb" label="Stacks" max_length="40" name="x_109369_ams_stacks" type="collection">
+        <element label="Description" max_length="1000" name="u_stack_description" read_only="true" type="string"/>
+        <element display="true" label="Stack Id" max_length="40" name="u_stack_id" read_only="true" type="string"/>
+        <element label="Stack Name" max_length="40" name="u_stack_name" read_only="true" type="string"/>
+        <element choice="1" label="Status" max_length="40" name="u_stack_status" read_only="true" type="choice">
+            <choice>
+                <element label="CreateCompleted" sequence="0" value="CreateCompleted"/>
+                <element label="CreateInProgress" sequence="0" value="CreateInProgress"/>
+                <element label="DeleteCompleted" sequence="0" value="DeleteCompleted"/>
+                <element label="RollbackCompleted" sequence="0" value="RollbackCompleted"/>
+                <element label="RollbackInProgress" sequence="0" value="RollbackInProgress"/>
+                <element label="UpdateCompleted" sequence="0" value="UpdateCompleted"/>
+            </choice>
+        </element>
+        <element label="Template ID" max_length="40" name="u_stack_template_id" read_only="true" type="string"/>
+        <element label="VPC ID" max_length="32" name="u_vpc_id" read_only="true" reference="x_109369_ams_vpcs" type="reference"/>
+        <index name="index">
+            <element name="u_vpc_id"/>
+        </index>
+        <index name="index2">
+            <element name="u_stack_id"/>
+        </index>
+    </element>
+</database>

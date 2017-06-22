@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_ui_module">
+    <sys_ui_module action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <application display_value="RFC POC">6da2a825dbe6f200ef73d8c0cf9619cc</application>
+        <filter/>
+        <name>RFC Classifications</name>
+        <order/>
+        <path/>
+        <path_relative_to_root>false</path_relative_to_root>
+        <roles>x_109369_ams.rfc_classification_user</roles>
+        <sys_class_name>sys_ui_module</sys_class_name>
+        <sys_created_by>sahitya</sys_created_by>
+        <sys_created_on>2017-05-05 11:02:32</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>75b999addb2af200ef73d8c0cf9619f5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>RFC Classifications</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_ui_module_75b999addb2af200ef73d8c0cf9619f5</sys_update_name>
+        <sys_updated_by>sahitya</sys_updated_by>
+        <sys_updated_on>2017-05-05 11:02:32</sys_updated_on>
+        <table>x_109369_ams_rfc_classification</table>
+        <uncancelable>false</uncancelable>
+        <view_name/>
+    </sys_ui_module>
+</record_update>

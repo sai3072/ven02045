@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="u_rfcs_asgscaleupmetricname" table="x_109369_ams_rfcs" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_asgscaleupmetricname</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>CPUCreditUsage</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>1</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-02 07:33:18</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>95dc81ecdbe67200ef73d8c0cf961927</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-02 07:35:48</sys_updated_on>
+            <value>CPUCreditUsage</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_asgscaleupmetricname</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>CPUCreditBalance</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>2</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-02 07:33:48</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>7f0d4dacdbe67200ef73d8c0cf961981</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-02 07:35:49</sys_updated_on>
+            <value>CPUCreditBalance</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_asgscaleupmetricname</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>CPUUtilization</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>3</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-02 07:34:09</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>472d09ecdbe67200ef73d8c0cf9619e6</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-02 07:35:51</sys_updated_on>
+            <value>CPUUtilization</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_asgscaleupmetricname</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>DiskReadOps</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>4</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-02 07:34:34</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>d84d45ecdbe67200ef73d8c0cf9619a7</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-02 07:35:53</sys_updated_on>
+            <value>DiskReadOps</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_asgscaleupmetricname</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>DiskWriteOps</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>5</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-02 07:34:48</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>ee5d4decdbe67200ef73d8c0cf961938</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-02 07:35:55</sys_updated_on>
+            <value>DiskWriteOps</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_asgscaleupmetricname</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>DiskReadBytes</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>6</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-02 07:35:34</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>d58dc120db2a7200ef73d8c0cf9619e6</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-02 07:35:46</sys_updated_on>
+            <value>DiskReadBytes</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_asgscaleupmetricname</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>DiskWriteBytes</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>7</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-02 07:35:19</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>b16d0decdbe67200ef73d8c0cf9619ff</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-02 07:35:43</sys_updated_on>
+            <value>DiskWriteBytes</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_asgscaleupmetricname</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>NetworkIn</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>8</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-02 07:36:26</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>899d0520db2a7200ef73d8c0cf96198f</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-02 07:38:01</sys_updated_on>
+            <value>NetworkIn</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_asgscaleupmetricname</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>NetworkOut</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>9</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-02 07:36:35</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>25cd85acdbe67200ef73d8c0cf961915</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-02 07:38:08</sys_updated_on>
+            <value>NetworkOut</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_asgscaleupmetricname</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>StatusCheckFailed</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>10</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-02 07:37:07</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>ccdd4520db2a7200ef73d8c0cf96197c</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-02 07:38:12</sys_updated_on>
+            <value>StatusCheckFailed</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_asgscaleupmetricname</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>StatusCheckFailed_Instance</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>11</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-02 07:37:29</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>f7ed8120db2a7200ef73d8c0cf9619c2</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-02 07:38:15</sys_updated_on>
+            <value>StatusCheckFailed_Instance</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_rfcs_asgscaleupmetricname</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>StatusCheckFailed_System</label>
+            <language>en</language>
+            <name>x_109369_ams_rfcs</name>
+            <sequence>12</sequence>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-02 07:37:42</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>c50e0920db2a7200ef73d8c0cf961947</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>saikrishna</sys_updated_by>
+            <sys_updated_on>2017-05-02 07:38:17</sys_updated_on>
+            <value>StatusCheckFailed_System</value>
+        </sys_choice>
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>u_rfcs_asgscaleupmetricname</element>
+            <name>x_109369_ams_rfcs</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>saikrishna</sys_created_by>
+            <sys_created_on>2017-05-02 07:33:18</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>cf56bbf8db6b3200b527f91ebf9619f5</sys_id>
+            <sys_mod_count>36</sys_mod_count>
+            <sys_name>u_rfcs_asgscaleupmetricname</sys_name>
+            <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+            <sys_update_name>sys_choice_x_109369_ams_rfcs_u_rfcs_asgscaleupmetricname</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-06-22 07:57:09</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>

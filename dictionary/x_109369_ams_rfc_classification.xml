@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="RFC Classification" max_length="40" name="x_109369_ams_rfc_classification" type="collection">
+        <element label="Category" max_length="100" name="u_rfc_classification_category" type="string"/>
+        <element label="CatSubcatItemOper" max_length="200" name="u_rfc_classification_catsubcatitemoper" type="string"/>
+        <element label="Change Type Id" max_length="100" name="u_rfc_classification_change_type_id" type="string"/>
+        <element label="Item" max_length="100" name="u_rfc_classification_items" type="string"/>
+        <element label="Operation" max_length="100" name="u_rfc_classification_operation" type="string"/>
+        <element label="SubCategory" max_length="100" name="u_rfc_classification_subcategory" type="string"/>
+    </element>
+</database>

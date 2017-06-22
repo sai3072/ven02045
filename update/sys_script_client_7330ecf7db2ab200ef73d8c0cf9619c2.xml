@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description>To get the Description and required fields depending upon the change type id.</description>
+        <field>u_rfcs_operation</field>
+        <global>false</global>
+        <messages/>
+        <name>AMS_GetFieldsOnChangeTypeId</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+	if (isLoading || newValue === '') {
+		g_form.setVisible('u_rfcs_change_type_id', false);
+		return;
+	}
+	hideUIMacro();
+	//get fields from the form and assign it to varaibles
+	var category = g_form.getDisplayBox('u_rfcs_category').value;
+	var subcategory = g_form.getValue('u_rfcs_subcategory');
+	var item = g_form.getValue('u_rfcs_items');
+	var operation = newValue;
+	
+	//glide ajax call to get fields 
+	var changeTypeId = new GlideAjax('AMS_GetRequiredFields');
+	changeTypeId.addParam('sysparm_name', 'getDescription');
+	//send the values to the function
+	changeTypeId.addParam('sysparm_categoryId', category);
+	changeTypeId.addParam('sysparm_subCategoryId', subcategory);
+	changeTypeId.addParam('sysparm_item', item);
+	changeTypeId.addParam('sysparm_operation', operation);
+	changeTypeId.getXML(getDescription);
+	
+	function getDescription(response) {
+		var description = response.responseXML.documentElement.getAttribute("answer");
+		var parsedReponse = JSON.parse(description);
+		//set values to changetypeids and operation description from the response
+		g_form.setValue('u_rfc_operation_description', parsedReponse.description);
+		g_form.setValue('u_rfcs_change_type_id', parsedReponse.changeTypeId);
+		g_form.setVisible('u_rfcs_change_type_id', false);
+		
+		//if changetypeid is not null call the getFieldsToCreateDynamicForm in uimacro
+		if(parsedReponse.changeTypeId){
+			g_form.clearMessages();
+			getFieldsToCreateDynamicForm(parsedReponse.changeTypeId);
+		} else if(!parsedReponse.classificationChangeTypeId){
+			g_form.clearMessages();
+			g_form.addErrorMessage("Sorry, but all the data has not yet been loaded from AWS. Please try again later... ");
+			//alert('Could not find a changetypeid ' + JSON.stringify(parsedReponse) );
+		}
+		else{
+			g_form.clearMessages();
+			g_form.addErrorMessage("You do not have permission to create an RFC with this CTI");
+
+		}
+	}
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>madhav</sys_created_by>
+        <sys_created_on>2017-05-12 06:38:19</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>7330ecf7db2ab200ef73d8c0cf9619c2</sys_id>
+        <sys_mod_count>41</sys_mod_count>
+        <sys_name>AMS_GetFieldsOnChangeTypeId</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_client_7330ecf7db2ab200ef73d8c0cf9619c2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-19 07:00:34</sys_updated_on>
+        <table>x_109369_ams_rfcs</table>
+        <type>onChange</type>
+        <ui_type>0</ui_type>
+        <view>Create_a_request_for_change</view>
+    </sys_script_client>
+</record_update>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Case Severity Levels" max_length="40" name="x_109369_ams_case_severity_levels" type="collection">
+        <element display="true" label="Code" max_length="40" name="u_case_severity_levels_code" type="string" unique="true"/>
+        <element label="Name" max_length="40" name="u_case_severity_levels_name" type="string"/>
+        <index name="index">
+            <element name="u_case_severity_levels_code"/>
+        </index>
+        <index name="index2">
+            <element name="u_case_severity_levels_code"/>
+        </index>
+    </element>
+</database>

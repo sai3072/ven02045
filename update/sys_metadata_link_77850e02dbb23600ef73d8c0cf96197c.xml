@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>4df8a015db22f200ef73d8c0cf961962</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="x_109369_ams_rfc_time_zone">
+    <x_109369_ams_rfc_time_zone action="INSERT_OR_UPDATE">
+        <sys_created_by>madhav</sys_created_by>
+        <sys_created_on>2017-05-04 12:51:00</sys_created_on>
+        <sys_id>4df8a015db22f200ef73d8c0cf961962</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>madhav</sys_updated_by>
+        <sys_updated_on>2017-05-04 12:51:00</sys_updated_on>
+        <u_rfcs_abbrevation>WEDT</u_rfcs_abbrevation>
+        <u_rfcs_timezone>Arctic/Longyearbyen</u_rfcs_timezone>
+        <u_rfcs_timezone_value>W. Europe Standard Time</u_rfcs_timezone_value>
+    </x_109369_ams_rfc_time_zone>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>sahitya</sys_created_by>
+        <sys_created_on>2017-05-19 13:46:44</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>77850e02dbb23600ef73d8c0cf96197c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Arctic/Longyearbyen</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_metadata_link_77850e02dbb23600ef73d8c0cf96197c</sys_update_name>
+        <sys_updated_by>sahitya</sys_updated_by>
+        <sys_updated_on>2017-05-19 13:46:44</sys_updated_on>
+        <tablename>x_109369_ams_rfc_time_zone</tablename>
+    </sys_metadata_link>
+</record_update>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>false</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_109369_ams_rfcs</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>AMS_CreateRFC</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+	
+	//call the AMS_RfcFetch Api
+	var amsRfc = new AMS_RfcFetch();
+	var changeTypeId = current.u_rfcs_change_type_id;
+	var changeTypeVersion;
+	
+	//check whether change type id is not empty or undefined
+	if(changeTypeId != null && changeTypeId != undefined)
+	{
+		var rfcJson = JSON.parse(current.u_rfcs_execution_parameters);
+		var executionParams = rfcJson;
+		var params;
+		
+		//GlideRecord the changeTypeVersion table to get parameters and changeTypeVersion
+		var changeTypeVersionGR = new GlideRecord('x_109369_ams_changetype_version');
+		changeTypeVersionGR.addQuery('u_rfc_change_type_version_changetypeid',changeTypeId);
+		changeTypeVersionGR.query();
+		
+		if(changeTypeVersionGR.next())
+		{
+			params = JSON.parse(changeTypeVersionGR.u_rfc_change_type_version_parameters);
+			changeTypeVersion = changeTypeVersionGR.u_rfc_change_type_version_version.toString();
+			
+			//format the rfcJson as execution input schema
+			Object.keys(params).forEach(function(key)
+			{
+				if(params[key].type == 'object')
+				{
+					//Go inside propetries and again search for object
+					Object.keys(params[key].properties).forEach(function(key2) 
+				    {
+						var parmInsideObject = params[key].properties[key2];
+						if(parmInsideObject.type == 'object')
+						{
+							//Go inside propetries of parmInsideObject and again search for object
+							Object.keys(parmInsideObject.properties).forEach(function(insidekey) 
+							{
+								var parmInsideObjectInsideObject = parmInsideObject.properties[insidekey];
+								if(parmInsideObjectInsideObject.type == 'object')
+								{
+									Object.keys(parmInsideObjectInsideObject.properties).forEach(function(insideInsidekey)
+									{
+										// assign the value to object
+										parmInsideObjectInsideObject.properties[insideInsidekey] = executionParams.Parameters[insideInsidekey];
+									});
+									parmInsideObjectInsideObject=parmInsideObjectInsideObject.properties;
+								}
+								//if its not object then assign the value to object
+								else
+								{
+									parmInsideObjectInsideObject =  executionParams.Parameters[insidekey];
+								}
+								parmInsideObject.properties[insidekey] = parmInsideObjectInsideObject;
+							});
+							parmInsideObject = parmInsideObject.properties;
+						}
+						//if its not object then assign the value to object
+						else
+						{
+							parmInsideObject = executionParams.Parameters[key2];
+							
+						}
+						params[key].properties[key2] = parmInsideObject;
+					});
+					params[key] = params[key].properties;
+					
+				}
+				//if its not object then assign the value to object
+				else
+				{
+					params[key] = executionParams[key];
+				}
+			});
+		}
+		var jsonParam = JSON.stringify(params);
+		//call the createRFC api
+		var isRfcCreated = amsRfc.createRfc(
+		rfcJson.description,
+		rfcJson.expectedOutcome,
+		rfcJson.implementationPlan,
+		rfcJson.requestedStartTime,
+		rfcJson.requestedEndTime,
+		rfcJson.rollbackPlan,
+		rfcJson.Subject,
+		rfcJson.worstCasesScenario,
+		changeTypeId.toString(),
+		changeTypeVersion,
+		jsonParam ) ;
+		//if rfc successfully created then field with rfcid
+		if(isRfcCreated.RfcId != undefined){
+			current.u_rfcs_id = isRfcCreated.RfcId;
+			gs.addInfoMessage("Rfc created "+isRfcCreated.RfcId);
+			amsRfc.submitRfc(current.u_rfcs_id.toString());
+			//amsRfc.getRfcAndInsert(current.u_rfcs_id.toString());
+			current.u_rfcs_aws_create_status = "success";
+		}
+		//if rfc creation failed
+		else
+		{
+			//show the error message on the form
+			gs.addErrorMessage('create Rfc failed '+isRfcCreated.errorMessage);
+			//set aws status to failed
+			current.u_rfcs_aws_create_status = "failed";
+			current.u_rfcs_request_failure_reason = isRfcCreated.errorMessage;
+		}
+		current.update();
+	}
+	else
+	{
+		gs.addErrorMessage('No Change Type Id Found');
+	}
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>Dasthagiri</sys_created_by>
+        <sys_created_on>2017-05-23 12:00:26</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>d4739a93db7e3200ef73d8c0cf96197f</sys_id>
+        <sys_mod_count>40</sys_mod_count>
+        <sys_name>AMS_CreateRFC</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_d4739a93db7e3200ef73d8c0cf96197f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-20 06:42:31</sys_updated_on>
+        <template/>
+        <when>async</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=d4739a93db7e3200ef73d8c0cf96197f"/>
+</record_update>

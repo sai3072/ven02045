@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="cmdb" label="VPCs" max_length="40" name="x_109369_ams_vpcs" type="collection">
+        <element label="Created" max_length="40" name="u_vpc_created_date" read_only="true" type="glide_date_time"/>
+        <element label="Description" max_length="1000" name="u_vpc_description" read_only="true" type="string"/>
+        <element display="true" label="VPC ID" max_length="40" name="u_vpc_id" read_only="true" type="string"/>
+        <element label="Modified" max_length="40" name="u_vpc_modified_date" read_only="true" type="glide_date_time"/>
+        <element label="VPC Name" max_length="40" name="u_vpc_name" read_only="true" type="string"/>
+        <element label="Region" max_length="32" name="u_vpc_region" read_only="true" reference="x_109369_ams_regions" type="reference"/>
+        <element label="Visibility" max_length="40" name="u_vpc_visibility" read_only="true" type="string"/>
+        <index name="index">
+            <element name="u_vpc_region"/>
+        </index>
+        <index name="index2">
+            <element name="u_vpc_id"/>
+        </index>
+    </element>
+</database>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description>Get subcategories from the table depending on category selected and  add option to subcategorys field</description>
+        <field>u_rfcs_category</field>
+        <global>true</global>
+        <messages/>
+        <name>AMS_AddSubcategoryOptions</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+	if (isLoading || newValue === '') {
+		//hide fields subject and descritions
+		g_form.setVisible('u_rfcs_subject', false);
+		g_form.setVisible('u_rfcs_rfcdescription', false);
+		return;
+	}
+	hideUIMacro();
+	//Glide Ajax call to get list of subcategories
+	var ga = new GlideAjax("AMS_GetSubcategories");
+	ga.addParam("sysparm_name",'getSubcatpoc');
+	ga.addParam("sysparm_category",g_form.getDisplayBox('u_rfcs_category').value);
+	ga.getXML(ajaxResponse);
+	
+	function ajaxResponse(serverResponse) {
+		//Fetch Result
+		var result = serverResponse.responseXML.documentElement.getAttribute("answer");
+		var subcategory = result.split(',');
+		subcategory.sort();
+		g_form.getControl('u_rfcs_subcategory').options.length = 1;
+		//loop through the subcategories list
+		for(var i=0;i <= subcategory.length;i++)
+			{
+			if(subcategory[i] != ''&& subcategory[i] != null )
+				g_form.addOption('u_rfcs_subcategory',subcategory[i],subcategory[i]);
+		}
+		
+	}
+	
+	
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>saikrishna</sys_created_by>
+        <sys_created_on>2017-05-09 09:24:22</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>22e865badbea3200ef73d8c0cf9619ec</sys_id>
+        <sys_mod_count>94</sys_mod_count>
+        <sys_name>AMS_AddSubcategoryOptions</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sys_script_client_22e865badbea3200ef73d8c0cf9619ec</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-19 07:21:02</sys_updated_on>
+        <table>x_109369_ams_rfcs</table>
+        <type>onChange</type>
+        <ui_type>0</ui_type>
+        <view>Create_a_request_for_change</view>
+    </sys_script_client>
+</record_update>

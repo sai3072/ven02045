@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_list parent="" relationship="" sys_domain="global" table="x_109369_ams_stacks" version="2" view="RPTf9c35202db0a7200ef73d8c0cf96193b">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_stack_name</element>
+            <list_id display_value="x_109369_ams_stacks" element="NULL" name="x_109369_ams_stacks" parent="NULL" relationship="NULL" sys_domain="global" view="275a932cdb233200b527f91ebf9619d6">29d35202db0a7200ef73d8c0cf96198c</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>sahitya</sys_created_by>
+            <sys_created_on>2017-04-12 08:02:02</sys_created_on>
+            <sys_id>edd35202db0a7200ef73d8c0cf96198c</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>sahitya</sys_updated_by>
+            <sys_updated_on>2017-04-12 08:02:02</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_stack_template_id</element>
+            <list_id display_value="x_109369_ams_stacks" element="NULL" name="x_109369_ams_stacks" parent="NULL" relationship="NULL" sys_domain="global" view="275a932cdb233200b527f91ebf9619d6">29d35202db0a7200ef73d8c0cf96198c</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>sahitya</sys_created_by>
+            <sys_created_on>2017-04-12 08:02:02</sys_created_on>
+            <sys_id>61d35202db0a7200ef73d8c0cf96198d</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>sahitya</sys_updated_by>
+            <sys_updated_on>2017-04-12 08:02:02</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_stack_id</element>
+            <list_id display_value="x_109369_ams_stacks" element="NULL" name="x_109369_ams_stacks" parent="NULL" relationship="NULL" sys_domain="global" view="275a932cdb233200b527f91ebf9619d6">29d35202db0a7200ef73d8c0cf96198c</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>sahitya</sys_created_by>
+            <sys_created_on>2017-04-12 08:02:02</sys_created_on>
+            <sys_id>e1d35202db0a7200ef73d8c0cf96198d</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>sahitya</sys_updated_by>
+            <sys_updated_on>2017-04-12 08:02:02</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_vpc_id</element>
+            <list_id display_value="x_109369_ams_stacks" element="NULL" name="x_109369_ams_stacks" parent="NULL" relationship="NULL" sys_domain="global" view="275a932cdb233200b527f91ebf9619d6">29d35202db0a7200ef73d8c0cf96198c</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>3</position>
+            <sum>false</sum>
+            <sys_created_by>sahitya</sys_created_by>
+            <sys_created_on>2017-04-12 08:02:02</sys_created_on>
+            <sys_id>65d35202db0a7200ef73d8c0cf96198d</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>sahitya</sys_updated_by>
+            <sys_updated_on>2017-04-12 08:02:02</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>x_109369_ams_stacks</name>
+            <parent/>
+            <position/>
+            <relationship/>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>sahitya</sys_created_by>
+            <sys_created_on>2017-04-12 08:02:02</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>29d35202db0a7200ef73d8c0cf96198c</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_name>x_109369_ams_stacks</sys_name>
+            <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+            <sys_update_name>sys_ui_list_x_109369_ams_stacks_RPTf9c35202db0a7200ef73d8c0cf96193b</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-06-22 07:56:45</sys_updated_on>
+            <sys_user/>
+            <view display_value="Rptf9c35202db0a7200ef73d8c0cf96193b" name="RPTf9c35202db0a7200ef73d8c0cf96193b">275a932cdb233200b527f91ebf9619d6</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+</record_update>

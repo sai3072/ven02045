@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <condition/>
+        <conditional>false</conditional>
+        <name>AMS_GetVpcs</name>
+        <run_as/>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_period>1970-01-01 01:00:00</run_period>
+        <run_start/>
+        <run_time>1970-01-01 08:15:00</run_time>
+        <run_type>periodically</run_type>
+        <script><![CDATA[// Call AMSResourceFetch script
+var amsGetVpcApi = new AMS_ResourceFetch();
+
+//Fetch VpcId from VPC table
+var vpcGR = new GlideRecord('x_109369_ams_vpcs');
+vpcGR.query();
+var start=new GlideDateTime();
+while(vpcGR.next())
+{
+	//Call getVpc API
+	var getVpcInsert = amsGetVpcApi.getVPCAndInsert(vpcGR.u_vpc_id.toString());
+	if(!getVpcInsert)
+	{
+		//If NO VPCs Found
+		if ('true' == gs.getProperty('debug.AMSRestCalls'))
+			gs.info("Debug >>>AMS GetVPC :"+vpcGR.u_vpc_id+" is not inserted");	
+	}
+}
+gs.eventQueue("x_109369_ams.scheduledJobEventTime",vpcGR,"Scheduled Job Name = AMS_GetVpcs","START Time = "+start+" and END Time = "+new GlideDateTime());]]></script>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>priyanka</sys_created_by>
+        <sys_created_on>2017-04-12 12:59:16</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>ccb7534edb8a7200ef73d8c0cf9619b6</sys_id>
+        <sys_mod_count>22</sys_mod_count>
+        <sys_name>AMS_GetVpcs</sys_name>
+        <sys_package display_value="AMS" source="x_109369_ams">5b693bf9db427200ef73d8c0cf961927</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="AMS">5b693bf9db427200ef73d8c0cf961927</sys_scope>
+        <sys_update_name>sysauto_script_ccb7534edb8a7200ef73d8c0cf9619b6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-06-16 18:46:09</sys_updated_on>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>

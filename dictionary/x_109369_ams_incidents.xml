@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element attributes="no_attachment=true,live_feed=false" extends="x_109369_ams_case" label="Incidents" max_length="40" name="x_109369_ams_incidents" type="collection">
+        <element choice="1" label="Priority" max_length="32" name="u_incidents_priority" reference="x_109369_ams_incident_priority" type="reference">
+            <choice/>
+        </element>
+        <element default="technical" label="Incident Type" max_length="40" name="u_incidents_type" read_only="true" type="string"/>
+    </element>
+</database>
